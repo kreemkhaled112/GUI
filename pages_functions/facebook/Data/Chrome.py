@@ -1,101 +1,76 @@
-from Data.init import *
+from pages_functions.__init__ import *
 
 class Chrom:
     def __init__(self):
         self = self
         try:
             options = webdriver.ChromeOptions()
-            chrome_prefs = {"profile.default_content_setting_values.notifications": 2}  
+            chrome_prefs = {"profile.default_content_setting_values.notifications": 2,
+                                "profile.managed_default_content_settings.images": 2} 
             options.add_experimental_option("prefs", chrome_prefs)
             options.add_experimental_option("detach", True)
+            options.add_argument('--incognito')
             options.add_argument("--log-level=3")
             self.bot = webdriver.Chrome(options=options)
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
-    def update_cookie(self,cook):
-        bot = self.bot
-        bot.get("https://www.facebook.com/")
-        cookies = cook.split(";")
-        for cookie in cookies:
-            cookie_parts = cookie.split("=")
-            if len(cookie_parts) == 2:
-                cookie_name, cookie_value = cookie_parts
-                self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-        bot.get("https://www.facebook.com/profile.php?")
-        cookies = bot.get_cookies()
-        format = {}
-        for cookie in cookies :
-            format[cookie['name']] = cookie['value']
-        cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-        
-        bot.quit()
-        return cookie_string
 
-    def Get(self,email, password):
+    def Login(self,email, password):
         bot = self.bot
 
         self.bot.get("https://mbasic.facebook.com/login/")
 
-        try:
-            username = WebDriverWait(self.bot, 20).until(
-                EC.presence_of_element_located((By.ID, "m_login_email"))
-            )
-        except:
-            username = WebDriverWait(self.bot, 20).until(
-                EC.presence_of_element_located((By.NAME, "email"))
-            )
+        try: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.ID, "m_login_email"))).send_keys(email.strip())
+        except: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
 
-        try:
-            password_field = WebDriverWait(self.bot, 10).until(
-                EC.presence_of_element_located((By.NAME, "pass"))
-            )
-        except:
-            password_field = WebDriverWait(self.bot, 10).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "input[type='password']"))
-            )
-        log = WebDriverWait(bot, 10).until(EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, "input[value='Log In']")))
-
-        username.send_keys(email.strip())
-        password_field.send_keys(password)
-        log.click()
-
-        try:
-            WebDriverWait(self.bot, 10).until(EC.url_contains(
-                "https://mbasic.facebook.com/login/save-device/?login_source="))
-        except:
-            pass
+        try: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password)
+        except: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='password']"))).send_keys(password)
+        WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
+        
+        try:WebDriverWait(self.bot, 10).until(EC.url_contains("https://mbasic.facebook.com/login/save-device/?login_source="))
+        except:pass
         url = self.bot.current_url
-
         if 'login/save-device/' or 'home.php?' in url:
-            
             input("......")
             cookies = bot.get_cookies()
             format = {}
             for cookie in cookies :
                 format[cookie['name']] = cookie['value']
             cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-            
             bot.quit()
-            return cookie_string
+            cookie_string = self.update_cookie(cookie_string)
+            return 'success' , cookie_string
         elif 'checkpoint' in url:
             print('Verification checkpoint!')
             return "continue"
         else:
             print('Email or password incorrect!')
             return "continue"
+        
     def View(self,cook):
-        bot = self.bot
-        bot.get("https://www.facebook.com/")
-        cookies = cook.split(";")
+        self.bot.get("https://www.facebook.com/")
+        cookies = cook.strip().split(";")
         for cookie in cookies:
             cookie_parts = cookie.split("=")
             if len(cookie_parts) == 2:
                 cookie_name, cookie_value = cookie_parts
-                bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-        bot.get("https://www.facebook.com/profile.php?")
-
+                self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+        self.bot.get("https://www.facebook.com/profile.php?")
+        cookie_string = self.update_cookie(cook)
+        return cookie_string
+    
+    def update_cookie(self,cook):
+        try:
+            cookies = self.bot.get_cookies()
+            format = {}
+            for cookie in cookies :
+                format[cookie['name']] = cookie['value']
+            cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+            try:
+                cursor.execute(f"UPDATE account SET cookies = '{cookie_string} ' WHERE cookies = '{cook}'") ;conn.commit()
+                return cookie_string
+            except Exception as e : print(f"Faild Contect Database \n {e}")
+        except : print("Faild Update Cookie")
     def scrap(self,id,cook):
         bot = self.bot
         files_in_folder = os.listdir('photo')
@@ -125,7 +100,3 @@ class Chrom:
                 largest_number += 1
             except:
                 print("Not Found Photo")
-
-# with open("id.txt", 'r') as file:
-#         id = [line.strip() for line in file.readlines()]
-# Chrom().scrap(id,'m_page_voice=61552931475833;xs=39%3AypkGrvq2IIeNjA%3A2%3A1699300817%3A-1%3A-1;c_user=61552931475833;fr=0dyLywbOIibBP3V1P.AWX-Wm_ODWPeMvo5kJ6NuqvSXdU.BlSUXP.fu.AAA.0.0.BlSUXP.AWUg64nYPek;sb=z0VJZRar4k92ZEEQpkEaQNj1;datr=z0VJZcW10H1toQvmngrrxCC5')

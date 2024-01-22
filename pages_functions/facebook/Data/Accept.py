@@ -1,4 +1,4 @@
-from init import *
+from pages_functions.__init__ import *
 
 class Accept:
     def __init__(self, cookie ) -> None:

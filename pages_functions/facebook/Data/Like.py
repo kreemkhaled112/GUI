@@ -1,4 +1,4 @@
-from Data.init import *
+from pages_functions.__init__ import *
 
 class Like:
     def __init__(self, url ,type ,cookie) -> None:

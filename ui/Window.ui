@@ -69,7 +69,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
+          <pixmap>:/icon/icon/home-2.ico</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -88,7 +88,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../static/resource.qrc">
+          <iconset>
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -120,7 +120,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../static/resource.qrc">
+          <iconset>
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -228,7 +228,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
+              <pixmap>:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -278,7 +278,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
+              <pixmap>:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -303,7 +303,7 @@
               <string>FACEBOOK</string>
              </property>
              <property name="icon">
-              <iconset resource="../static/resource.qrc">
+              <iconset>
                <normaloff>:/icon/icon/arrow-3.ico</normaloff>
                <normalon>:/icon/icon/arrow-4.ico</normalon>:/icon/icon/arrow-3.ico</iconset>
              </property>
@@ -431,7 +431,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
+              <pixmap>:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -456,7 +456,7 @@
               <string>INSTGRAM</string>
              </property>
              <property name="icon">
-              <iconset resource="../static/resource.qrc">
+              <iconset>
                <normaloff>:/icon/icon/arrow-3.ico</normaloff>
                <normalon>:/icon/icon/arrow-4.ico</normalon>:/icon/icon/arrow-3.ico</iconset>
              </property>
@@ -581,7 +581,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../static/resource.qrc">
+             <iconset>
               <normaloff>:/icon/icon/arrow-2.ico</normaloff>
               <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
             </property>
@@ -692,7 +692,7 @@ border: solid #0066cc 2px;
  </widget>
  <resources>
   <include location="../static/resource.qrc"/>
-  <include location="C:/Users/kreem/.designer/static/resource.qrc"/>
+  <include location="../static/resource.qrc"/>
   <include location="../../../../New folder/PyQt5-Book-main/app_v2/static/resource.qrc"/>
  </resources>
  <connections>

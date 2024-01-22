@@ -1,4 +1,4 @@
-from Data.init import *
+from pages_functions.__init__ import *
 
 class Follow:
     def __init__(self, id ,cookie) -> None:

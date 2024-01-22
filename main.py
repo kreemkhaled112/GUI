@@ -1,9 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow , uic
 
-from ui.main_window_ui import Ui_MainWindow
+from ui.window import Ui_MainWindow
 
-from pages_functions.home import Home
-from pages_functions.dashboard import Dashboard
+from pages_functions.facebook.Manger import Manger
+from pages_functions.facebook.Generat import Generat
 from pages_functions.lexus import Lexus
 from pages_functions.mazda import Mazda
 from pages_functions.toyota import Toyota
@@ -17,6 +17,7 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        uic.loadUi("window.ui", self)
         ## =======================================================================================================
         ## Get all the objects in windows
         ## =======================================================================================================

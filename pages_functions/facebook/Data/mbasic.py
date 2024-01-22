@@ -1,5 +1,5 @@
 from init import *
-from Edit import *
+from pages_functions.facebook.Data.Edit import *
 from Maokt import *
 import sqlite3
 class FacebooK:

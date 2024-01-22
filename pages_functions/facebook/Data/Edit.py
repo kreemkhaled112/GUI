@@ -1,4 +1,5 @@
-from Data.init import *
+from pages_functions.__init__ import *
+
 class Get_Name:
     def __init__(self, cookie) :
         self.req = requests.Session()
@@ -207,3 +208,6 @@ class lock_profile:
             else: print(pos)
         except Exception as e:
             print(e)
+class Change_Password:
+    def __init__(self, password , new_password) -> None:
+        pass

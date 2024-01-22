@@ -7,6 +7,7 @@ import time
 from os import path
 from Cookies import selected_cookies
 from gui import Ui_MainWindow
+
 class AutoReact:
     def __init__(self,ui:Ui_MainWindow):
         self.ui = ui
