@@ -1,15 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow , uic
+from PyQt6.QtWidgets import QApplication, QMainWindow 
 
-from ui.window import Ui_MainWindow
+from ui.Window_ui import Ui_MainWindow
 
 from pages_functions.facebook.Manger import Manger
-from pages_functions.facebook.Generat import Generat
-from pages_functions.lexus import Lexus
-from pages_functions.mazda import Mazda
-from pages_functions.toyota import Toyota
-from pages_functions.tumbr import Tumbr
-from pages_functions.youtube import Youtube
-
+# from pages_functions.facebook.Generat import Generat
 
 class MyWindow(QMainWindow):
     def __init__(self):
@@ -17,7 +11,6 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        uic.loadUi("window.ui", self)
         ## =======================================================================================================
         ## Get all the objects in windows
         ## =======================================================================================================
@@ -33,13 +26,13 @@ class MyWindow(QMainWindow):
         ## Create dict for menu buttons and tab windows
         ## =======================================================================================================
         self.menu_btns_list = {
-            self.home_btn: Home(),
-            self.dashboard_btn: Dashboard(),
-            self.toyota_btn: Toyota(),
-            self.lexus_btn: Lexus(),
-            self.mazda_btn: Mazda(),
-            self.youtube_btn: Youtube(),
-            self.tumbr_btn: Tumbr(),
+            self.home_btn: Manger(),
+            # self.dashboard_btn: Generat(),
+            # self.toyota_btn: Toyota(),
+            # self.lexus_btn: Lexus(),
+            # self.mazda_btn: Mazda(),
+            # self.youtube_btn: Youtube(),
+            # self.tumbr_btn: Tumbr(),
         }
 
         ## =======================================================================================================
@@ -72,7 +65,7 @@ class MyWindow(QMainWindow):
             self.ui.tabWidget.setCurrentIndex(result[1])
         else:
             title = self.home_btn.text()
-            curIndex = self.ui.tabWidget.addTab(Home(), title)
+            curIndex = self.ui.tabWidget.addTab(Manger(), title)
             self.ui.tabWidget.setCurrentIndex(curIndex)
             self.ui.tabWidget.setVisible(True)
 
@@ -138,8 +131,12 @@ class MyWindow(QMainWindow):
 
 if __name__ == '__main__':
     import sys
+    
 
     app = QApplication(sys.argv)
+    with open("static\style.qss", "r",encoding='utf-8') as style_file:
+            style_str = style_file.read()
+    app.setStyleSheet(style_str)
 
     window = MyWindow()
     window.show()

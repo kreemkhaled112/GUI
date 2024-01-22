@@ -1,6 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.pages_insta.Export_ui import Ui_Form
+from ui.Export_ui import Ui_Form
 from pages_functions.__init__ import *
 
 

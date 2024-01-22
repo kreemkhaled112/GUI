@@ -24,11 +24,11 @@ from time import sleep ,time
 import re
 import sqlite3
 from pystyle import *
-import pygame
 import logging
 from configparser import ConfigParser
-from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QHeaderView, QCheckBox, QVBoxLayout, QWidget, QMenu, QAction,QMessageBox,QDialog
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import Qt
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()

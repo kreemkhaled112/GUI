@@ -1,6 +1,6 @@
 from init import *
 from pages_functions.facebook.Data.Edit import *
-from Maokt import *
+from pages_functions.facebook.Data.Email import *
 import sqlite3
 class FacebooK:
     def __init__(self):

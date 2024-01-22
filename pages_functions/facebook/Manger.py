@@ -1,8 +1,8 @@
 from pages_functions.__init__ import *
 
-
-from ui.pages_face.Manger_ui import Ui_Form
-from pages_functions.__init__ import *
+from ui.facebook.Manger_ui import Ui_Form
+from pages_functions.insta.Add_Account import Add_Account_insta
+from pages_functions.insta.Export import Export_insta
 
 class Manger(QWidget):
     def __init__(self):
@@ -17,28 +17,31 @@ class Manger(QWidget):
         self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.data = cursor.execute("SELECT * FROM account").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        self.loadTableData(self.data)
+        # self.loadTableData(self.data)
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)
-    def loadTableData(self,data):
+    def loadTableData(self, data):
         self.ui.tableWidget.setRowCount(len(data))
         for row, row_data in enumerate(data):
             select_checkbox_item = QTableWidgetItem()
-            select_checkbox_item.setFlags(select_checkbox_item.flags() | 2) 
-            select_checkbox_item.setCheckState(False)
+            select_checkbox_item.setFlags(select_checkbox_item.flags() | Qt.ItemIsUserCheckable)
+            select_checkbox_item.setCheckState(Qt.CheckState.Unchecked)
             select_checkbox_item.setText(str(row + 1))
             self.ui.tableWidget.setItem(row, 0, select_checkbox_item)
 
             for col, value in enumerate(row_data):
                 item = QTableWidgetItem(str(value))
-                self.ui.tableWidget.setItem(row, col + 1, item)  
+                self.ui.tableWidget.setItem(row, col + 1, item)
+
         self.ui.tableWidget.verticalHeader().hide()
         self.ui.tableWidget.setColumnWidth(0, 50)
         headers = ["#"] + [description[0] for description in cursor.description]
         self.ui.tableWidget.setHorizontalHeaderLabels(headers)
-        self.ui.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
+
+        # CustomContextMenu is now a signal directly, no need for setContextMenuPolicy
         self.ui.tableWidget.customContextMenuRequested.connect(self.show_context_menu)
+
     def show_context_menu(self, position):
         context_menu = QMenu(self)
         
@@ -75,7 +78,7 @@ class Manger(QWidget):
 
     def Add_Account(self):
         table_dialog = Add_Account_insta(self)
-        table_dialog.exec_()
+        table_dialog.exec()
 
     def Add_Multi_Account(self):
         fname = QFileDialog.getOpenFileName(self, 'Open File', '')
@@ -89,4 +92,4 @@ class Manger(QWidget):
 
     def Export(self):
         table_dialog = Export_insta(self,self.ui.tableWidget )
-        table_dialog.exec_()
+        table_dialog.exec()

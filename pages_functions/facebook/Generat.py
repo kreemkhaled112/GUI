@@ -1,14 +1,14 @@
 from pages_functions.__init__ import *
 
-from ui.pages_face.Generat_ui import Ui_Form
+from ui.facebook.Generat_ui import Ui_Form
 from pages_functions.__init__ import *
-from pages_functions.function_face.Data.Edit import *
-from pages_functions.function_face.Data.Email import *
-from pages_functions.function_face.Data.Follow import *
-from pages_functions.function_face.Data.AddFriend import *
-from pages_functions.function_face.Data.JoinGroup import *
-from pages_functions.function_face.Data.Chrome import *
-from pages_functions.function_face.Data.Share import *
+from pages_functions.facebook.Data.Edit import *
+from pages_functions.facebook.Data.Email import *
+from pages_functions.facebook.Data.Follow import *
+from pages_functions.facebook.Data.AddFriend import *
+from pages_functions.facebook.Data.JoinGroup import *
+from pages_functions.facebook.Data.Chrome import *
+from pages_functions.facebook.Data.Share import *
 
 class Generat(QWidget):
     def __init__(self):
