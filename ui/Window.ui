@@ -228,7 +228,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-1.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -278,7 +278,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-1.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -431,7 +431,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-1.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -581,7 +581,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../static/resource.qrc">
               <normaloff>:/icon/icon/arrow-2.ico</normaloff>
               <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
             </property>
@@ -632,7 +632,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="../static/resource.qrc">:/icon/icon/user-48.ico</pixmap>
+             <pixmap>:/icon/icon/user-48.ico</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -693,7 +693,6 @@ border: solid #0066cc 2px;
  <resources>
   <include location="../static/resource.qrc"/>
   <include location="../static/resource.qrc"/>
-  <include location="../../../../New folder/PyQt5-Book-main/app_v2/static/resource.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -1,131 +1,233 @@
-from Data.init import *
+from pages_functions.__init__ import *
 
-class Chrom:
+class Chrom_Insta:
     def __init__(self):
         self = self
         try:
-            options = webdriver.ChromeOptions()
-            chrome_prefs = {"profile.default_content_setting_values.notifications": 2}  
-            options.add_experimental_option("prefs", chrome_prefs)
-            options.add_experimental_option("detach", True)
-            options.add_argument("--log-level=3")
-            self.bot = webdriver.Chrome(options=options)
+            self.options = webdriver.ChromeOptions()
+            chrome_prefs = {"profile.default_content_setting_values.notifications": 2}
+            self.options.add_experimental_option("prefs", chrome_prefs)
+            self.options.add_experimental_option("detach", True)
+            self.options.add_argument('--incognito')
+            self.options.add_argument("--log-level=3")
+            self.bot = webdriver.Chrome(options=self.options)
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
-    def update_cookie(self,cook):
-        bot = self.bot
-        bot.get("https://www.facebook.com/")
-        cookies = cook.split(";")
+    def face(self,email,pas,cook):
+        self.bot.get("https://www.facebook.com/")
+        cookies = cook.strip().split(";")
         for cookie in cookies:
             cookie_parts = cookie.split("=")
             if len(cookie_parts) == 2:
                 cookie_name, cookie_value = cookie_parts
                 self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-        bot.get("https://www.facebook.com/profile.php?")
-        cookies = bot.get_cookies()
-        format = {}
-        for cookie in cookies :
-            format[cookie['name']] = cookie['value']
-        cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-        
-        bot.quit()
-        return cookie_string
+        self.bot.get("https://www.facebook.com/profile.php?")
 
-    def Get(self,email, password):
-        bot = self.bot
-
-        self.bot.get("https://mbasic.facebook.com/login/")
-
+        if "checkpoint"  not in self.bot.current_url :
+            try:
+                elment = WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div[class='_585r _50f4']")))
+                if elment:
+                    WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='email']"))).send_keys(email)
+                    WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='pass']"))).send_keys(pas)
+                    WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log in']"))).click()
+                    if input('Delete or Skip : ')== '' :
+                        self.update_cookies(cook)
+                    else:
+                        cursor.execute(f'DELETE FROM account WHERE cookies = "{cook}" ')
+                        conn.commit()
+                        return 'Faild'
+            except:self.update_cookies(cook)
+        else :
+            if input('Delete or Skip : ') == '' :self.update_cookies(cook)
+            else:
+                cursor.execute(f'DELETE FROM account WHERE cookies = "{cook}" ')
+                conn.commit()
+                return 'Faild'
+    def update_cookies(self,cook):
         try:
-            username = WebDriverWait(self.bot, 20).until(
-                EC.presence_of_element_located((By.ID, "m_login_email"))
-            )
-        except:
-            username = WebDriverWait(self.bot, 20).until(
-                EC.presence_of_element_located((By.NAME, "email"))
-            )
-
-        try:
-            password_field = WebDriverWait(self.bot, 10).until(
-                EC.presence_of_element_located((By.NAME, "pass"))
-            )
-        except:
-            password_field = WebDriverWait(self.bot, 10).until(
-                EC.presence_of_element_located(
-                    (By.CSS_SELECTOR, "input[type='password']"))
-            )
-        log = WebDriverWait(bot, 10).until(EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, "input[value='Log In']")))
-
-        username.send_keys(email.strip())
-        password_field.send_keys(password)
-        log.click()
-
-        try:
-            WebDriverWait(self.bot, 10).until(EC.url_contains(
-                "https://mbasic.facebook.com/login/save-device/?login_source="))
-        except:
-            pass
-        url = self.bot.current_url
-
-        if 'login/save-device/' or 'home.php?' in url:
-            
-            input("......")
-            cookies = bot.get_cookies()
+            cookies = self.bot.get_cookies()
             format = {}
             for cookie in cookies :
                 format[cookie['name']] = cookie['value']
             cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+            try:cursor.execute(f"UPDATE account SET cookies = '{cookie_string} ' WHERE cookies = '{cook}'") ;conn.commit()
+            except Exception as e :print(f"Faild Contect Database \n {e}")
+        except :print("Faild Update Cookie")
+    
+    def Get_cookie(self):
+        cookies = self.bot.get_cookies()
+        format = {}
+        for cookie in cookies :
+            format[cookie['name']] = cookie['value']
+        cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+        return cookie_string
+    
+    def update_cookie(self, username, cook):
+        try:
+            cookie_string = self.Get_cookie()
+
+            try: cursor.execute(f"UPDATE insta SET cookies = '{cookie_string} ' WHERE username = '{username}'") ;conn.commit()
+            except Exception as e : print(f"Faild Contect Database \n {e}")
             
-            bot.quit()
-            return cookie_string
-        elif 'checkpoint' in url:
-            print('Verification checkpoint!')
-            return "continue"
-        else:
-            print('Email or password incorrect!')
-            return "continue"
-    def View(self,cook):
+        except :print("Faild Get Cookie")
+
+    def login(self,email, password):
         bot = self.bot
-        bot.get("https://www.facebook.com/")
+        bot.get("https://instagram.com/")
+        try:
+            sleep(random.randrange(2,5))
+            username = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Phone number, username, or email']")))
+            username.send_keys(email.strip())
+            sleep(random.randrange(2,5))
+            password_field = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Password']")))
+            password_field.send_keys(password.strip())
+            sleep(random.randrange(2,5))
+            WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))).click()    
+            sleep(random.randrange(5,10))
+            WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _aj1- _ap30']"))).click()    
+        except : pass
+        if input("Get_cookies OR Ban : ") == '':
+            return self.Get_cookie()
+        else:
+            bot.quit()
+            return 'Ban'
+    
+    def View(self,username,cook):
+        bot = self.bot
+        bot.get("https://www.instagram.com/")
         cookies = cook.split(";")
         for cookie in cookies:
             cookie_parts = cookie.split("=")
             if len(cookie_parts) == 2:
                 cookie_name, cookie_value = cookie_parts
                 bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-        bot.get("https://www.facebook.com/profile.php?")
-
-    def scrap(self,id,cook):
-        bot = self.bot
-        files_in_folder = os.listdir('photo')
-        largest_number = None
-        for file_name in files_in_folder:
-            numbers = file_name.replace(".jpg", "")
-            numbers = [int(num) for num in numbers.split()]
-            if numbers:
-                current_largest = max(numbers)
-                if largest_number is None or current_largest > largest_number:
-                    largest_number = current_largest
-        bot.get("https://www.facebook.com/")
-        self.Add_cookie(cook)
+        bot.get("https://www.instagram.com")
+        if input("Get_cookies OR Ban : ") == '':
+            return  self.update_cookie(username,cook)
+        else:
+            bot.quit()
+            return 'Ban'
         
-        for user in id :
-            bot.get(f"https://www.facebook.com/profile.php?id={user}")
+    def switch(self,email,name,password,cook,pas):
+        bot = self.bot
+        f = self.face(email,pas,cook)
+        if f == 'Faild':return None , None
+        else:
+            bot.get("https://www.instagram.com/")
+            try:
+                sleep(random.randrange(2,5))
+                WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span[class='_ab37']"))).click()
+                sleep(random.randrange(2,5))
+                try:
+                    WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div[2]/div/div/form/div/div[1]/div[1]/div/div/div[3]/button[1]"))).click()
+                    sleep(random.randrange(5,10))
+                    WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acaq _acas _aj1- _ap30']"))).click()
+                    sleep(random.randrange(5,10))
+                    Password = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Password']")))
+                    Password.send_keys(password.strip())
+                    sleep(random.randrange(5,10))
+                    Email = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Email']")))
+                    Email.send_keys(email.strip())
+                    sleep(random.randrange(5,10))
+                    # Name = WebDriverWait(bot, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[aria-label='Full Name']")))
+                    # Name.send_keys(Keys.CONTROL, 'a')
+                    # Name.send_keys(Keys.DELETE)
+                    # Name.send_keys(name.strip())
+                    try:
+                        WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acao _acas _aj1- _ap30']"))).click()
+                        sleep(random.randrange(10,15))
+                    except:input('continue..')
+                    Username = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Username']"))).get_attribute("value")
+                    
+                    WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))).click()
+                    sleep(20)
+                    if "signup"  not in self.bot.current_url:
+                        cookie_string = self.Get_cookie()
+                        input("Get_cookies OR Ban : ")
+                    else  :
+                        cookie_string = self.login(email,password)
+                    return Username , cookie_string
+                except:
+                    return None,None
+            except Exception as e :print(e)
+    def Add_Photo(self,photo):
+        try:
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[8]/div/span/div/a/div/div[1]/div/div/span"))).click()
+            try:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'img[alt="Add a profile photo"]'))).click()
+            except:
+                WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'img[alt="Change profile photo"]'))).click()
+                try:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="_a9-- _ap36 _a9_0"]'))).click()
+                except:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class="_a9-- _ap37 _a9_0"]'))).click()
+            sleep(1)
+            pg.write(photo)
+            pg.press('enter')
+            sleep(random.randrange(2,5))
+            return 'successfully'
+        except:return 'Ban'
+    def Add_Cover(self,photo):
+        try:
+            try:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/div[2]/div[2]/div/div[4]"))).click()
+            except:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/div[2]/section/main/div/div[3]/div/div[4]"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _aj1- _ap30']"))).click()
+            sleep(2)
+            pg.write(photo)
+            pg.press('enter')
+            sleep(2)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div"))).click()
+            sleep(1)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div/div/div/div[1]/div/div/div/div[3]/div/div"))).click()
+            sleep(random.randrange(5,10))
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "svg[aria-label='Close']"))).click()
+            sleep(random.randrange(2,5))
+        except:pass
+    
+    def Edit_Bio(self,bio):
+        try:
+            self.bot.get('https://www.instagram.com/accounts/edit/')
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "svg[aria-label='Close']"))).click()
             sleep(2)
             try:
-                button = WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div[class='x1jx94hy x14yjl9h xudhj91 x18nykt9 xww2gxu x1iorvi4 x150jy0e xjkvuk6 x1e558r4']")))
-                button.click()
-                sleep(2)
-                imag = bot.find_elements(By.CSS_SELECTOR, "img[class='x1bwycvy x193iq5w x4fas0m x19kjcj4']")
-
-                p = [element.get_attribute('src') for element in imag]
-                response = requests.get(p[0])
-                open(f"photo/{largest_number+1}.jpg", "wb").write(response.content)
-                largest_number += 1
+                WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'textarea[id="pepBio"]'))).click();pg.write(bio.strip())
+                sleep(1)
+                WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'svg[aria-label="Down chevron"]'))).click()
+                sleep(1)
+                WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div[2]/div[1]"))).click()
+                try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[class=" _acan _acap _acas _acav _aj1- _ap30"]'))).click()
+                except:pass
             except:
-                print("Not Found Photo")
-
-# with open("id.txt", 'r') as file:
-#         id = [line.strip() for line in file.readlines()]
-# Chrom().scrap(id,'m_page_voice=61552931475833;xs=39%3AypkGrvq2IIeNjA%3A2%3A1699300817%3A-1%3A-1;c_user=61552931475833;fr=0dyLywbOIibBP3V1P.AWX-Wm_ODWPeMvo5kJ6NuqvSXdU.BlSUXP.fu.AAA.0.0.BlSUXP.AWUg64nYPek;sb=z0VJZRar4k92ZEEQpkEaQNj1;datr=z0VJZcW10H1toQvmngrrxCC5')
+                WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[id="pepGender"]'))).send_keys('Male')
+            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[3]/div/div/form/div[4]/div'))).click()
+            sleep(random.randrange(2,5))
+        except:pass
+    
+    def changepassword(self,old_password,password):
+        try:
+            self.bot.get('https://www.instagram.com/accounts/password/change/')
+            try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "svg[aria-label='Close']"))).click()
+            except:pass
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[autocomplete='current-password']"))).send_keys(old_password)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[autocomplete='new-password']"))).send_keys(password)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[id='cppConfirmPassword']"))).send_keys(password)
+            try:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div[3]/div/form/div[4]/div/div/div"))).click()
+            except:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/article/form/div[4]/div/div/div"))).click()
+            sleep(random.randrange(5,10))
+            return 'success'
+        except:pass
+    
+    def profrssional(self):
+        try:
+            self.bot.get("https://www.instagram.com/accounts/convert_to_professional_account/")
+            sleep(1)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _acav _aj1- _ap30']"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _acav _aj1- _ap30']"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='2201']"))).click()
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _acav _aj1- _ap30']"))).click()
+            try:WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class='_a9-- _ap36 _a9_0']"))).click()
+            except:pass
+            sleep(15)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acas _acav _aj1- _ap30']"))).click()
+            return 'successfully'
+        except:pass
+    
