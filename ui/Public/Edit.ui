@@ -36,7 +36,7 @@ border: none;
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QWidget" name="widget_1" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_22">
+     <layout class="QGridLayout" name="gridLayout_4">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -49,7 +49,7 @@ border: none;
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item>
+      <item row="0" column="0">
        <widget class="QWidget" name="widget_57" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_18">
          <property name="leftMargin">
@@ -65,7 +65,7 @@ border: none;
           <number>0</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="Add_Profile">
+          <widget class="QCheckBox" name="Add_Photo_Profile">
            <property name="text">
             <string>Add Profile Photo</string>
            </property>
@@ -86,13 +86,6 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="Add_Friend">
-           <property name="text">
-            <string>Add Friend</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QCheckBox" name="Add_Bio">
            <property name="text">
             <string>Add Bio</string>
@@ -100,9 +93,9 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="Add_Share">
+          <widget class="QCheckBox" name="Add_Friend">
            <property name="text">
-            <string>Add Share</string>
+            <string>Add Friend</string>
            </property>
           </widget>
          </item>
@@ -114,6 +107,13 @@ border: none;
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="Follow">
+           <property name="text">
+            <string>Follow</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QCheckBox" name="Like">
            <property name="text">
             <string>Like</string>
@@ -121,9 +121,16 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="Follow">
+          <widget class="QCheckBox" name="Add_Share">
            <property name="text">
-            <string>Follow</string>
+            <string>Share</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="Profrssional">
+           <property name="text">
+            <string>profrssional</string>
            </property>
           </widget>
          </item>
@@ -137,10 +144,10 @@ border: none;
         </layout>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>9</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_photo">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -366,6 +373,65 @@ border: none;
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="page_bio">
+         <layout class="QGridLayout" name="gridLayout_31">
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_70" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_23">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item alignment="Qt::AlignTop">
+              <widget class="QWidget" name="widget_71" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_46">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_bio">
+                  <property name="text">
+                   <string>Enter Bio</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_43">
+                  <property name="text">
+                   <string>OR</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_bio">
+                  <property name="text">
+                   <string>Random</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignRight">
+              <widget class="QPushButton" name="pushButton_24">
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
         <widget class="QWidget" name="page_friend">
          <layout class="QGridLayout" name="gridLayout_29">
           <item row="0" column="0">
@@ -511,142 +577,6 @@ border: none;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_bio">
-         <layout class="QGridLayout" name="gridLayout_31">
-          <item row="0" column="0">
-           <widget class="QWidget" name="widget_70" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_23">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item alignment="Qt::AlignTop">
-              <widget class="QWidget" name="widget_71" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_46">
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_bio">
-                  <property name="text">
-                   <string>Enter Bio</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_43">
-                  <property name="text">
-                   <string>OR</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_bio">
-                  <property name="text">
-                   <string>Random</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignRight">
-              <widget class="QPushButton" name="pushButton_24">
-               <property name="text">
-                <string>Save</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="page_share">
-         <layout class="QGridLayout" name="gridLayout_34">
-          <item row="0" column="0">
-           <widget class="QWidget" name="widget_73" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_24">
-             <property name="spacing">
-              <number>10</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item alignment="Qt::AlignLeft">
-              <widget class="QLineEdit" name="lineEdit_23">
-               <property name="text">
-                <string>Text</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_24">
-               <property name="text">
-                <string>Link</string>
-               </property>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignTop">
-              <widget class="QWidget" name="widget_74" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_48">
-                <property name="spacing">
-                 <number>5</number>
-                </property>
-                <property name="leftMargin">
-                 <number>0</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_44">
-                  <property name="text">
-                   <string>Number Of Share</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="spinBox_7"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item alignment="Qt::AlignRight">
-              <widget class="QPushButton" name="pushButton_26">
-               <property name="text">
-                <string>Save</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
         <widget class="QWidget" name="page_group">
          <layout class="QGridLayout" name="gridLayout_35">
           <item row="0" column="0">
@@ -703,6 +633,78 @@ border: none;
              </item>
              <item alignment="Qt::AlignBottom">
               <widget class="QPushButton" name="pushButton_27">
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_follow">
+         <layout class="QGridLayout" name="gridLayout_37">
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_76" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_50">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_13">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_12">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>200</width>
+                  <height>627</height>
+                 </rect>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_38">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item row="0" column="0">
+                  <widget class="QTextEdit" name="textEdit_Follow"/>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignBottom">
+              <widget class="QPushButton" name="pushButton_28">
                <property name="text">
                 <string>Save</string>
                </property>
@@ -846,74 +848,90 @@ border: none;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_follow">
-         <layout class="QGridLayout" name="gridLayout_37">
+        <widget class="QWidget" name="page_share">
+         <layout class="QGridLayout" name="gridLayout_34">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget_76" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_50">
-             <item>
-              <widget class="QScrollArea" name="scrollArea_13">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>0</height>
-                </size>
+           <widget class="QWidget" name="widget_73" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_24">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item alignment="Qt::AlignLeft">
+              <widget class="QLineEdit" name="lineEdit_23">
+               <property name="text">
+                <string>Text</string>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="widgetResizable">
-                <bool>true</bool>
-               </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents_12">
-                <property name="geometry">
-                 <rect>
-                  <x>0</x>
-                  <y>0</y>
-                  <width>200</width>
-                  <height>627</height>
-                 </rect>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>200</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_38">
-                 <property name="leftMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0">
-                  <widget class="QTextEdit" name="textEdit_Follow"/>
-                 </item>
-                </layout>
-               </widget>
               </widget>
              </item>
-             <item alignment="Qt::AlignBottom">
-              <widget class="QPushButton" name="pushButton_28">
+             <item>
+              <widget class="QLineEdit" name="lineEdit_24">
+               <property name="text">
+                <string>Link</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignTop">
+              <widget class="QWidget" name="widget_74" native="true">
+               <layout class="QHBoxLayout" name="horizontalLayout_48">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_44">
+                  <property name="text">
+                   <string>Number Of Share</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spinBox_7"/>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignRight">
+              <widget class="QPushButton" name="pushButton_26">
                <property name="text">
                 <string>Save</string>
                </property>
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_profissional">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>profrssional</string>
+            </property>
            </widget>
           </item>
          </layout>

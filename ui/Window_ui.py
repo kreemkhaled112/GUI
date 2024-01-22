@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'C:/Users/kareem/AppData/Local/Temp/WindowkpkjTt.ui'
+# Form implementation generated from reading ui file 'p:\API\GUI\ui\Window.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -12,8 +12,46 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(944, 596)
-        MainWindow.setStyleSheet("")
+        MainWindow.resize(944, 578)
+        MainWindow.setStyleSheet("#icon_only_widget {\n"
+"        background-color: #313a46;\n"
+"        width:50px;\n"
+"    }\n"
+"#full_menu_widget {\n"
+"        background-color: #313a46;\n"
+"    }\n"
+"#full_menu_widget QPushButton {\n"
+"        border:none;\n"
+"        text-align: left;\n"
+"        color: #ffffff;\n"
+"    }\n"
+"#full_menu_widget QPushButton:hover {\n"
+"        background-color: rgba( 86, 101, 115, 0.5);\n"
+"    }\n"
+"\n"
+"    #full_menu_widget QPushButton:checked {\n"
+"        color: #fff;\n"
+"    }\n"
+"#change_btn {\n"
+"        padding: 5px;\n"
+"        border: none;\n"
+"        width: 30px;\n"
+"        height: 30px;\n"
+"    }\n"
+"#search_input {\n"
+"        border: none;\n"
+"        padding: 5px 10px;\n"
+"    }\n"
+"\n"
+"    #search_input:focus {\n"
+"        background-color: #70B9FE;\n"
+"    }\n"
+"#user_btn {\n"
+"        border: none;\n"
+"    }\n"
+"    #search_btn {\n"
+"        border: none;\n"
+"    }")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
@@ -22,6 +60,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.icon_only_widget = QtWidgets.QWidget(parent=self.centralwidget)
         self.icon_only_widget.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.icon_only_widget.setStyleSheet("")
         self.icon_only_widget.setObjectName("icon_only_widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.icon_only_widget)
         self.verticalLayout.setContentsMargins(0, 0, 5, 0)
@@ -62,11 +101,13 @@ class Ui_MainWindow(object):
         self.scrollArea = QtWidgets.QScrollArea(parent=self.centralwidget)
         self.scrollArea.setMinimumSize(QtCore.QSize(110, 0))
         self.scrollArea.setMaximumSize(QtCore.QSize(150, 16777215))
-        self.scrollArea.setStyleSheet("border: none;")
+        self.scrollArea.setStyleSheet("border: none;\n"
+"\n"
+"")
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.full_menu_widget = QtWidgets.QWidget()
-        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 596))
+        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 578))
         self.full_menu_widget.setObjectName("full_menu_widget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.full_menu_widget)
         self.verticalLayout_4.setContentsMargins(2, 0, 0, 0)
@@ -122,30 +163,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_4)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.pushButton_4 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.verticalLayout_2.addWidget(self.pushButton_4, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_5 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.verticalLayout_2.addWidget(self.pushButton_5, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_6 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.verticalLayout_2.addWidget(self.pushButton_6, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_16 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_16.setObjectName("pushButton_16")
-        self.verticalLayout_2.addWidget(self.pushButton_16, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_14 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_14.setObjectName("pushButton_14")
-        self.verticalLayout_2.addWidget(self.pushButton_14, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_15 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_15.setObjectName("pushButton_15")
-        self.verticalLayout_2.addWidget(self.pushButton_15, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_7 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.verticalLayout_2.addWidget(self.pushButton_7, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_12 = QtWidgets.QPushButton(parent=self.widget_4)
-        self.pushButton_12.setObjectName("pushButton_12")
-        self.verticalLayout_2.addWidget(self.pushButton_12, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Manger_face = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Account_Manger_face.setObjectName("Account_Manger_face")
+        self.verticalLayout_2.addWidget(self.Account_Manger_face, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Edit_face = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Account_Edit_face.setObjectName("Account_Edit_face")
+        self.verticalLayout_2.addWidget(self.Account_Edit_face, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Generat_face = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Account_Generat_face.setObjectName("Account_Generat_face")
+        self.verticalLayout_2.addWidget(self.Account_Generat_face, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Accept_Friend = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Accept_Friend.setObjectName("Accept_Friend")
+        self.verticalLayout_2.addWidget(self.Accept_Friend, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Add_Friend = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Add_Friend.setObjectName("Add_Friend")
+        self.verticalLayout_2.addWidget(self.Add_Friend, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Join_Groub = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Join_Groub.setObjectName("Join_Groub")
+        self.verticalLayout_2.addWidget(self.Join_Groub, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Follow_face = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Follow_face.setObjectName("Follow_face")
+        self.verticalLayout_2.addWidget(self.Follow_face, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Like_face = QtWidgets.QPushButton(parent=self.widget_4)
+        self.Like_face.setObjectName("Like_face")
+        self.verticalLayout_2.addWidget(self.Like_face, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
         self.verticalLayout_4.addWidget(self.widget_4, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.widget_5 = QtWidgets.QWidget(parent=self.full_menu_widget)
         self.widget_5.setObjectName("widget_5")
@@ -177,15 +218,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_6)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.pushButton_9 = QtWidgets.QPushButton(parent=self.widget_6)
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.verticalLayout_3.addWidget(self.pushButton_9, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_10 = QtWidgets.QPushButton(parent=self.widget_6)
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.verticalLayout_3.addWidget(self.pushButton_10, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
-        self.pushButton_11 = QtWidgets.QPushButton(parent=self.widget_6)
-        self.pushButton_11.setObjectName("pushButton_11")
-        self.verticalLayout_3.addWidget(self.pushButton_11, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Manger_insta = QtWidgets.QPushButton(parent=self.widget_6)
+        self.Account_Manger_insta.setObjectName("Account_Manger_insta")
+        self.verticalLayout_3.addWidget(self.Account_Manger_insta, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Edit_insta = QtWidgets.QPushButton(parent=self.widget_6)
+        self.Account_Edit_insta.setObjectName("Account_Edit_insta")
+        self.verticalLayout_3.addWidget(self.Account_Edit_insta, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.Account_Generat_insta = QtWidgets.QPushButton(parent=self.widget_6)
+        self.Account_Generat_insta.setObjectName("Account_Generat_insta")
+        self.verticalLayout_3.addWidget(self.Account_Generat_insta, 0, QtCore.Qt.AlignmentFlag.AlignLeft)
         self.verticalLayout_4.addWidget(self.widget_6, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout_4.addItem(spacerItem1)
@@ -197,40 +238,49 @@ class Ui_MainWindow(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.widget_8 = QtWidgets.QWidget(parent=self.main_widget)
-        self.widget_8.setObjectName("widget_8")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_8)
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_4.setSpacing(6)
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.pushButton_13 = QtWidgets.QPushButton(parent=self.widget_8)
-        self.pushButton_13.setStyleSheet("")
-        self.pushButton_13.setText("")
+        self.widget = QtWidgets.QWidget(parent=self.main_widget)
+        self.widget.setMinimumSize(QtCore.QSize(0, 40))
+        self.widget.setObjectName("widget")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 9, 0)
+        self.horizontalLayout_5.setSpacing(0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.change_btn = QtWidgets.QPushButton(parent=self.widget)
+        self.change_btn.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-2.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-1.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.On)
-        self.pushButton_13.setIcon(icon2)
-        self.pushButton_13.setCheckable(True)
-        self.pushButton_13.setAutoExclusive(True)
-        self.pushButton_13.setObjectName("pushButton_13")
-        self.horizontalLayout_4.addWidget(self.pushButton_13)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem2)
-        self.user_label = QtWidgets.QLabel(parent=self.widget_8)
-        self.user_label.setMinimumSize(QtCore.QSize(30, 30))
-        self.user_label.setMaximumSize(QtCore.QSize(30, 30))
-        self.user_label.setStyleSheet("#user_label {\n"
-"    background-color: #fff;\n"
-"    border: 1px solid #F2F4F4;\n"
-"    padding: 5px 5px;\n"
-"    border-radius: 15%;\n"
-"}")
-        self.user_label.setText("")
-        self.user_label.setPixmap(QtGui.QPixmap(":/icon/icon/user-48.ico"))
-        self.user_label.setScaledContents(True)
-        self.user_label.setObjectName("user_label")
-        self.horizontalLayout_4.addWidget(self.user_label)
-        self.gridLayout.addWidget(self.widget_8, 0, 0, 1, 1)
+        self.change_btn.setIcon(icon2)
+        self.change_btn.setIconSize(QtCore.QSize(14, 14))
+        self.change_btn.setCheckable(True)
+        self.change_btn.setObjectName("change_btn")
+        self.horizontalLayout_5.addWidget(self.change_btn)
+        spacerItem2 = QtWidgets.QSpacerItem(236, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem2)
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_6.setSpacing(10)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.search_input = QtWidgets.QLineEdit(parent=self.widget)
+        self.search_input.setObjectName("search_input")
+        self.horizontalLayout_6.addWidget(self.search_input)
+        self.search_btn = QtWidgets.QPushButton(parent=self.widget)
+        self.search_btn.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/icon/icon/search.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.search_btn.setIcon(icon3)
+        self.search_btn.setObjectName("search_btn")
+        self.horizontalLayout_6.addWidget(self.search_btn)
+        self.horizontalLayout_5.addLayout(self.horizontalLayout_6)
+        spacerItem3 = QtWidgets.QSpacerItem(236, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem3)
+        self.user_btn = QtWidgets.QPushButton(parent=self.widget)
+        self.user_btn.setText("")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/icon/icon/user.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.user_btn.setIcon(icon4)
+        self.user_btn.setObjectName("user_btn")
+        self.horizontalLayout_5.addWidget(self.user_btn)
+        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.tabWidget = QtWidgets.QTabWidget(parent=self.main_widget)
         self.tabWidget.setStyleSheet("#tabWidget {\n"
 "    background-color: rgb(255, 0, 0);\n"
@@ -272,10 +322,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(-1)
         self.pushButton_3.toggled['bool'].connect(self.widget_4.setHidden) # type: ignore
         self.pushButton_8.toggled['bool'].connect(self.widget_6.setHidden) # type: ignore
-        self.pushButton_13.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
-        self.pushButton_2.toggled['bool'].connect(self.pushButton_13.setChecked) # type: ignore
-        self.pushButton_13.toggled['bool'].connect(self.scrollArea.setHidden) # type: ignore
-        self.pushButton.toggled['bool'].connect(self.pushButton_13.setChecked) # type: ignore
+        self.change_btn.toggled['bool'].connect(self.scrollArea.setHidden) # type: ignore
+        self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -283,15 +331,16 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.logo_label_2.setText(_translate("MainWindow", "Dashbord"))
         self.pushButton_3.setText(_translate("MainWindow", "FACEBOOK"))
-        self.pushButton_4.setText(_translate("MainWindow", "Accout Manger"))
-        self.pushButton_5.setText(_translate("MainWindow", "Account Edit"))
-        self.pushButton_6.setText(_translate("MainWindow", "Account Generat"))
-        self.pushButton_16.setText(_translate("MainWindow", "Accept Frind"))
-        self.pushButton_14.setText(_translate("MainWindow", "Add Friend"))
-        self.pushButton_15.setText(_translate("MainWindow", "Join Groub"))
-        self.pushButton_7.setText(_translate("MainWindow", "Follow"))
-        self.pushButton_12.setText(_translate("MainWindow", "Like"))
+        self.Account_Manger_face.setText(_translate("MainWindow", "Accout Manger"))
+        self.Account_Edit_face.setText(_translate("MainWindow", "Account Edit"))
+        self.Account_Generat_face.setText(_translate("MainWindow", "Account Generat"))
+        self.Accept_Friend.setText(_translate("MainWindow", "Accept Frind"))
+        self.Add_Friend.setText(_translate("MainWindow", "Add Friend"))
+        self.Join_Groub.setText(_translate("MainWindow", "Join Groub"))
+        self.Follow_face.setText(_translate("MainWindow", "Follow"))
+        self.Like_face.setText(_translate("MainWindow", "Like"))
         self.pushButton_8.setText(_translate("MainWindow", "INSTGRAM"))
-        self.pushButton_9.setText(_translate("MainWindow", "Manger"))
-        self.pushButton_10.setText(_translate("MainWindow", "Edit"))
-        self.pushButton_11.setText(_translate("MainWindow", "Generat"))
+        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Manger"))
+        self.Account_Edit_insta.setText(_translate("MainWindow", "Account Edit"))
+        self.Account_Generat_insta.setText(_translate("MainWindow", "Account Generat"))
+        self.search_input.setPlaceholderText(_translate("MainWindow", "Search..."))

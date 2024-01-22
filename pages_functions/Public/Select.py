@@ -1,8 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.Select_ui import Ui_Form
-from pages_functions.__init__ import *
-
+from ui.Public.Select_ui import Ui_Form
 
 class Select_insta(QDialog):
     def __init__(self, parent=None, data=None):

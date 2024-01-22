@@ -2,9 +2,9 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 
 from ui.Window_ui import Ui_MainWindow
 
-from pages_functions.facebook.Manger import Manger
-# from pages_functions.facebook.Generat import Generat
-
+from pages_functions.facebook.Manger_Face import Manger_Face
+from pages_functions.facebook.Generat_Face import Generat_Face
+from pages_functions.facebook.Generat_Face import Generat_Face
 class MyWindow(QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -14,25 +14,31 @@ class MyWindow(QMainWindow):
         ## =======================================================================================================
         ## Get all the objects in windows
         ## =======================================================================================================
-        self.home_btn = self.ui.pushButton
-        self.dashboard_btn = self.ui.pushButton_2
-        self.toyota_btn = self.ui.pushButton_3
-        self.lexus_btn = self.ui.pushButton_4
-        self.mazda_btn = self.ui.pushButton_5
-        self.youtube_btn = self.ui.pushButton_6
-        self.tumbr_btn = self.ui.pushButton_7
+        self.Account_Generat_face = self.ui.Account_Generat_face
+        self.Account_Manger_face = self.ui.Account_Manger_face 
+        self.Accept_Friend = self.ui.Accept_Friend
+        self.Add_Friend = self.ui.Add_Friend
+        self.Join_Groub = self.ui.Join_Groub
+        self.Follow_face = self.ui.Follow_face
+        self.Like_face = self.ui.Like_face
+        self.Account_Manger_insta = self.ui.Account_Manger_insta
+        self.Account_Edit_insta = self.ui.Account_Edit_insta
+        self.Account_Generat_insta = self.ui.Account_Generat_insta
 
         ## =======================================================================================================
         ## Create dict for menu buttons and tab windows
         ## =======================================================================================================
         self.menu_btns_list = {
-            self.home_btn: Manger(),
-            # self.dashboard_btn: Generat(),
-            # self.toyota_btn: Toyota(),
-            # self.lexus_btn: Lexus(),
-            # self.mazda_btn: Mazda(),
-            # self.youtube_btn: Youtube(),
-            # self.tumbr_btn: Tumbr(),
+            self.Account_Manger_face: Manger_Face(),
+            self.Account_Generat_face: Generat_Face(),
+            self.Accept_Friend: Accept_Friend(),
+            self.Add_Friend: Add_Friend(),
+            self.Join_Groub: Join_Groub(),
+            self.Follow_f: Mazda(),
+            self.Like_f: Tumbr(),
+            self.Account_Manger_i: Tumbr(),
+            self.Account_Edit_i: Tumbr(),
+            self.Account_Generat_i: Tumbr(),
         }
 
         ## =======================================================================================================
@@ -132,12 +138,7 @@ class MyWindow(QMainWindow):
 if __name__ == '__main__':
     import sys
     
-
     app = QApplication(sys.argv)
-    with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-    app.setStyleSheet(style_str)
-
     window = MyWindow()
     window.show()
 

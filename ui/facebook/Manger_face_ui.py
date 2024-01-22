@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'p:\API\GUI\ui\facebook\Manger_1.ui'
+# Form implementation generated from reading ui file 'p:\API\GUI\ui\Facebook\Manger_face.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -36,6 +36,8 @@ class Ui_Form(object):
         self.widget = QtWidgets.QWidget(parent=Form)
         self.widget.setObjectName("widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_2.setHorizontalSpacing(0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.widget_2 = QtWidgets.QWidget(parent=self.widget)
         self.widget_2.setObjectName("widget_2")
@@ -54,6 +56,8 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.lineEdit)
         self.comboBox = QtWidgets.QComboBox(parent=self.widget_3)
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -83,7 +87,7 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.widget_2, 0, 0, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(parent=self.widget)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(7)
+        self.tableWidget.setColumnCount(9)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -99,6 +103,10 @@ class Ui_Form(object):
         self.tableWidget.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(7, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(8, item)
         self.gridLayout_2.addWidget(self.tableWidget, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
 
@@ -110,11 +118,13 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.lineEdit.setPlaceholderText(_translate("Form", "Searsh"))
         self.comboBox.setItemText(0, _translate("Form", "Group"))
-        self.comboBox.setItemText(1, _translate("Form", "Username"))
+        self.comboBox.setItemText(1, _translate("Form", "Name"))
         self.comboBox.setItemText(2, _translate("Form", "Email"))
         self.comboBox.setItemText(3, _translate("Form", "Password"))
-        self.comboBox.setItemText(4, _translate("Form", "Cookies"))
-        self.comboBox.setItemText(5, _translate("Form", "Type"))
+        self.comboBox.setItemText(4, _translate("Form", "Username"))
+        self.comboBox.setItemText(5, _translate("Form", "Cookies"))
+        self.comboBox.setItemText(6, _translate("Form", "Type"))
+        self.comboBox.setItemText(7, _translate("Form", "Insta"))
         self.pushButton.setText(_translate("Form", "Searsh"))
         self.Add_Account.setText(_translate("Form", "AddAcount"))
         self.AddMultiAccount.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -122,7 +132,7 @@ class Ui_Form(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Format:</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Group</span>:<span style=\" font-weight:600;\">UserName</span>:<span style=\" font-weight:600;\">Email</span>:<span style=\" font-weight:600;\">Password</span>:<span style=\" font-weight:600;\">Cookies</span>:<span style=\" font-weight:600;\">Type</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Group</span>:<span style=\" font-weight:600;\">Name</span>:<span style=\" font-weight:600;\">Email</span>:<span style=\" font-weight:600;\">Password</span>:<span style=\" font-weight:600;\">UserName</span>:<span style=\" font-weight:600;\">Cookies</span>:<span style=\" font-weight:600;\">Type:Insta</span></p></body></html>"))
         self.AddMultiAccount.setText(_translate("Form", "Add Multi Account"))
         self.Export.setText(_translate("Form", "Export"))
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -138,4 +148,8 @@ class Ui_Form(object):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "New Column"))
         item = self.tableWidget.horizontalHeaderItem(6)
+        item.setText(_translate("Form", "New Column"))
+        item = self.tableWidget.horizontalHeaderItem(7)
+        item.setText(_translate("Form", "New Column"))
+        item = self.tableWidget.horizontalHeaderItem(8)
         item.setText(_translate("Form", "New Column"))

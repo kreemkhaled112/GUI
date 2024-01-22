@@ -1,99 +1,122 @@
-/* Define styles for the 'title_label' widget */
-#title_label {
-    font-size: 16px;
-    font-family: Amazone BT;
-}
+/*= Style for mainwindow START
+  ==================================================== */
+	#MainWindow {
+		background-color: #fff;
+	}
+/*= END
+  ==================================================== */
 
-/* Define styles for the 'title_icon' widget */
-#title_icon {
-    max-width: 35px;
-    max-height: 35px;
-}
+/*= Style for button to change menu style START
+  ==================================================== */
+	#change_btn {
+		padding: 5px;
+		border: none;
+		width: 30px;
+		height: 30px;
+	}
+/*= END
+  ==================================================== */
 
-/* Define styles for the 'menu_btn' widget */
-#menu_btn {
-    border: none;
-}
+/*= Style for header widget START
+  ==================================================== */
+	#widget {
+		background-color: #f9fafd;
+	}
+/*= END
+  ==================================================== */
 
-/* Define styles for the 'QStackedWidget' */
-QStackedWidget {
-    background-color: #fff;
-}
+/*= Style for menu with icon only START
+  ==================================================== */
+  	/* style for widget */
+	#icon_only_widget {
+		background-color: #313a46;
+		width:50px;
+	}
 
-/* Define styles for 'QListWidget' and '#title_frame' */
-QListWidget,
-#title_frame {
-    background-color: #f0f0f0;
-}
+    /* style for QPushButton and QLabel */
+	#icon_only_widget QPushButton, QLabel {
+		height:50px;
+		border:none;
+		/* border-bottom: 1px solid #b0b0b0; */
+	}
 
-/* Define border styles for '#stackedWidget' and '#title_frame' */
-#stackedWidget,
-#title_frame {
-    border: 1px solid #828790;
-}
+	#icon_only_widget QPushButton:hover {
+		background-color: rgba( 86, 101, 115, 0.5);
+	}
 
-/* Additional border style for '#stackedWidget' */
-#stackedWidget {
-    border-left: none;
-}
+	/* style for logo image */
+	#logo_label_1 {
+		padding: 5px
+	}
+/*= END
+  ==================================================== */
 
-/* Additional border style for '#title_frame' */
-#title_frame {
-    border-bottom: none;
-}
+/*= Style for menu with icon and text START
+  ==================================================== */
+	/* style for widget */
+	#full_menu_widget {
+		background-color: #313a46;
+	}
 
-/* Define font styles for '#listWidget' */
-#listWidget {
-    font-size: 13px;
-    font-family: Segoe UI Semibold;
-}
+	/* style for QPushButton */
+	#full_menu_widget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 15px;
+		color: #ffffff;
+	}
 
-/* Styles for list items in '#listWidget' and '#listWidget_icon_only' */
-#listWidget::item,
-#listWidget_icon_only::item {
-    /* Ensure borders are set for proper styling */
-    border: 0px;
-    padding: 5px 10px;
-    margin: 2px 0;
-}
+	#full_menu_widget QPushButton:hover {
+		background-color: rgba( 86, 101, 115, 0.5);
+	}
 
-/* Border radius for '#listWidget' items */
-#listWidget::item {
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
+	#full_menu_widget QPushButton:checked {
+		color: #fff;
+	}
 
-/* Border radius for '#listWidget_icon_only' items */
-#listWidget_icon_only::item {
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-}
+	/* style for logo image */
+	#logo_label_2 {
+		padding: 5px;
+		color: #fff;
+	}
 
-/* Padding adjustment for '#listWidget_icon_only' items */
-#listWidget_icon_only::item {
-    padding-top: 0px;
-}
+	/* style for APP title */
+	#logo_label_3 {
+		padding-right: 10px;
+		color: #fff;
+	}
+/*= END
+  ==================================================== */
 
-/* Hover effect for list items */
-#listWidget::item:hover,
-#listWidget_icon_only::item:hover {
-    background-color: #dadada;
-}
+/*= Style for search button START
+  ==================================================== */
+	#search_btn {
+		border: none;
+	}
+/*= END
+  ==================================================== */
 
-/* Selected item styles for list items */
-#listWidget::item:selected,
-#listWidget_icon_only::item:selected {
-    background-color: #00aaff;
-}
+/*= Style for search input START
+  ==================================================== */
+	#search_input {
+		border: none;
+		padding: 5px 10px;
+	}
 
-/* Define icon dimensions for '#listWidget' items */
-#listWidget::icon {
-    width: 16px;
-    height: 16px;
-}
+	#search_input:focus {
+		background-color: #70B9FE;
+	}
+/*= END
+  ==================================================== */
 
-/* Define icon dimensions for '#listWidget_icon_only' items */
-#listWidget_icon_only::icon {
-    width: 23px;
-    height: 23px;
-}
+/*= Style for user information button START
+  ==================================================== */
+	#user_btn {
+		border: none;
+	}
+    #search_btn {
+		border: none;
+	}
+/*= END
+  ==================================================== */

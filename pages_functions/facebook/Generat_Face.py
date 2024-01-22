@@ -1,7 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.facebook.Generat_ui import Ui_Form
-from pages_functions.__init__ import *
+from ui.facebook.Generat_face_ui import Ui_Form
 from pages_functions.facebook.Data.Edit import *
 from pages_functions.facebook.Data.Email import *
 from pages_functions.facebook.Data.Follow import *
@@ -10,9 +9,9 @@ from pages_functions.facebook.Data.JoinGroup import *
 from pages_functions.facebook.Data.Chrome import *
 from pages_functions.facebook.Data.Share import *
 
-class Generat(QWidget):
+class Generat_Face(QWidget):
     def __init__(self):
-        super(Generat, self).__init__()
+        super(Generat_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:

@@ -1,24 +1,20 @@
 from pages_functions.__init__ import *
+from ui.Public.Edit_ui import Ui_Form
+from pages_functions.Insta.Data.Chrome import *
+from pages_functions.Public.Select import Select_insta
 
-from ui.facebook.Edit_ui import Ui_Form
-from pages_functions.facebook.Data.Chrome import *
-from pages_functions.facebook.Data.Edit import *
-from pages_functions.facebook.Data.AddFriend import *
-from pages_functions.facebook.Data.Share import *
-from pages_functions.facebook.Data.Like import *
-from pages_functions.facebook.Data.JoinGroup import *
-from pages_functions.facebook.Data.Follow import *
-from pages_functions.function_insta.Select import Select_insta
-
-class Edit(QWidget):
+class Edit_insta(QWidget):
     def __init__(self):
-        super(Edit, self).__init__()
+        super(Edit_insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:
             style_str = style_file.read()
         self.setStyleSheet(style_str)
-
+        self.is_running = False
+        
+        self.type = 'normal'
+        self.ui.widget_6.hide()
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         self.ui.browes_photo.clicked.connect(self.Browes_photo)
         self.ui.browes_cover.clicked.connect(self.Browes_cover)
@@ -26,21 +22,17 @@ class Edit(QWidget):
 
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
-        self.ui.widget_Password.hide()
+
         self.ui.Add_Profile.stateChanged.connect(lambda state: self.toggle_page(state, 0))
         self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Add_Post.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Add_Friend.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 4))
-        self.ui.Add_Share.stateChanged.connect(lambda state: self.toggle_page(state, 5))
-        self.ui.Join_Group.stateChanged.connect(lambda state: self.toggle_page(state, 6))
-        self.ui.Like.stateChanged.connect(lambda state: self.toggle_page(state, 7))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 8))
-        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 9))
+        self.ui.Edit_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 2))
+        self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 3))
+        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 4))
+        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 5))
 
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
 
-        self.checked_state = [False,False,False,False,False,False,False,False,False,False]
+        self.checked_state = [False, False, False, False, False, False]
 
     def toggle_page(self, state, index):
         if state == 2: 
@@ -100,15 +92,8 @@ class Edit(QWidget):
             return password
         else:
             QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
-    def Bio(self):
-        if self.ui.lineEdit_bio.text() : return self.ui.lineEdit_bio.text()
-        else:
-            if self.ui.checkBox_bio.isChecked() : 
-                bio = cursor.execute('SELECT bio FROM bio ORDER BY RANDOM() LIMIT 1').fetchone()
-                return bio[0]
-            else: QMessageBox.warning(self, 'No Bio Selected', 'Please select an option.')
     def Select(self):
-        data = cursor.execute("SELECT * FROM account").fetchall()
+        data = cursor.execute("SELECT * FROM insta").fetchall()
         table_dialog = Select_insta(self,data)
         table_dialog.exec_()
 
@@ -124,15 +109,23 @@ class Edit(QWidget):
 
             for i in self.info :
                 if self.is_running :
-                    self.email = i[2]
+                    self.username = i[1]
                     self.password = i[3]
-                    self.cookie = i[5]
-                    
-                    result = self.Edit()
-                    if result == 'success': print(Colorate.Diagonal(Colors.green_to_blue, f'[ Done Update Account ] : [ {self.email}:{self.password} ]', 1))   
-                    elif result == 'Ban': print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error Update Account ] : [ {self.email}:{self.password} ]', 1))
-                    elif result == 'Error Edit': print('Error Edit')
-                    
+                    self.Chrom = Chrom_Insta()
+                    result = self.Chrom.login(self.username,self.password)
+                    if result != 'Ban':
+                        result = self.Edit()
+                        if result == 'success': 
+                            print(Colorate.Diagonal(Colors.green_to_blue, f'[ Done Update Account ] : [ {self.username}:{self.password} ]', 1))   
+                            self.Chrom.bot.quit()
+                        elif result == 'Ban':
+                            print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error Update Account ] : [ {self.username}:{self.password} ]', 1))
+                            self.Chrom.bot.quit()
+                        elif result == 'Error Edit':
+                            print('Error Edit')
+                    else:
+                        cursor.execute(f'DELETE FROM insta WHERE username = "{self.username}" ') ; conn.commit()
+                        print("Ban")
             print('Finesh')
             self.ui.Start.setText("Start")
             self.is_running = False
@@ -140,40 +133,22 @@ class Edit(QWidget):
     def Edit(self):
         try:
             if self.ui.Add_Profile.isChecked() :
-                result = Edit_Photo(self.addphoto,self.cookie)
+                result = self.Chrom.Add_Photo(self.addphoto)
                 if result == "Ban": return 'Ban'
-            if self.ui.Add_Cover.isChecked() :
-                while True :
-                    cover = Edit_Cover(self.addcover,self.cookie)
-                    if cover == "successfully" : break
-            # if self.ui.Add_Post.isChecked() :Edit_bio(self.Bio())
-            if self.ui.Add_Friend.isChecked() :
-                id = self.ui.textEdit_Friend.toPlainText()
-                for row in id:
-                    AddFriend(row,self.cookie)
-            if self.ui.Add_Bio.isChecked() :Edit_bio(self.Bio())
-            if self.ui.Add_Share.isChecked() :
-                share(self.Bio())
-            if self.ui.Join_Group.isChecked() :
-                id = self.ui.textEdit_Group.toPlainText()
-                for row in id :
-                    JoinGroup(row,self.cookie)
-            if self.ui.Like.isChecked() :
-                id = self.ui.textEdit_Like.toPlainText()
-                for row in id :
-                    Like(self.cookie)
-            if self.ui.Follow.isChecked() :
-                id = self.ui.textEdit_Follow.toPlainText()
-                for row in id :
-                    Follow(row,self.cookie)
+            if self.ui.Add_Cover.isChecked() :self.Chrom.Add_Cover(self.addcover)
+            if self.ui.Edit_Bio.isChecked() :self.Chrom.Edit_Bio(self.ui.lineEdit_bio.text())
+            if self.ui.Profrssional.isChecked() :
+                type = self.Chrom.profrssional()
+                if type == 'successfully':
+                    try:cursor.execute(f"UPDATE insta SET type = 'pro' WHERE username = '{self.username}' ") ; conn.commit()
+                    except:print(f"Faild Contect Database ")
             if self.ui.Change_Password.isChecked() :
                 self.new_password = self.Password()
-                result = Change_Password(self.password , self.new_password)
+                result = self.Chrom.changepassword(self.password , self.new_password)
                 if result == 'success' :
-                    try:cursor.execute(f"UPDATE account SET password = '{self.new_password}' WHERE email = '{self.email}' ") ; conn.commit()
+                    try:cursor.execute(f"UPDATE insta SET password = '{self.new_password}' WHERE username = '{self.username}' ") ; conn.commit()
                     except:print(f"Faild Contect Database ")
                     self.password = self.new_password
-            
             return 'success'
         except : return 'Error Edit'
     def Update_info(self,info):

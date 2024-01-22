@@ -1,9 +1,8 @@
 from pages_functions.__init__ import *
 
 
-from ui.insta.Generat_ui import Ui_Form
+from ui.insta.Generat_insta_ui import Ui_Form
 from pages_functions.__init__ import *
-from pages_functions.insta.Data.Follow import *
 from pages_functions.insta.Data.Chrome import *
 
 class Generat_insta(QWidget):

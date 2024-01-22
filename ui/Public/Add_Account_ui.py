@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'p:\API\GUI\ui\insta\Add_Account.ui'
+# Form implementation generated from reading ui file 'p:\API\GUI\ui\Public\Add_Account.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #

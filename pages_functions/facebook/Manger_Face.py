@@ -1,12 +1,12 @@
 from pages_functions.__init__ import *
 
-from ui.facebook.Manger_ui import Ui_Form
-from pages_functions.insta.Add_Account import Add_Account_insta
-from pages_functions.insta.Export import Export_insta
+from ui.facebook.Manger_face_ui import Ui_Form
+from pages_functions.Public.Add_Account import Add_Account_insta
+from pages_functions.Public.Export import Export_insta
 
-class Manger(QWidget):
+class Manger_Face(QWidget):
     def __init__(self):
-        super(Manger, self).__init__()
+        super(Manger_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:

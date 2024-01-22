@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="icon">
     <file>icon/home-1.ico</file>
+    <file>icon/home-2.ico</file>
+    <file>icon/search.ico</file>
     <file>icon/user.ico</file>
     <file>icon/arrow-1.ico</file>
     <file>icon/arrow-2.ico</file>

@@ -1,8 +1,6 @@
 from pages_functions.__init__ import *
 
-
-from ui.insta.Add_Account_ui import Ui_Form
-from pages_functions.__init__ import *
+from ui.Public.Add_Account_ui import Ui_Form
 
 class Add_Account_insta(QDialog):
     def __init__(self, parent=None):
