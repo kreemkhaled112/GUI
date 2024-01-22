@@ -1,0 +1,82 @@
+from pages_functions.__init__ import *
+
+class Like:
+    def __init__(self, url ,type ,cookie) -> None:
+        self.req = requests.Session()
+        self.headers = Header()
+        self.req.headers.update(self.headers)
+        cookie = {'cookie': cookie }
+        self.req.cookies.update(cookie)
+        self.url = url
+        self.type = type
+        try:self.url = self.url.replace("www", "mbasic")
+        except:pass
+        
+        if self.type == "Random":
+            list = ["Like","Love","Care","Haha","Wow","Sad"]
+            rand = random.choice(list)
+            self.type = rand
+            self.Type_reaction()
+        else:
+            self.Type_reaction()
+
+        self.Get_post()
+
+    def Type_reaction (self):
+        if self.type == "Like" :
+            self.reaction_id = '1635855486666999'
+            self.reaction_type = "1"
+        if self.type == "Love" :
+            self.reaction_id = '1678524932434102'
+            self.reaction_type = "2"
+        if self.type == "Care" :
+            self.reaction_id = '613557422527858'
+            self.reaction_type = "16"
+        if self.type == "Haha" :
+            self.reaction_id = '115940658764963'
+            self.reaction_type = "4"
+        if self.type == "Wow" :
+            self.reaction_id = '478547315650144'
+            self.reaction_type = 3
+        if self.type == "Sad" :
+            self.reaction_id = '908563459236466'
+            self.reaction_type = "7"
+    def Get_post(self):
+        response = self.req.get(self.url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            href = soup.select_one('a[href^="/reactions/picker/?"]').get('href')
+            sleep(1)
+            self.Get_reactions(href)
+        else:print("Faild Get_post")
+
+    def Get_reactions(self,href):
+        self.headers['referer'] = self.url
+        self.req.headers.update(self.headers)
+
+        response = self.req.get( f'https://mbasic.facebook.com/{href}' )
+        self.referer = response.url
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')
+            for a in soup.find_all('a', href=True):
+                parsed_url = urlparse(a['href'])
+                query_params = parse_qs(parsed_url.query)
+
+                if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
+                    print(f"Already {self.type} befor")
+                elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
+                    href = a['href']
+                    sleep(1)
+                    self.Like_post(href)
+        else:
+            print("Faild Get_reactions") 
+
+    def Like_post(self,href):
+        self.headers['referer'] = self.referer
+        self.req.headers.update(self.headers)
+
+        response = self.req.get( f'https://mbasic.facebook.com/{href}' )
+        if response.status_code == 200 :
+            print(f"Done {self.type}")
+            print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Done {self.type} ] : [ {id} ]', 1))
+            sleep(1)
