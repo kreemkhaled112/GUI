@@ -1,6 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.public.Export_ui import Ui_Form
+from ui.Public.Export_ui import Ui_Form
 
 class Export_insta(QDialog):
     def __init__(self, parent=None, tableWidget=None):

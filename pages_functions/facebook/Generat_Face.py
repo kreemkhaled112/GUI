@@ -1,22 +1,21 @@
 from pages_functions.__init__ import *
 
-from ui.facebook.Generat_face_ui import Ui_Form
-from pages_functions.facebook.Data.Edit import *
-from pages_functions.facebook.Data.Email import *
-from pages_functions.facebook.Data.Follow import *
-from pages_functions.facebook.Data.AddFriend import *
-from pages_functions.facebook.Data.JoinGroup import *
-from pages_functions.facebook.Data.Chrome import *
-from pages_functions.facebook.Data.Share import *
+from ui.Public.Generat_ui import Ui_Form
+from pages_functions.Facebook.Edit_Face import Edit_Face
+
+from pages_functions.Facebook.Data.Edit import *
+from pages_functions.Facebook.Data.Email import *
+from pages_functions.Facebook.Data.Follow import *
+from pages_functions.Facebook.Data.AddFriend import *
+from pages_functions.Facebook.Data.JoinGroup import *
+from pages_functions.Facebook.Data.Chrome import *
+from pages_functions.Facebook.Data.Share import *
 
 class Generat_Face(QWidget):
     def __init__(self):
         super(Generat_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
         self.is_running = False
         self.Error = 3
         self.Error1 = 600
@@ -24,34 +23,12 @@ class Generat_Face(QWidget):
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
-        self.ui.widget_2.hide()
-        self.ui.widget_4.hide()
-        self.ui.widget_6.hide()
+        self.ui.widget_Name1.hide()
+        self.ui.widget_Password1.hide()
 
-        self.ui.Add_Profile.stateChanged.connect(lambda state: self.toggle_page(state, 0))
-        self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Add_City.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Add_Home.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.AddPost.stateChanged.connect(lambda state: self.toggle_page(state, 4))
-        self.ui.Add_Friend.stateChanged.connect(lambda state: self.toggle_page(state, 5))
-        self.ui.Add_Share.stateChanged.connect(lambda state: self.toggle_page(state, 6))
-        self.ui.Join_Groub.stateChanged.connect(lambda state: self.toggle_page(state, 7))
-        self.ui.Edit_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 8))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 9))
-        self.ui.Like.stateChanged.connect(lambda state: self.toggle_page(state, 10))
-        self.ui.Creat.clicked.connect(lambda : Thread(target=self.Start).start())
+        self.ui.stackedWidget.addWidget(Edit_Face())
+        self.ui.stackedWidget.setCurrentIndex(0)
 
-        self.checked_state = [False, False, False,False, False, False,False, False, False, False, False]
-
-    def toggle_page(self, state, index):
-        if state == 2: 
-            self.checked_state[index] = True
-            self.ui.stackedWidget.setCurrentIndex(index)
-            self.ui.stackedWidget.widget(index).setVisible(True)
-        elif self.checked_state[index]:
-            self.checked_state[index] = False
-            self.ui.stackedWidget.widget(index).setVisible(False)
-            self.ui.stackedWidget.setCurrentIndex(0)
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
         else:
@@ -82,7 +59,7 @@ class Generat_Face(QWidget):
                     return email , 'Moakt'
                 elif self.ui.radioButton_5.isChecked():
                     self.Message = Mohmal()
-                    email = Message.Get_Random()
+                    email = self.Message.Get_Random()
                     return email , 'Mohmal'
                 elif self.ui.radioButton_6.isChecked():
                     return 'mailtm'
@@ -108,10 +85,10 @@ class Generat_Face(QWidget):
         
     def Start(self):
         if self.is_running == False :
-            self.ui.Creat.setText("Stop")
+            self.ui.Start.setText("Stop")
             self.is_running = True
         elif self.is_running :
-            self.ui.Creat.setText("Creat")
+            self.ui.Start.setText("Creat")
             self.is_running = False
         Successfully = 0
         Failed = 0

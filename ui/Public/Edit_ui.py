@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1017, 820)
+        Form.resize(1017, 767)
         Form.setStyleSheet("QPushButton l{\n"
 "        border:none;\n"
 "        border-radius: 3px;\n"
@@ -43,9 +43,9 @@ class Ui_Form(object):
         self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.widget_57)
         self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_18.setObjectName("verticalLayout_18")
-        self.Add_Photo_Profile = QtWidgets.QCheckBox(parent=self.widget_57)
-        self.Add_Photo_Profile.setObjectName("Add_Photo_Profile")
-        self.verticalLayout_18.addWidget(self.Add_Photo_Profile)
+        self.Add_Profile_Photo = QtWidgets.QCheckBox(parent=self.widget_57)
+        self.Add_Profile_Photo.setObjectName("Add_Profile_Photo")
+        self.verticalLayout_18.addWidget(self.Add_Profile_Photo)
         self.Add_Cover = QtWidgets.QCheckBox(parent=self.widget_57)
         self.Add_Cover.setObjectName("Add_Cover")
         self.verticalLayout_18.addWidget(self.Add_Cover)
@@ -225,7 +225,7 @@ class Ui_Form(object):
         self.scrollArea_10.setWidgetResizable(True)
         self.scrollArea_10.setObjectName("scrollArea_10")
         self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 200, 645))
+        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 98, 71))
         self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
         self.gridLayout_30 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_5)
         self.gridLayout_30.setContentsMargins(0, 0, 0, 0)
@@ -280,7 +280,7 @@ class Ui_Form(object):
         self.scrollArea_12.setWidgetResizable(True)
         self.scrollArea_12.setObjectName("scrollArea_12")
         self.scrollAreaWidgetContents_11 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_11.setGeometry(QtCore.QRect(0, 0, 200, 627))
+        self.scrollAreaWidgetContents_11.setGeometry(QtCore.QRect(0, 0, 98, 71))
         self.scrollAreaWidgetContents_11.setMaximumSize(QtCore.QSize(200, 16777215))
         self.scrollAreaWidgetContents_11.setObjectName("scrollAreaWidgetContents_11")
         self.gridLayout_36 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_11)
@@ -311,7 +311,7 @@ class Ui_Form(object):
         self.scrollArea_13.setWidgetResizable(True)
         self.scrollArea_13.setObjectName("scrollArea_13")
         self.scrollAreaWidgetContents_12 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_12.setGeometry(QtCore.QRect(0, 0, 200, 627))
+        self.scrollAreaWidgetContents_12.setGeometry(QtCore.QRect(0, 0, 98, 71))
         self.scrollAreaWidgetContents_12.setMaximumSize(QtCore.QSize(200, 16777215))
         self.scrollAreaWidgetContents_12.setObjectName("scrollAreaWidgetContents_12")
         self.gridLayout_38 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_12)
@@ -342,7 +342,7 @@ class Ui_Form(object):
         self.scrollArea_11.setWidgetResizable(True)
         self.scrollArea_11.setObjectName("scrollArea_11")
         self.scrollAreaWidgetContents_10 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_10.setGeometry(QtCore.QRect(0, 0, 200, 627))
+        self.scrollAreaWidgetContents_10.setGeometry(QtCore.QRect(0, 0, 98, 71))
         self.scrollAreaWidgetContents_10.setMaximumSize(QtCore.QSize(200, 16777215))
         self.scrollAreaWidgetContents_10.setObjectName("scrollAreaWidgetContents_10")
         self.gridLayout_33 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_10)
@@ -553,14 +553,14 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.widget_2, 1, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(10)
         self.checkBox_password.toggled['bool'].connect(self.widget_Password.setVisible) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.Add_Photo_Profile.setText(_translate("Form", "Add Profile Photo"))
+        self.Add_Profile_Photo.setText(_translate("Form", "Add Profile Photo"))
         self.Add_Cover.setText(_translate("Form", "Add Cover Photo"))
         self.Add_Post.setText(_translate("Form", "Add Post"))
         self.Add_Bio.setText(_translate("Form", "Add Bio"))

@@ -1,6 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.insta.Manger_insta_ui import Ui_Form
+from ui.Insta.Manger_insta_ui import Ui_Form
 from pages_functions.__init__ import *
 from pages_functions.Public.Add_Account import Add_Account_insta
 from pages_functions.Public.Export import Export_insta
@@ -19,7 +19,7 @@ class Manger_Insta(QWidget):
         self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.data = cursor.execute("SELECT * FROM insta").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        self.loadTableData(self.data)
+        # self.loadTableData(self.data)
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)

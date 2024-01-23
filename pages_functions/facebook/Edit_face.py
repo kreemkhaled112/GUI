@@ -1,18 +1,18 @@
 from pages_functions.__init__ import *
 
 from ui.Public.Edit_ui import Ui_Form
-from pages_functions.facebook.Data.Chrome import *
-from pages_functions.facebook.Data.Edit import *
-from pages_functions.facebook.Data.AddFriend import *
-from pages_functions.facebook.Data.Share import *
-from pages_functions.facebook.Data.Like import *
-from pages_functions.facebook.Data.JoinGroup import *
-from pages_functions.facebook.Data.Follow import *
+from pages_functions.Facebook.Data.Chrome import *
+from pages_functions.Facebook.Data.Edit import *
+from pages_functions.Facebook.Data.AddFriend import *
+from pages_functions.Facebook.Data.Share import *
+from pages_functions.Facebook.Data.Like import *
+from pages_functions.Facebook.Data.JoinGroup import *
+from pages_functions.Facebook.Data.Follow import *
 from pages_functions.Public.Select import Select_insta
 
-class Edit(QWidget):
+class Edit_Face(QWidget):
     def __init__(self):
-        super(Edit, self).__init__()
+        super(Edit_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:
@@ -27,7 +27,7 @@ class Edit(QWidget):
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
         self.ui.widget_Password.hide()
-        self.ui.Add_Profile.stateChanged.connect(lambda state: self.toggle_page(state, 0))
+        self.ui.Add_Profile_Photo.stateChanged.connect(lambda state: self.toggle_page(state, 0))
         self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
         self.ui.Add_Post.stateChanged.connect(lambda state: self.toggle_page(state, 2))
         self.ui.Add_Friend.stateChanged.connect(lambda state: self.toggle_page(state, 3))

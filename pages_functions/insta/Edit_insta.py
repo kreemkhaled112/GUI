@@ -3,9 +3,9 @@ from ui.Public.Edit_ui import Ui_Form
 from pages_functions.Insta.Data.Chrome import *
 from pages_functions.Public.Select import Select_insta
 
-class Edit_insta(QWidget):
+class Edit_Insta(QWidget):
     def __init__(self):
-        super(Edit_insta, self).__init__()
+        super(Edit_Insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:
@@ -14,7 +14,7 @@ class Edit_insta(QWidget):
         self.is_running = False
         
         self.type = 'normal'
-        self.ui.widget_6.hide()
+        self.ui.stackedWidget.hide()
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         self.ui.browes_photo.clicked.connect(self.Browes_photo)
         self.ui.browes_cover.clicked.connect(self.Browes_cover)
@@ -23,9 +23,9 @@ class Edit_insta(QWidget):
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
 
-        self.ui.Add_Profile.stateChanged.connect(lambda state: self.toggle_page(state, 0))
+        self.ui.Add_Profile_Photo.stateChanged.connect(lambda state: self.toggle_page(state, 0))
         self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Edit_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 2))
+        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 2))
         self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 3))
         self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 4))
         self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 5))

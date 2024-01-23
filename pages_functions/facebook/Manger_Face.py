@@ -1,6 +1,6 @@
 from pages_functions.__init__ import *
 
-from ui.facebook.Manger_face_ui import Ui_Form
+from ui.Facebook.Manger_face_ui import Ui_Form
 from pages_functions.Public.Add_Account import Add_Account_insta
 from pages_functions.Public.Export import Export_insta
 

@@ -1,13 +1,13 @@
 from pages_functions.__init__ import *
 
 
-from ui.insta.Generat_insta_ui import Ui_Form
+from ui.Public.Generat_ui import Ui_Form
 from pages_functions.__init__ import *
-from pages_functions.insta.Data.Chrome import *
+from pages_functions.Insta.Data.Chrome import *
 
-class Generat_insta(QWidget):
+class Generat_Insta(QWidget):
     def __init__(self):
-        super(Generat_insta, self).__init__()
+        super(Generat_Insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         with open("static\style.qss", "r",encoding='utf-8') as style_file:
@@ -18,36 +18,11 @@ class Generat_insta(QWidget):
         self.Error1 = 600
         self.mp3 = "Data\\error.mp3"
         self.type = 'normal'
-        self.ui.widget_2.hide()
+        self.ui.widget_Name1.hide()
         # self.ui.widget_4.hide()
-        self.ui.widget_6.hide()
+        self.ui.widget_Password1.hide()
         self.ui.lineEdit_3.setText('pastaaa6000')
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
-        self.ui.pushButton_3.clicked.connect(self.Browes_photo)
-        self.ui.pushButton_4.clicked.connect(self.Browes_cover)
-        for i in range(self.ui.stackedWidget.count()):
-            self.ui.stackedWidget.widget(i).setVisible(False)
-
-        self.ui.Add_Profile.stateChanged.connect(lambda state: self.toggle_page(state, 0))
-        self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Edit_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 4))
-
-        self.ui.Switch.clicked.connect(lambda : Thread(target=self.Start).start())
-
-        self.checked_state = [False, False, False,False, False, False,False, False, False, False, False]
-
-
-    def toggle_page(self, state, index):
-        if state == 2: 
-            self.checked_state[index] = True
-            self.ui.stackedWidget.setCurrentIndex(index)
-            self.ui.stackedWidget.widget(index).setVisible(True)
-        elif self.checked_state[index]:
-            self.checked_state[index] = False
-            self.ui.stackedWidget.widget(index).setVisible(False)
-            self.ui.stackedWidget.setCurrentIndex(0)
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
         else:

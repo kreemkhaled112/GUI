@@ -1,28 +1,17 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QAction
+from PyQt6.QtWidgets import QApplication, QWidget, QUiLoader
+from PyQt6.uic import loadUiType
 
-class MyWindow(QMainWindow):
+# تحميل ملف UI
+Ui_Form, QMainWindow = loadUiType('your_ui_file.ui')
+
+class YourWidget(QWidget, Ui_Form):
     def __init__(self):
-        super().__init__()
+        super(YourWidget, self).__init__()
+        self.setupUi(self)
 
-        self.initUI()
-
-    def initUI(self):
-        # Create a QAction
-        exitAction = QAction('Exit', self)
-        exitAction.triggered.connect(self.close)
-
-        # Create a menu bar
-        menubar = self.menuBar()
-        fileMenu = menubar.addMenu('File')
-
-        # Add the action to the menu
-        fileMenu.addAction(exitAction)
-
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('QAction Example')
-        self.show()
-
+# تستخدم الكود الآتي لاستخدام الويدجت الخاصة بك
 if __name__ == '__main__':
     app = QApplication([])
-    window = MyWindow()
+    widget = YourWidget()
+    widget.show()
     app.exec()

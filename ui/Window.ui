@@ -434,10 +434,17 @@
              </property>
             </widget>
            </item>
-           <item alignment="Qt::AlignLeft">
+           <item>
             <widget class="QPushButton" name="Like_face">
              <property name="text">
               <string>Like</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="Share">
+             <property name="text">
+              <string>Share</string>
              </property>
             </widget>
            </item>
@@ -538,7 +545,7 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item alignment="Qt::AlignLeft">
+           <item>
             <widget class="QPushButton" name="Account_Manger_insta">
              <property name="text">
               <string>Account Manger</string>

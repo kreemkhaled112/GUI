@@ -1,5 +1,7 @@
 from pages_functions.__init__ import *
-
+class Mohmal:
+    def __init__(self, name ,type):
+        pass
 class Maokt:
     def __init__(self, name ,type):
         self.req = requests.Session()
