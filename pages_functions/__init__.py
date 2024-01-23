@@ -27,9 +27,14 @@ from pystyle import *
 # import pygame
 import logging
 from configparser import ConfigParser
-from PyQt6.QtWidgets import *
-from PyQt6.QtGui import *
-from PyQt6.QtCore import Qt
+import PyQt5.sip
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
+import ctypes
+
+
+awareness = ctypes.c_int()
+ctypes.windll.shcore.GetProcessDpiAwareness(0, ctypes.byref(awareness))
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()

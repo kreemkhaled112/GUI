@@ -17,7 +17,7 @@ class Manger_Face(QWidget):
         self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.data = cursor.execute("SELECT * FROM account").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        # self.loadTableData(self.data)
+        self.loadTableData(self.data)
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)

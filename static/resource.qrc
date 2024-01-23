@@ -6,7 +6,9 @@
     <file>icon/user.ico</file>
     <file>icon/arrow-1.ico</file>
     <file>icon/arrow-2.ico</file>
-    <file>icon/x-mark-1</file>
-    <file>icon/x-mark-2</file>
+    <file>icon/arrow-3.ico</file>
+    <file>icon/arrow-4.ico</file>
+    <file>icon/x-mark-1.ico</file>
+    <file>icon/x-mark-2.ico</file>
   </qresource>
 </RCC>

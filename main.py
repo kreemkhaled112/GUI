@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow 
+from PyQt5.QtWidgets import *
 
 from ui.Window_ui import Ui_MainWindow
 
@@ -53,6 +53,7 @@ class MyWindow(QMainWindow):
 
         ## Show home window when start app
         self.show_home_window()
+        self.ui.scrollArea.hide()
 
         ## Connect signal and slot
         self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
