@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>944</width>
-    <height>578</height>
+    <width>1041</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -225,7 +225,7 @@
          <x>0</x>
          <y>0</y>
          <width>150</width>
-         <height>578</height>
+         <height>646</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -388,7 +388,7 @@
            <item alignment="Qt::AlignLeft">
             <widget class="QPushButton" name="Account_Manger_face">
              <property name="text">
-              <string>Accout Manger</string>
+              <string>Account Manger</string>
              </property>
             </widget>
            </item>
@@ -548,21 +548,21 @@
            <item>
             <widget class="QPushButton" name="Account_Manger_insta">
              <property name="text">
-              <string>Account Manger</string>
+              <string>Account Mange</string>
              </property>
             </widget>
            </item>
            <item alignment="Qt::AlignLeft">
             <widget class="QPushButton" name="Account_Edit_insta">
              <property name="text">
-              <string>Account Edit</string>
+              <string>Accout Edit</string>
              </property>
             </widget>
            </item>
            <item alignment="Qt::AlignLeft">
             <widget class="QPushButton" name="Account_Generat_insta">
              <property name="text">
-              <string>Account Generat</string>
+              <string>Accout Generat</string>
              </property>
             </widget>
            </item>

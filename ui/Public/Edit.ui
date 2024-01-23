@@ -147,7 +147,7 @@ border: none;
       <item row="0" column="1">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>10</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page_photo">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -187,6 +187,9 @@ border: none;
                 <item>
                  <widget class="QLineEdit" name="lineEdit_photo">
                   <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
                    <string>E:\New folder (5)\Face\Facebook Api\Creat\photo</string>
                   </property>
                  </widget>
@@ -279,7 +282,10 @@ border: none;
                 <item>
                  <widget class="QLineEdit" name="lineEdit_cover">
                   <property name="text">
-                   <string>E:\New folder (5)\Face\Facebook Api\Creat\cover</string>
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
+                   <string>E:\New folder (5)\Face\Facebook Api\Creat\Cover</string>
                   </property>
                  </widget>
                 </item>
@@ -341,6 +347,9 @@ border: none;
              <item alignment="Qt::AlignLeft">
               <widget class="QLineEdit" name="lineEdit_21">
                <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
                 <string>Text</string>
                </property>
               </widget>
@@ -348,18 +357,40 @@ border: none;
              <item>
               <widget class="QWidget" name="widget_65" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_42">
-                <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item alignment="Qt::AlignRight|Qt::AlignVCenter">
                  <widget class="QLabel" name="label_14">
                   <property name="text">
-                   <string>Photo</string>
+                   <string>Photo :</string>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
                   </property>
                  </widget>
                 </item>
+                <item alignment="Qt::AlignLeft|Qt::AlignVCenter">
+                 <widget class="QLabel" name="number_post">
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
                 <item alignment="Qt::AlignRight">
-                 <widget class="QPushButton" name="pushButton_22">
+                 <widget class="QPushButton" name="browes_post">
                   <property name="text">
                    <string>Select Photo</string>
                   </property>
@@ -399,6 +430,9 @@ border: none;
                 <item>
                  <widget class="QLineEdit" name="lineEdit_bio">
                   <property name="text">
+                   <string/>
+                  </property>
+                  <property name="placeholderText">
                    <string>Enter Bio</string>
                   </property>
                  </widget>
@@ -474,8 +508,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>71</height>
+                  <width>200</width>
+                  <height>592</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_30">
@@ -598,8 +632,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>71</height>
+                  <width>200</width>
+                  <height>574</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -670,8 +704,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>71</height>
+                  <width>200</width>
+                  <height>574</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -742,8 +776,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>71</height>
+                  <width>200</width>
+                  <height>574</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -871,6 +905,9 @@ border: none;
              <item alignment="Qt::AlignLeft">
               <widget class="QLineEdit" name="lineEdit_23">
                <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
                 <string>Text</string>
                </property>
               </widget>
@@ -878,6 +915,9 @@ border: none;
              <item>
               <widget class="QLineEdit" name="lineEdit_24">
                <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
                 <string>Link</string>
                </property>
               </widget>
@@ -1044,7 +1084,7 @@ border: none;
     <widget class="QWidget" name="widget_2" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_16">
       <item>
-       <widget class="QWidget" name="widget_4" native="true">
+       <widget class="QWidget" name="widget_Select" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item alignment="Qt::AlignLeft">
           <widget class="QPushButton" name="Select_Account">
@@ -1084,7 +1124,7 @@ border: none;
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="widget_46" native="true">
+       <widget class="QWidget" name="widget_Info" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_31">
          <item>
           <widget class="QLabel" name="label_26">

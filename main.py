@@ -11,9 +11,9 @@ from pages_functions.Facebook.Join import Join
 from pages_functions.Facebook.Follow import Follow
 from pages_functions.Facebook.Like import Like
 from pages_functions.Facebook.Share import Share
-from pages_functions.Insta.Manger_insta import Manger_Insta
-from pages_functions.Insta.Edit_insta import Edit_Insta
-from pages_functions.Insta.Generat_insta import Generat_Insta
+from pages_functions.Insta.Manger_Insta import Manger_Insta
+from pages_functions.Insta.Edit_Insta import Edit_Insta
+from pages_functions.Insta.Generat_Insta import Generat_Insta
 
 
 class MyWindow(QMainWindow):
@@ -101,7 +101,7 @@ class MyWindow(QMainWindow):
         self.ui.tabWidget.removeTab(index)
 
         if self.ui.tabWidget.count() == 0:
-            self.ui.scrollArea.setCurrentIndex(0)
+            # self.ui.scrollArea.setCurrentIndex(0)
             self.show_home_window()
 
     def open_tab_flag(self, tab):

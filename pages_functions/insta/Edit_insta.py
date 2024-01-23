@@ -8,27 +8,32 @@ class Edit_Insta(QWidget):
         super(Edit_Insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
+
         self.is_running = False
-        
         self.type = 'normal'
-        self.ui.stackedWidget.hide()
+
+        self.ui.widget_Password.hide()
+        self.ui.Add_Cover.hide()
+        self.ui.Add_Friend.hide()
+        self.ui.Join_Group.hide()
+        self.ui.Like.hide()
+        self.ui.Add_Share.hide()
+
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         self.ui.browes_photo.clicked.connect(self.Browes_photo)
         self.ui.browes_cover.clicked.connect(self.Browes_cover)
+        self.ui.browes_post.clicked.connect(self.Browes_post)
         self.ui.Select_Account.clicked.connect(self.Select)
 
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
 
         self.ui.Add_Profile_Photo.stateChanged.connect(lambda state: self.toggle_page(state, 0))
-        self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 4))
-        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 5))
+        self.ui.Add_Post.stateChanged.connect(lambda state: self.toggle_page(state, 2))
+        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 3))
+        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 6))
+        self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 9))
+        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 10))
 
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
 
@@ -43,27 +48,30 @@ class Edit_Insta(QWidget):
             self.checked_state[index] = False
             self.ui.stackedWidget.widget(index).setVisible(False)
             self.ui.stackedWidget.setCurrentIndex(0)
+
     def Browes_photo(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog  
-        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
-        if folderPath:
+        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
+        if folderPath[0]:
             corrected_path = normpath(folderPath).replace('/', '\\')
             random_file,file_count = self.get_random_file(folderPath)
             self.ui.lineEdit_photo.setText(folderPath)
             self.ui.number_photo.setText(f'{file_count}')
             self.addphoto = corrected_path + '\\' + random_file
-
     def Browes_cover(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog  
-        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
-        if folderPath:
+        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
+        if folderPath[0]:
             corrected_path = normpath(folderPath).replace('/', '\\')
             random_file,file_count = self.get_random_file(folderPath)
             self.ui.lineEdit_cover.setText(folderPath)
             self.ui.number_cover.setText(f'{file_count}')
             self.addcover = corrected_path + "\\" + random_file
+    def Browes_post(self):
+        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
+        if folderPath[0]:
+            corrected_path = normpath(folderPath).replace('/', '\\')
+            random_file,file_count = self.get_random_file(folderPath)
+            self.ui.number_post.setText(f'{file_count}')
+            self.post_photo = corrected_path + "\\" + random_file
     def get_random_file(self, folder_path):
         try:
             files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]

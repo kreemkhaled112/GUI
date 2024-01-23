@@ -58,7 +58,7 @@ border: none;
    <item row="0" column="0" alignment="Qt::AlignHCenter">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Follow</string>
+      <string>Share</string>
      </property>
     </widget>
    </item>

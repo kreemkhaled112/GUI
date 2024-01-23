@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(944, 578)
+        MainWindow.resize(1041, 646)
         MainWindow.setStyleSheet("#icon_only_widget {\n"
 "        background-color: #313a46;\n"
 "        width:50px;\n"
@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.full_menu_widget = QtWidgets.QWidget()
-        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 578))
+        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 646))
         self.full_menu_widget.setObjectName("full_menu_widget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.full_menu_widget)
         self.verticalLayout_4.setContentsMargins(2, 0, 0, 0)
@@ -334,7 +334,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.logo_label_2.setText(_translate("MainWindow", "Dashbord"))
         self.pushButton_3.setText(_translate("MainWindow", "FACEBOOK"))
-        self.Account_Manger_face.setText(_translate("MainWindow", "Accout Manger"))
+        self.Account_Manger_face.setText(_translate("MainWindow", "Account Manger"))
         self.Account_Edit_face.setText(_translate("MainWindow", "Account Edit"))
         self.Account_Generat_face.setText(_translate("MainWindow", "Account Generat"))
         self.Accept_Friend.setText(_translate("MainWindow", "Accept Frind"))
@@ -344,7 +344,7 @@ class Ui_MainWindow(object):
         self.Like_face.setText(_translate("MainWindow", "Like"))
         self.Share.setText(_translate("MainWindow", "Share"))
         self.pushButton_8.setText(_translate("MainWindow", "INSTGRAM"))
-        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Manger"))
-        self.Account_Edit_insta.setText(_translate("MainWindow", "Account Edit"))
-        self.Account_Generat_insta.setText(_translate("MainWindow", "Account Generat"))
+        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Mange"))
+        self.Account_Edit_insta.setText(_translate("MainWindow", "Accout Edit"))
+        self.Account_Generat_insta.setText(_translate("MainWindow", "Accout Generat"))
         self.search_input.setPlaceholderText(_translate("MainWindow", "Search..."))

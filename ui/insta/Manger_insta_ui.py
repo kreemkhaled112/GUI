@@ -32,6 +32,8 @@ class Ui_Form(object):
 "border: none;\n"
 "}")
         self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.widget = QtWidgets.QWidget(parent=Form)
         self.widget.setObjectName("widget")

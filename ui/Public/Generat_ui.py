@@ -13,12 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(870, 818)
-        Form.setStyleSheet("QLineEdit{\n"
-"   background-color: rgba( 86, 101, 115, 0.5)\n"
-"  }\n"
-"QCheckBox{\n"
-"background-color: #70B9FE;\n"
-"}\n"
+        Form.setStyleSheet("\n"
 "QPushButton l{\n"
 "        border:none;\n"
 "        border-radius: 3px;\n"
@@ -38,6 +33,8 @@ class Ui_Form(object):
 "border: none;\n"
 "}")
         self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.scrollArea = QtWidgets.QScrollArea(parent=Form)
         self.scrollArea.setMinimumSize(QtCore.QSize(0, 0))
@@ -45,10 +42,10 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 852, 800))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 870, 818))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
+        self.gridLayout_2.setObjectName("gridLayout_2")
         self.widget_Name = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Name.setObjectName("widget_Name")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget_Name)
@@ -66,7 +63,7 @@ class Ui_Form(object):
         self.checkBox = QtWidgets.QCheckBox(parent=self.widget_Name)
         self.checkBox.setObjectName("checkBox")
         self.horizontalLayout.addWidget(self.checkBox)
-        self.verticalLayout_2.addWidget(self.widget_Name)
+        self.gridLayout_2.addWidget(self.widget_Name, 0, 0, 1, 1)
         self.widget_Name1 = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Name1.setObjectName("widget_Name1")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_Name1)
@@ -80,7 +77,7 @@ class Ui_Form(object):
         self.radioButton_3 = QtWidgets.QRadioButton(parent=self.widget_Name1)
         self.radioButton_3.setObjectName("radioButton_3")
         self.horizontalLayout_2.addWidget(self.radioButton_3)
-        self.verticalLayout_2.addWidget(self.widget_Name1)
+        self.gridLayout_2.addWidget(self.widget_Name1, 1, 0, 1, 1)
         self.widget_Email = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Email.setObjectName("widget_Email")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget_Email)
@@ -89,6 +86,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.widget_Email)
         self.lineEdit_2.setStyleSheet("")
+        self.lineEdit_2.setText("")
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.horizontalLayout_3.addWidget(self.lineEdit_2)
         self.label_2 = QtWidgets.QLabel(parent=self.widget_Email)
@@ -97,7 +95,7 @@ class Ui_Form(object):
         self.checkBox_2 = QtWidgets.QCheckBox(parent=self.widget_Email)
         self.checkBox_2.setObjectName("checkBox_2")
         self.horizontalLayout_3.addWidget(self.checkBox_2)
-        self.verticalLayout_2.addWidget(self.widget_Email)
+        self.gridLayout_2.addWidget(self.widget_Email, 2, 0, 1, 1)
         self.widget_Email1 = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Email1.setObjectName("widget_Email1")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_Email1)
@@ -111,7 +109,7 @@ class Ui_Form(object):
         self.radioButton_6 = QtWidgets.QRadioButton(parent=self.widget_Email1)
         self.radioButton_6.setObjectName("radioButton_6")
         self.horizontalLayout_4.addWidget(self.radioButton_6)
-        self.verticalLayout_2.addWidget(self.widget_Email1)
+        self.gridLayout_2.addWidget(self.widget_Email1, 3, 0, 1, 1)
         self.widget_Password = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Password.setObjectName("widget_Password")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.widget_Password)
@@ -127,7 +125,7 @@ class Ui_Form(object):
         self.checkBox_3 = QtWidgets.QCheckBox(parent=self.widget_Password)
         self.checkBox_3.setObjectName("checkBox_3")
         self.horizontalLayout_5.addWidget(self.checkBox_3)
-        self.verticalLayout_2.addWidget(self.widget_Password)
+        self.gridLayout_2.addWidget(self.widget_Password, 4, 0, 1, 1)
         self.widget_Password1 = QtWidgets.QWidget(parent=self.scrollAreaWidgetContents)
         self.widget_Password1.setObjectName("widget_Password1")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget_Password1)
@@ -155,7 +153,7 @@ class Ui_Form(object):
         self.Generat_Password_2 = QtWidgets.QPushButton(parent=self.widget_Password1)
         self.Generat_Password_2.setObjectName("Generat_Password_2")
         self.verticalLayout.addWidget(self.Generat_Password_2, 0, QtCore.Qt.AlignmentFlag.AlignHCenter)
-        self.verticalLayout_2.addWidget(self.widget_Password1)
+        self.gridLayout_2.addWidget(self.widget_Password1, 5, 0, 1, 1)
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.scrollAreaWidgetContents)
         self.stackedWidget.setObjectName("stackedWidget")
         self.page_0 = QtWidgets.QWidget()
@@ -164,13 +162,14 @@ class Ui_Form(object):
         self.page_1 = QtWidgets.QWidget()
         self.page_1.setObjectName("page_1")
         self.stackedWidget.addWidget(self.page_1)
-        self.verticalLayout_2.addWidget(self.stackedWidget)
+        self.gridLayout_2.addWidget(self.stackedWidget, 6, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
         self.checkBox.toggled['bool'].connect(self.widget_Name1.setVisible) # type: ignore
         self.checkBox_3.toggled['bool'].connect(self.widget_Password1.setVisible) # type: ignore
+        self.checkBox_2.toggled['bool'].connect(self.widget_Email1.setVisible) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -182,8 +181,7 @@ class Ui_Form(object):
         self.radioButton.setText(_translate("Form", "Male"))
         self.radioButton_2.setText(_translate("Form", "Femal"))
         self.radioButton_3.setText(_translate("Form", "Random"))
-        self.lineEdit_2.setText(_translate("Form", "Email"))
-        self.lineEdit_2.setPlaceholderText(_translate("Form", "Name"))
+        self.lineEdit_2.setPlaceholderText(_translate("Form", "Email"))
         self.label_2.setText(_translate("Form", "OR"))
         self.checkBox_2.setText(_translate("Form", "Random"))
         self.radioButton_4.setText(_translate("Form", "Moakt"))

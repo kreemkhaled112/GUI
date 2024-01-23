@@ -24,10 +24,15 @@ class Generat_Face(QWidget):
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
         self.ui.widget_Name1.hide()
+        self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
 
-        self.ui.stackedWidget.addWidget(Edit_Face())
-        self.ui.stackedWidget.setCurrentIndex(0)
+        p= self.ui.stackedWidget.addWidget(Edit_Face())
+        self.ui.stackedWidget.setCurrentIndex(p)
+        # self.ui.Change_Password.hide()
+        # self.ui.widget_Select.hide()
+        # self.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())
+
 
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
@@ -83,59 +88,6 @@ class Generat_Face(QWidget):
         self.ui.Generat_Password_2.setText(password)
         return password
         
-    def Start(self):
-        if self.is_running == False :
-            self.ui.Start.setText("Stop")
-            self.is_running = True
-        elif self.is_running :
-            self.ui.Start.setText("Creat")
-            self.is_running = False
-        Successfully = 0
-        Failed = 0
-        while self.is_running :
-            result = self.Creat()
-            if result == 'success':
-                result = self.Edit()
-                if result == 'success':
-                    self.bot.refresh()
-                    WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
-                    cookies = self.bot.get_cookies()
-                    format = {}
-                    for cookie in cookies :
-                            format[cookie['name']] = cookie['value']
-                    cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-                    cursor.execute('INSERT INTO account (name , email, password, username ,cookies, gendar) VALUES ( ?, ?, ?, ?, ?, ?)', ( self.name , self.email, self.password, self.username, cookie_string,self.gender)) ;conn.commit()
-                    Successfully += 1
-                    print(Colorate.Diagonal(Colors.green_to_blue, f'[ Done Create Account ] : [ {self.email}:{self.password} ]', 1))
-                    self.Update(str(Successfully),str(Failed),time=str(0))
-                    self.bot.quit()
-                elif result == 'Error photo':
-                    print(Colorate.Diagonal(Colors.yellow_to_red, f'[ Error photo ] : [ {self.email}:{self.password} ]', 1))
-                    cursor.execute('INSERT INTO edit (name , email, password, username ,cookies, gendar) VALUES ( ?, ?, ?, ?, ?, ?)', ( self.name , self.email, self.password, self.username, cookie_string,self.gender))
-                    conn.commit()
-                    self.Update(Successfully,Failed,time=0)
-                    self.bot.quit()
-                elif result == 'failed':
-                    print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error ] : [ {self.email}:{self.password} ]', 1))
-                    conn.commit()
-                    for i in range(60):
-                        self.Update(Successfully,Failed,time=59-i)
-                        sleep(1)
-                    if Failed >= self.Error :
-                        pygame.mixer.init()
-                        pygame.mixer.music.load(self.mp3)
-                        pygame.mixer.music.play()
-                        for i in range(600):
-                            self.Update(Successfully,Failed,time=599-i)
-                            sleep(1)
-                        Failed = 0
-                    self.bot.quit()
-            elif result == 'Failed Start Chrome':
-                print('Failed Start Chrome')
-            elif result == 'No Masseg':
-                print('No Masseg')
-            elif result == 'Failed':
-                print('Failed')
     def Update(self,successful,faild,time):
         self.ui.successful.setText(successful)
         self.ui.faild.setText(successful)
@@ -223,5 +175,57 @@ class Generat_Face(QWidget):
             except Exception as e: return 'Failed'
         except:
             return 'Failed Start Chrome'
-    def Edit(self):
-        return 'success'
+
+    def Generat(self):
+        if self.is_running == False :
+            self.ui.Start.setText("Stop")
+            self.is_running = True
+        elif self.is_running :
+            self.ui.Start.setText("Creat")
+            self.is_running = False
+        Successfully = 0
+        Failed = 0
+        while self.is_running :
+            result = self.Creat()
+            if result == 'success':
+                result = self.Edit()
+                if result == 'success':
+                    self.bot.refresh()
+                    WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
+                    cookies = self.bot.get_cookies()
+                    format = {}
+                    for cookie in cookies :
+                            format[cookie['name']] = cookie['value']
+                    cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+                    cursor.execute('INSERT INTO account (groupname, name , email, password, username ,cookies, gendar) VALUES ( ?, ?, ?, ?, ?, ?, ?)', ( "Generat" ,self.name , self.email, self.password, self.username, cookie_string,self.gender)) ;conn.commit()
+                    Successfully += 1
+                    print(Colorate.Diagonal(Colors.green_to_blue, f'[ Done Create Account ] : [ {self.email}:{self.password} ]', 1))
+                    self.Update(str(Successfully),str(Failed),time=str(0))
+                    self.bot.quit()
+                elif result == 'Error photo':
+                    print(Colorate.Diagonal(Colors.yellow_to_red, f'[ Error photo ] : [ {self.email}:{self.password} ]', 1))
+                    cursor.execute('INSERT INTO edit (groupname, name , email, password, username ,cookies, gendar) VALUES ( ?, ?, ?, ?, ?, ?, ?)', ( "Generat" ,self.name , self.email, self.password, self.username, cookie_string,self.gender)) ;conn.commit()
+                    conn.commit()
+                    self.Update(Successfully,Failed,time=0)
+                    self.bot.quit()
+                elif result == 'failed':
+                    print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error ] : [ {self.email}:{self.password} ]', 1))
+                    conn.commit()
+                    for i in range(60):
+                        self.Update(Successfully,Failed,time=59-i)
+                        sleep(1)
+                    if Failed >= self.Error :
+                        pygame.mixer.init()
+                        pygame.mixer.music.load(self.mp3)
+                        pygame.mixer.music.play()
+                        for i in range(600):
+                            self.Update(Successfully,Failed,time=599-i)
+                            sleep(1)
+                        Failed = 0
+                    self.bot.quit()
+            elif result == 'Failed Start Chrome':
+                print('Failed Start Chrome')
+            elif result == 'No Masseg':
+                print('No Masseg')
+            elif result == 'Failed':
+                print('Failed')

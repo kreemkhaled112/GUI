@@ -1,8 +1,8 @@
 from pages_functions.__init__ import *
 
-
 from ui.Public.Generat_ui import Ui_Form
-from pages_functions.__init__ import *
+from pages_functions.Insta.Edit_Insta import Edit_Insta
+
 from pages_functions.Insta.Data.Chrome import *
 
 class Generat_Insta(QWidget):
@@ -10,19 +10,21 @@ class Generat_Insta(QWidget):
         super(Generat_Insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
+
         self.is_running = False
         self.Error = 3
         self.Error1 = 600
         self.mp3 = "Data\\error.mp3"
         self.type = 'normal'
         self.ui.widget_Name1.hide()
-        # self.ui.widget_4.hide()
+        self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
         self.ui.lineEdit_3.setText('pastaaa6000')
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
+        for i in range(self.ui.stackedWidget.count()):
+            self.ui.stackedWidget.widget(i).setVisible(False)
+        p= self.ui.stackedWidget.addWidget(Edit_Insta())
+        self.ui.stackedWidget.setCurrentIndex(p)
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
         else:
@@ -112,13 +114,12 @@ class Generat_Insta(QWidget):
 
     def Start(self):
         if self.is_running == False :
-            self.ui.Switch.setText("Stop")
+            self.ui.start.setText("Stop")
             self.is_running = True
         elif self.is_running :
             self.ui.Switch.setText("Switch")
             self.is_running = False
-        Successfully = 0
-        Failed = 0
+
         while self.is_running :
             result = self.switch()
             if result == 'success':

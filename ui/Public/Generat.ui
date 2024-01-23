@@ -14,12 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLineEdit{
-   background-color: rgba( 86, 101, 115, 0.5)
-  }
-QCheckBox{
-background-color: #70B9FE;
-}
+   <string notr="true">
 QPushButton l{
 		border:none;
 		border-radius: 3px;
@@ -40,6 +35,21 @@ border: none;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
     <widget class="QScrollArea" name="scrollArea">
      <property name="minimumSize">
@@ -59,12 +69,12 @@ border: none;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>852</width>
-        <height>800</height>
+        <width>870</width>
+        <height>818</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
         <widget class="QWidget" name="widget_Name" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <property name="spacing">
@@ -112,7 +122,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="1" column="0">
         <widget class="QWidget" name="widget_Name1" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -139,7 +149,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="2" column="0">
         <widget class="QWidget" name="widget_Email" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
@@ -163,10 +173,10 @@ border: none;
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>Email</string>
+             <string/>
             </property>
             <property name="placeholderText">
-             <string>Name</string>
+             <string>Email</string>
             </property>
            </widget>
           </item>
@@ -187,7 +197,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="3" column="0">
         <widget class="QWidget" name="widget_Email1" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
@@ -214,7 +224,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="4" column="0">
         <widget class="QWidget" name="widget_Password" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <property name="leftMargin">
@@ -256,7 +266,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="5" column="0">
         <widget class="QWidget" name="widget_Password1" native="true">
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="leftMargin">
@@ -327,7 +337,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item>
+       <item row="6" column="0">
         <widget class="QStackedWidget" name="stackedWidget">
          <widget class="QWidget" name="page_0"/>
          <widget class="QWidget" name="page_1"/>
@@ -348,12 +358,12 @@ border: none;
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>698</x>
-     <y>13</y>
+     <x>851</x>
+     <y>22</y>
     </hint>
     <hint type="destinationlabel">
-     <x>631</x>
-     <y>28</y>
+     <x>639</x>
+     <y>44</y>
     </hint>
    </hints>
   </connection>
@@ -364,12 +374,28 @@ border: none;
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>698</x>
-     <y>82</y>
+     <x>851</x>
+     <y>153</y>
     </hint>
     <hint type="destinationlabel">
-     <x>527</x>
-     <y>138</y>
+     <x>535</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget_Email1</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>818</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>817</x>
+     <y>116</y>
     </hint>
    </hints>
   </connection>
