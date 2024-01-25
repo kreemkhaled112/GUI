@@ -14,6 +14,7 @@ from pages_functions.Facebook.Data.Share import *
 class Generat_Face(QWidget):
     def __init__(self):
         super(Generat_Face, self).__init__()
+        Edit_Face().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.is_running = False
@@ -21,14 +22,12 @@ class Generat_Face(QWidget):
         self.Error1 = 600
         self.mp3 = "Data\\error.mp3"
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
-        for i in range(self.ui.stackedWidget.count()):
-            self.ui.stackedWidget.widget(i).setVisible(False)
+
         self.ui.widget_Name1.hide()
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
 
-        p= self.ui.stackedWidget.addWidget(Edit_Face())
-        self.ui.stackedWidget.setCurrentIndex(p)
+        QVBoxLayout(self.ui.widget_Edit).addWidget(Edit_Face())
         # self.ui.Change_Password.hide()
         # self.ui.widget_Select.hide()
         # self.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())

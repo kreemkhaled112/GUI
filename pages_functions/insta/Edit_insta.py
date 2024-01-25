@@ -37,7 +37,7 @@ class Edit_Insta(QWidget):
 
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
 
-        self.checked_state = [False, False, False, False, False, False]
+        self.checked_state = [False,False,False,False,False,False,False,False,False,False,False]
 
     def toggle_page(self, state, index):
         if state == 2: 

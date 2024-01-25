@@ -257,8 +257,8 @@ class Ui_MainWindow(object):
         self.change_btn = QtWidgets.QPushButton(self.widget)
         self.change_btn.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-1.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/icon/icon/arrow-1.ico"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.change_btn.setIcon(icon2)
         self.change_btn.setIconSize(QtCore.QSize(14, 14))
         self.change_btn.setCheckable(True)
@@ -331,8 +331,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(-1)
         self.pushButton_3.toggled['bool'].connect(self.menu_facebook.setHidden) # type: ignore
         self.pushButton_8.toggled['bool'].connect(self.menu_insta.setHidden) # type: ignore
-        self.change_btn.toggled['bool'].connect(self.scrollArea.setVisible) # type: ignore
-        self.change_btn.toggled['bool'].connect(self.icon_only_widget.setHidden) # type: ignore
+        self.change_btn.toggled['bool'].connect(self.icon_only_widget.setVisible) # type: ignore
+        self.change_btn.toggled['bool'].connect(self.scrollArea.setHidden) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

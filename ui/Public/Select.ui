@@ -43,27 +43,37 @@
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
-          <string>groub</string>
+          <string>Groub</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>username</string>
+          <string>Name</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>email</string>
+          <string>Email</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>password</string>
+          <string>Password</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>type</string>
+          <string>User Name</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Gender</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Insta</string>
          </property>
         </item>
        </widget>

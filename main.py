@@ -51,11 +51,11 @@ class MyWindow(QMainWindow):
             self.Account_Generat_insta: Generat_Insta(),
         }
 
-        ## Show home window when start app
+        # Show home window when start app
         self.show_home_window()
-        self.ui.scrollArea.hide()
+        self.ui.icon_only_widget.hide()
 
-        ## Connect signal and slot
+        # Connect signal and slot
         self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
 
         self.Account_Manger_face.clicked.connect(self.show_selected_window)

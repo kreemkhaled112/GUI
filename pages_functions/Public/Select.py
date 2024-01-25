@@ -7,9 +7,8 @@ class Select_insta(QDialog):
         super(Select_insta, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
+        
+        self.data = data
         
         self.ui.pushButton.clicked.connect(self.filter_table)
         self.ui.comboBox.currentIndexChanged.connect(self.filter_table)
@@ -53,6 +52,7 @@ class Select_insta(QDialog):
             if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
                 data = [self.ui.tableWidget.item(row, col).text() for col in range(1, self.ui.tableWidget.columnCount())]
                 data_to_save.append(data)
-        input(data_to_save)
+        # input(data_to_save)
+        sleep(2)
         self.parent().Update_info(data_to_save)
         self.accept()

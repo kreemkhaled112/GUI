@@ -14,36 +14,52 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(870, 818)
-        Form.setStyleSheet("QLineEdit{\n"
-"   background-color: rgba( 86, 101, 115, 0.5)\n"
-"  }\n"
-"QCheckBox{\n"
-"background-color: #70B9FE;\n"
-"}\n"
-"QPushButton l{\n"
-"        border:none;\n"
-"        border-radius: 3px;\n"
-"        text-align: left;\n"
-"        padding: 8px 0 8px 15px;\n"
-"        color: #788596;\n"
-"    }\n"
-"\n"
-"    QPushButton:hover {\n"
-"        background-color: rgba( 86, 101, 115, 0.5);\n"
-"    }\n"
-"\n"
-"    QPushButton:checked {\n"
-"        color: #fff;\n"
-"    }\n"
-"QScrollArea{\n"
-"border: none;\n"
-"}")
+        Form.resize(764, 611)
+        Form.setToolTipDuration(-1)
         self.gridLayout = QtWidgets.QGridLayout(Form)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setHorizontalSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtWidgets.QLabel(Form)
+        self.widget_1 = QtWidgets.QWidget(Form)
+        self.widget_1.setObjectName("widget_1")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.widget_1)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.table = QtWidgets.QTableWidget(self.widget_1)
+        self.table.setObjectName("table")
+        self.table.setColumnCount(4)
+        self.table.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(3, item)
+        self.gridLayout_2.addWidget(self.table, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget_1, 2, 0, 1, 1)
+        self.widget = QtWidgets.QWidget(Form)
+        self.widget.setObjectName("widget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label = QtWidgets.QLabel(self.widget)
         self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        self.horizontalLayout.addWidget(self.label)
+        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit.setObjectName("lineEdit")
+        self.horizontalLayout.addWidget(self.lineEdit)
+        self.add = QtWidgets.QPushButton(self.widget)
+        self.add.setObjectName("add")
+        self.horizontalLayout.addWidget(self.add)
+        self.import1 = QtWidgets.QPushButton(self.widget)
+        self.import1.setAcceptDrops(False)
+        self.import1.setToolTipDuration(-1)
+        self.import1.setObjectName("import1")
+        self.horizontalLayout.addWidget(self.import1)
+        self.gridLayout.addWidget(self.widget, 1, 0, 1, 1)
+        self.widget_Edit = QtWidgets.QWidget(Form)
+        self.widget_Edit.setObjectName("widget_Edit")
+        self.gridLayout.addWidget(self.widget_Edit, 3, 0, 1, 1)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -51,4 +67,22 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "Follow"))
+        Form.setToolTip(_translate("Form", "<html><head/><body><p>https://www.facebook.com/profile.php?id=Exampel</p><p>https://www.facebook.com/Exampel</p></body></html>"))
+        item = self.table.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "#"))
+        item = self.table.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Name"))
+        item = self.table.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Link"))
+        item = self.table.horizontalHeaderItem(3)
+        item.setText(_translate("Form", "Follwoing"))
+        self.label.setText(_translate("Form", "Query :"))
+        self.lineEdit.setPlaceholderText(_translate("Form", "https://www.facebook.com/"))
+        self.add.setText(_translate("Form", "Add"))
+        self.import1.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7pt;\">https://www.facebook.com/example</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:7pt;\">https://www.facebook.com/profile.php?id=example</span></p></body></html>"))
+        self.import1.setText(_translate("Form", "Import"))

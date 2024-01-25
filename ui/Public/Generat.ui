@@ -74,7 +74,7 @@ border: none;
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QWidget" name="widget_Name" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <property name="spacing">
@@ -122,7 +122,49 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="5" column="0">
+        <widget class="QWidget" name="widget_Password" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>OR</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_3">
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QWidget" name="widget_Name1" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
@@ -149,7 +191,34 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="4" column="0">
+        <widget class="QWidget" name="widget_Email1" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="radioButton_4">
+            <property name="text">
+             <string>Moakt</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_5">
+            <property name="text">
+             <string>Mohmal</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_6">
+            <property name="text">
+             <string>Random</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
         <widget class="QWidget" name="widget_Email" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <property name="spacing">
@@ -197,76 +266,7 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QWidget" name="widget_Email1" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QRadioButton" name="radioButton_4">
-            <property name="text">
-             <string>Moakt</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_5">
-            <property name="text">
-             <string>Mohmal</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_6">
-            <property name="text">
-             <string>Random</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QWidget" name="widget_Password" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QLineEdit" name="lineEdit_3">
-            <property name="text">
-             <string/>
-            </property>
-            <property name="placeholderText">
-             <string>Password</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>OR</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_3">
-            <property name="text">
-             <string>Random</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QWidget" name="widget_Password1" native="true">
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="leftMargin">
@@ -337,11 +337,8 @@ border: none;
          </layout>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QStackedWidget" name="stackedWidget">
-         <widget class="QWidget" name="page_0"/>
-         <widget class="QWidget" name="page_1"/>
-        </widget>
+       <item row="7" column="0">
+        <widget class="QWidget" name="widget_Edit" native="true"/>
        </item>
       </layout>
      </widget>

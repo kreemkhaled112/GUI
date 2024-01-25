@@ -9,38 +9,40 @@ class Manger_Face(QWidget):
         super(Manger_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
-        self.ui.pushButton.clicked.connect(self.filter_table)
-        self.ui.comboBox.currentIndexChanged.connect(self.filter_table)
-        self.ui.lineEdit.textChanged.connect(self.filter_table)
+
+        # tabel
         self.data = cursor.execute("SELECT * FROM account").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
         self.loadTableData(self.data)
+
+        # Connect signal and slot
+        self.ui.pushButton.clicked.connect(self.filter_table)
+        self.ui.comboBox.currentIndexChanged.connect(self.filter_table)
+        self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)
+
     def loadTableData(self, data):
-        self.ui.tableWidget.setRowCount(len(data))
+        self.ui.table.setRowCount(len(data))
         for row, row_data in enumerate(data):
             select_checkbox_item = QTableWidgetItem()
             select_checkbox_item.setFlags(select_checkbox_item.flags() | Qt.ItemIsUserCheckable)
             select_checkbox_item.setCheckState(Qt.CheckState.Unchecked)
             select_checkbox_item.setText(str(row + 1))
-            self.ui.tableWidget.setItem(row, 0, select_checkbox_item)
+            self.ui.table.setItem(row, 0, select_checkbox_item)
 
             for col, value in enumerate(row_data):
                 item = QTableWidgetItem(str(value))
-                self.ui.tableWidget.setItem(row, col + 1, item)
+                self.ui.table.setItem(row, col + 1, item)
 
-        self.ui.tableWidget.verticalHeader().hide()
-        self.ui.tableWidget.setColumnWidth(0, 50)
+        self.ui.table.verticalHeader().hide()
+        self.ui.table.setColumnWidth(0, 50)
         headers = ["#"] + [description[0] for description in cursor.description]
-        self.ui.tableWidget.setHorizontalHeaderLabels(headers)
+        self.ui.table.setHorizontalHeaderLabels(headers)
+        self.ui.table.horizontalHeader().setStretchLastSection(True)
 
-        # CustomContextMenu is now a signal directly, no need for setContextMenuPolicy
-        self.ui.tableWidget.customContextMenuRequested.connect(self.show_context_menu)
+        self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
     def show_context_menu(self, position):
         context_menu = QMenu(self)

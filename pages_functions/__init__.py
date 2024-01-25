@@ -24,7 +24,7 @@ from time import sleep ,time
 import re
 import sqlite3
 from pystyle import *
-# import pygame
+import pygame
 import logging
 from configparser import ConfigParser
 import PyQt5.sip

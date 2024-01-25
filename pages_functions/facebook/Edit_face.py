@@ -40,7 +40,7 @@ class Edit_Face(QWidget):
         self.ui.Add_Share.stateChanged.connect(lambda state: self.toggle_page(state, 8))
         self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 10))
 
-        self.checked_state = [False,False,False,False,False,False,False,False,False,False]
+        self.checked_state = [False,False,False,False,False,False,False,False,False,False,False]
 
     def toggle_page(self, state, index):
         if state == 2:

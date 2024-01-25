@@ -21,10 +21,7 @@ class Generat_Insta(QWidget):
         self.ui.widget_Password1.hide()
         self.ui.lineEdit_3.setText('pastaaa6000')
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
-        for i in range(self.ui.stackedWidget.count()):
-            self.ui.stackedWidget.widget(i).setVisible(False)
-        p= self.ui.stackedWidget.addWidget(Edit_Insta())
-        self.ui.stackedWidget.setCurrentIndex(p)
+        QVBoxLayout(self.ui.widget_Edit).addWidget(Edit_Insta())
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
         else:

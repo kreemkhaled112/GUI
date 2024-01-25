@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1008</width>
+    <width>920</width>
     <height>476</height>
    </rect>
   </property>
@@ -200,7 +200,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="table">
         <column>
          <property name="text">
           <string>New Column</string>

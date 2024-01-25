@@ -647,8 +647,8 @@
             </property>
             <property name="icon">
              <iconset resource="../static/resource.qrc">
-              <normaloff>:/icon/icon/arrow-1.ico</normaloff>
-              <normalon>:/icon/icon/arrow-2.ico</normalon>:/icon/icon/arrow-1.ico</iconset>
+              <normaloff>:/icon/icon/arrow-2.ico</normaloff>
+              <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -814,32 +814,32 @@ border: solid #0066cc 2px;
   <connection>
    <sender>change_btn</sender>
    <signal>toggled(bool)</signal>
-   <receiver>scrollArea</receiver>
+   <receiver>icon_only_widget</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>215</x>
-     <y>26</y>
+     <x>194</x>
+     <y>25</y>
     </hint>
     <hint type="destinationlabel">
-     <x>172</x>
-     <y>439</y>
+     <x>0</x>
+     <y>409</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>change_btn</sender>
    <signal>toggled(bool)</signal>
-   <receiver>icon_only_widget</receiver>
+   <receiver>scrollArea</receiver>
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>201</x>
-     <y>26</y>
+     <x>202</x>
+     <y>19</y>
     </hint>
     <hint type="destinationlabel">
-     <x>0</x>
-     <y>354</y>
+     <x>150</x>
+     <y>536</y>
     </hint>
    </hints>
   </connection>
