@@ -27,14 +27,8 @@ from pystyle import *
 import pygame
 import logging
 from configparser import ConfigParser
-import PyQt5.sip
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-import ctypes
-
-
-awareness = ctypes.c_int()
-ctypes.windll.shcore.GetProcessDpiAwareness(0, ctypes.byref(awareness))
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()
@@ -51,4 +45,25 @@ def Header():
         'Sec-Fetch-User': '?1',
     }
     return headers
+class QMessage(CTk):
+    def __init__(self, text , title = None , *args, **kwargs) :
+        super().__init__(*args, **kwargs)
+        self.title('Follow')
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = (screen_width - 200) // 2
+        y = (screen_height - 100) // 2
+        self.geometry(f"200x100+{x}+{y}")
+        self.resizable(False,False)
+        self.title(title)
+        CTkLabel(self,text=text ).place(x=25,y=15)
+        self.value = StringVar()
+        ok = CTkButton(self, text="Ok", width=100, command=self.Ok)
+        ok.place(x=45, y=55)
+
+    def Ok(self):
+        self.value.set("Ok")
+        self.destroy()
+
+
 

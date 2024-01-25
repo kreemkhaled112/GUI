@@ -41,7 +41,7 @@ class Manger_Face(QWidget):
         headers = ["#"] + [description[0] for description in cursor.description]
         self.ui.table.setHorizontalHeaderLabels(headers)
         self.ui.table.horizontalHeader().setStretchLastSection(True)
-
+        self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
     def show_context_menu(self, position):
@@ -50,7 +50,7 @@ class Manger_Face(QWidget):
         show= QAction("Show in Browser", self)
         Edit= QAction("Edit", self)
         Update= QAction("Update", self)
-        Delet= QAction("Delet", self)
+        Delet= QAction("Delete", self)
 
         Edit.triggered.connect(self.select_all_rows)
         Update.triggered.connect(self.select_all_rows)

@@ -86,6 +86,9 @@ class Ui_Form(object):
         self.widget_Name1.setObjectName("widget_Name1")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_Name1)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_3 = QtWidgets.QLabel(self.widget_Name1)
+        self.label_3.setObjectName("label_3")
+        self.horizontalLayout_2.addWidget(self.label_3, 0, QtCore.Qt.AlignHCenter)
         self.radioButton = QtWidgets.QRadioButton(self.widget_Name1)
         self.radioButton.setObjectName("radioButton")
         self.horizontalLayout_2.addWidget(self.radioButton)
@@ -163,7 +166,6 @@ class Ui_Form(object):
         self.gridLayout.addWidget(self.scrollArea, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.checkBox.toggled['bool'].connect(self.widget_Name1.setVisible) # type: ignore
         self.checkBox_3.toggled['bool'].connect(self.widget_Password1.setVisible) # type: ignore
         self.checkBox_2.toggled['bool'].connect(self.widget_Email1.setVisible) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -177,6 +179,7 @@ class Ui_Form(object):
         self.lineEdit_3.setPlaceholderText(_translate("Form", "Password"))
         self.label_5.setText(_translate("Form", "OR"))
         self.checkBox_3.setText(_translate("Form", "Random"))
+        self.label_3.setText(_translate("Form", "Gender:"))
         self.radioButton.setText(_translate("Form", "Male"))
         self.radioButton_2.setText(_translate("Form", "Femal"))
         self.radioButton_3.setText(_translate("Form", "Random"))

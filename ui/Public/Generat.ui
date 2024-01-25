@@ -167,6 +167,13 @@ border: none;
        <item row="2" column="0">
         <widget class="QWidget" name="widget_Name1" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Gender:</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QRadioButton" name="radioButton">
             <property name="text">
@@ -349,34 +356,18 @@ border: none;
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>widget_Name1</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>851</x>
-     <y>22</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>639</x>
-     <y>44</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>checkBox_3</sender>
    <signal>toggled(bool)</signal>
    <receiver>widget_Password1</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>851</x>
-     <y>153</y>
+     <x>860</x>
+     <y>525</y>
     </hint>
     <hint type="destinationlabel">
-     <x>535</x>
-     <y>178</y>
+     <x>534</x>
+     <y>593</y>
     </hint>
    </hints>
   </connection>
@@ -387,12 +378,12 @@ border: none;
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>818</x>
-     <y>97</y>
+     <x>860</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
-     <x>817</x>
-     <y>116</y>
+     <x>816</x>
+     <y>367</y>
     </hint>
    </hints>
   </connection>

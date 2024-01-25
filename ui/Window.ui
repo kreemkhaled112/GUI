@@ -560,21 +560,21 @@
            <item>
             <widget class="QPushButton" name="Account_Manger_insta">
              <property name="text">
-              <string>Account Mange</string>
+              <string>Account Manger</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="Account_Edit_insta">
              <property name="text">
-              <string>Accout Edit</string>
+              <string>Account Edit</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="Account_Generat_insta">
              <property name="text">
-              <string>Accout Generat</string>
+              <string>Account Generat</string>
              </property>
             </widget>
            </item>

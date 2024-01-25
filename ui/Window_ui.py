@@ -350,8 +350,8 @@ class Ui_MainWindow(object):
         self.Like_face.setText(_translate("MainWindow", "Like"))
         self.Share.setText(_translate("MainWindow", "Share"))
         self.pushButton_8.setText(_translate("MainWindow", "INSTGRAM"))
-        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Mange"))
-        self.Account_Edit_insta.setText(_translate("MainWindow", "Accout Edit"))
-        self.Account_Generat_insta.setText(_translate("MainWindow", "Accout Generat"))
+        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Manger"))
+        self.Account_Edit_insta.setText(_translate("MainWindow", "Account Edit"))
+        self.Account_Generat_insta.setText(_translate("MainWindow", "Account Generat"))
         self.search_input.setPlaceholderText(_translate("MainWindow", "Search..."))
 from static import resource_rc

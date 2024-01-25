@@ -19,7 +19,7 @@ class Manger_Insta(QWidget):
         self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.data = cursor.execute("SELECT * FROM insta").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        # self.loadTableData(self.data)
+        self.loadTableData(self.data)
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)
@@ -48,7 +48,7 @@ class Manger_Insta(QWidget):
         show= QAction("Show in Browser", self)
         Edit= QAction("Edit", self)
         Update= QAction("Update", self)
-        Delet= QAction("Delet", self)
+        Delet= QAction("Delete", self)
 
         Edit.triggered.connect(self.select_all_rows)
         Update.triggered.connect(self.select_all_rows)

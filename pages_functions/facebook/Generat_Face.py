@@ -14,27 +14,28 @@ from pages_functions.Facebook.Data.Share import *
 class Generat_Face(QWidget):
     def __init__(self):
         super(Generat_Face, self).__init__()
-        Edit_Face().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.ui2 = Edit_Face()
         self.is_running = False
         self.Error = 3
         self.Error1 = 600
         self.mp3 = "Data\\error.mp3"
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
 
-        self.ui.widget_Name1.hide()
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
 
-        QVBoxLayout(self.ui.widget_Edit).addWidget(Edit_Face())
+        QVBoxLayout(self.ui.widget_Edit).addWidget(self.ui2)
         # self.ui.Change_Password.hide()
         # self.ui.widget_Select.hide()
         # self.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())
+        self.ui2.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())
+        # self.ui2.ui.Start.clicked.connect(self.Generat)
 
 
     def Name(self):
-        if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
+        if self.ui.lineEdit.text() : return self.ui.lineEdit.text() , self.Gender()
         else:
             if self.ui.checkBox.isChecked() :
                 if self.ui.radioButton.isChecked():
@@ -45,9 +46,18 @@ class Generat_Face(QWidget):
                     return random_item , 'female'
                 elif self.ui.radioButton_3.isChecked():
                     random_item = cursor.execute("SELECT data FROM name ORDER BY RANDOM() LIMIT 1").fetchone() 
-                    return random_item
-                else: QMessageBox.warning(self, 'No Name Selected', 'Please select an option.')
-            else: QMessageBox.warning(self, 'No Name Selected', 'Please select an option.')
+                    return random_item ,"female"
+                else: QMessage( text = 'No Name Selected \n Please select an option.').mainloop() ;return None , None
+            else: QMessage( text = 'No Name Selected \n Please select an option.').mainloop() ;return None , None
+    def Gender(self):
+        if self.ui.radioButton.isChecked():
+            return "male"
+        elif self.ui.radioButton_2.isChecked():
+            return "female"
+        elif self.ui.radioButton_3.isChecked():
+            return "female"
+        else: QMessage( text = ' No Gender Selected \n Please select an option.').mainloop() ;return None
+        
     def Email(self):
         if self.ui.lineEdit_2.text() : return self.ui.lineEdit_2.text() , 'text'
         else:
@@ -67,14 +77,13 @@ class Generat_Face(QWidget):
                     return email , 'Mohmal'
                 elif self.ui.radioButton_6.isChecked():
                     return 'mailtm'
-                else: QMessageBox.warning(self, 'No Email Selected', 'Please select an option.')
-            else: QMessageBox.warning(self, 'No Email Selected', 'Please select an option.')
+                else: QMessage(text = 'No Email Selected \n Please select an option.').mainloop() ;return None , None
+            else: QMessage(text = 'No Email Selected \n Please select an option.').mainloop() ;return None , None
     def Password(self):
         if self.ui.lineEdit_3.text() : return self.ui.lineEdit_3.text()
         else:
             if self.ui.checkBox_3.isChecked() : return self.Generat_password()
-            else:
-                QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
+            else: QMessage( 'No Password Selected', 'Please select an option.').mainloop() ;return  None
     def Generat_password(self):
         chrs = ''
         text1 = self.ui.lineEdit_4.text() if self.ui.lineEdit_4.text() is not None else ''
@@ -88,28 +97,33 @@ class Generat_Face(QWidget):
         return password
         
     def Update(self,successful,faild,time):
-        self.ui.successful.setText(successful)
-        self.ui.faild.setText(successful)
-        self.ui.total.setText(successful+faild)
-        self.ui.time.setText(time)
+        self.ui2.ui.successful.setText(successful)
+        self.ui2.ui.faild.setText(successful)
+        self.ui2.ui.total.setText(successful+faild)
+        self.ui2.ui.time.setText(time)
 
     def Creat(self):
         Name , self.gender = self.Name()
+        if not Name : return 'Failed'
+        if not self.gender : return 'Failed'
+        self.email , type = self.Email()
+        if not self.email: return 'Failed'
+        self.password = self.Password()
+        if not self.password : return 'Failed'
+        
         self.name = Name[0].split()
         first_name = self.name[0]
         second_name = self.name[1]
 
-        self.email , type = self.Email()
-        
-        self.password = self.Password()
         try:
+            service = Service(executable_path="pages_functions/chromedriver.exe")
             options = webdriver.ChromeOptions()
             options.add_argument(f"--window-size=600,600")
             chrome_prefs = {"profile.default_content_setting_values.notifications": 2,"profile.managed_default_content_settings.images": 2}
             options.add_experimental_option("prefs", chrome_prefs)
             options.add_experimental_option("detach", True)
             options.add_argument("--log-level=3")
-            self.bot = webdriver.Chrome(options=options)
+            self.bot = webdriver.Chrome(service=service , options=options)
             bot = self.bot
             print(Colorate.Diagonal(Colors.blue_to_green, f'[ Createing ] : [ {self.email}:{self.password} ]', 1))
             try:
@@ -172,22 +186,21 @@ class Generat_Face(QWidget):
                 except:
                     return 'Failed'
             except Exception as e: return 'Failed'
-        except:
-            return 'Failed Start Chrome'
+        except Exception as e : return f'Failed Start Chrome'
 
     def Generat(self):
         if self.is_running == False :
-            self.ui.Start.setText("Stop")
+            self.ui2.ui.Start.setText("Stop")
             self.is_running = True
         elif self.is_running :
-            self.ui.Start.setText("Creat")
+            self.ui2.ui.Start.setText("Creat")
             self.is_running = False
         Successfully = 0
         Failed = 0
         while self.is_running :
             result = self.Creat()
             if result == 'success':
-                result = self.Edit()
+                result = self.ui2.Edit(self.cookie_string)
                 if result == 'success':
                     self.bot.refresh()
                     WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
@@ -223,8 +236,14 @@ class Generat_Face(QWidget):
                         Failed = 0
                     self.bot.quit()
             elif result == 'Failed Start Chrome':
-                print('Failed Start Chrome')
+                print(f'Failed Start Chrome ')
+                self.ui2.ui.Start.setText("Creat")
+                self.is_running = False
             elif result == 'No Masseg':
                 print('No Masseg')
+                self.ui2.ui.Start.setText("Creat")
+                self.is_running = False
             elif result == 'Failed':
                 print('Failed')
+                self.ui2.ui.Start.setText("Creat")
+                self.is_running = False

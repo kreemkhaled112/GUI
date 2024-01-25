@@ -24,7 +24,7 @@ class Edit_Face(QWidget):
         self.ui.browes_cover.clicked.connect(self.Browes_cover)
         self.ui.browes_post.clicked.connect(self.Browes_post)
         self.ui.Select_Account.clicked.connect(self.Select)
-        self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
+        # self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
 
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)

@@ -72,11 +72,10 @@ class MyWindow(QMainWindow):
         self.Account_Generat_insta.clicked.connect(self.show_selected_window)
 
     def show_home_window(self):
-        result = self.open_tab_flag(self.Account_Manger_face.text())
+        result = self.open_tab_flag(self.Account_Manger_face.objectName())
         self.set_btn_checked(self.Account_Manger_face)
 
-        if result[0]:
-            self.ui.tabWidget.setCurrentIndex(result[1])
+        if result[0]: self.ui.tabWidget.setCurrentIndex(result[1])
         else:
             title = self.Account_Manger_face.text()
             curIndex = self.ui.tabWidget.addTab(Manger_Face(), title)
@@ -86,11 +85,10 @@ class MyWindow(QMainWindow):
     def show_selected_window(self):
         button = self.sender()
 
-        result = self.open_tab_flag(button.text())
+        result = self.open_tab_flag(button.objectName())
         self.set_btn_checked(button)
 
-        if result[0]:
-            self.ui.tabWidget.setCurrentIndex(result[1])
+        if result[0]: self.ui.tabWidget.setCurrentIndex(result[1])
         else:
             title = button.text()
             curIndex = self.ui.tabWidget.addTab(self.menu_btns_list[button], title)
@@ -112,17 +110,13 @@ class MyWindow(QMainWindow):
             tab_name = self.ui.tabWidget.tabText(i)
             if tab_name == tab:
                 return True, i
-            else:
-                continue
-
+            else: continue
         return False,
 
     def set_btn_checked(self, btn):
         for button in self.menu_btns_list.keys():
-            if button != btn:
-                button.setChecked(False)
-            else:
-                button.setChecked(True)
+            if button != btn: button.setChecked(False)
+            else: button.setChecked(True)
 
 
 if __name__ == '__main__':
