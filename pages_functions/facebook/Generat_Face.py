@@ -10,6 +10,7 @@ from pages_functions.Facebook.Data.AddFriend import *
 from pages_functions.Facebook.Data.JoinGroup import *
 from pages_functions.Facebook.Data.Chrome import *
 from pages_functions.Facebook.Data.Share import *
+from pages_functions.Public.Info import Info
 
 class Generat_Face(QWidget):
     def __init__(self):
@@ -25,6 +26,8 @@ class Generat_Face(QWidget):
 
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
+        self.ui2.ui.widget_Select.hide()
+        
 
         QVBoxLayout(self.ui.widget_Edit).addWidget(self.ui2)
         # self.ui.Change_Password.hide()
@@ -32,8 +35,10 @@ class Generat_Face(QWidget):
         # self.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())
         self.ui2.ui.Start.clicked.connect(lambda : Thread(target=self.Generat).start())
         # self.ui2.ui.Start.clicked.connect(self.Generat)
-
-
+        self.ui_Info = Info()
+        # QVBoxLayout(self.parent().ui.widget_information).addWidget(self.ui_Info)
+        # self.ui_Info.ui.label.setText("1")
+        
     def Name(self):
         if self.ui.lineEdit.text() : return self.ui.lineEdit.text() , self.Gender()
         else:
@@ -97,7 +102,7 @@ class Generat_Face(QWidget):
         return password
         
     def Update(self,successful,faild,time):
-        self.ui2.ui.successful.setText(successful)
+        self.ui2.ui.successful.setText("1")
         self.ui2.ui.faild.setText(successful)
         self.ui2.ui.total.setText(successful+faild)
         self.ui2.ui.time.setText(time)

@@ -1,5 +1,18 @@
 from pages_functions.__init__ import *
+class Name:
+    def __init__(self) :
+        self.req = requests.Session()
+        self.req.headers.update(Header())
 
+    def Get(self , url):
+        try:  
+            response = self.req.get( url )
+            name = re.search(r'<title>(.*?)</title>', response.text).group(1)
+            return name
+        except :
+            print(Colorate.Diagonal(Colors.red_to_blue, f'[ Failed Get Name ]', 1))
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            return ""
 class Get_Name:
     def __init__(self, cookie) :
         self.req = requests.Session()
@@ -168,7 +181,6 @@ class Edit_Hometown:
                 print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Successfully Change hometown ]', 1))
         except Exception as e:
             print(Colorate.Diagonal(Colors.red_to_blue, f'[ Failed to Change hometown ]', 1))
-
 class lock_profile:
     def __init__(self,cookie) -> None:
         self.req = requests.Session()
@@ -208,6 +220,7 @@ class lock_profile:
             else: print(pos)
         except Exception as e:
             print(e)
+
 class Change_Password:
     def __init__(self, password , new_password) -> None:
         pass

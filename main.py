@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 
-from ui.Window_ui import Ui_MainWindow
+from ui.main_ui import Ui_MainWindow
 
 from pages_functions.Facebook.Manger_Face import Manger_Face
 from pages_functions.Facebook.Edit_Face import Edit_Face
@@ -14,13 +14,16 @@ from pages_functions.Facebook.Share import Share
 from pages_functions.Insta.Manger_Insta import Manger_Insta
 from pages_functions.Insta.Edit_Insta import Edit_Insta
 from pages_functions.Insta.Generat_Insta import Generat_Insta
-
+from pages_functions.Public.Info import Info
 
 class MyWindow(QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui_Info = Info()
+        QVBoxLayout(self.ui.widget_information).addWidget(self.ui_Info)
+        self.ui_Info.ui.label.setText("welcome")
 
         self.Account_Manger_face = self.ui.Account_Manger_face 
         self.Account_Edit_face = self.ui.Account_Edit_face
@@ -43,8 +46,8 @@ class MyWindow(QMainWindow):
             self.Accept_Friend: Accept(),
             self.Add_Friend: Friend(),
             self.Join_Groub: Join(),
-            self.Follow_face: Follow(),
-            self.Like_face: Like(),
+            self.Follow_face: Follow(self.ui_Info),
+            self.Like_face: Like(self.ui_Info),
             self.Share: Share(),
             self.Account_Manger_insta: Manger_Insta(),
             self.Account_Edit_insta: Edit_Insta(),
@@ -54,7 +57,7 @@ class MyWindow(QMainWindow):
         # Show home window when start app
         self.show_home_window()
         self.ui.icon_only_widget.hide()
-
+        
         # Connect signal and slot
         self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
 

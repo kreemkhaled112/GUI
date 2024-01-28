@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>753</width>
+    <width>881</width>
     <height>435</height>
    </rect>
   </property>
@@ -88,6 +88,13 @@
      </layout>
     </widget>
    </item>
+   <item row="2" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="Save">
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <widget class="QTableWidget" name="tableWidget">
      <column>
@@ -135,13 +142,6 @@
        <string>New Column</string>
       </property>
      </column>
-    </widget>
-   </item>
-   <item row="2" column="0" alignment="Qt::AlignHCenter">
-    <widget class="QPushButton" name="Save">
-     <property name="text">
-      <string>Save</string>
-     </property>
     </widget>
    </item>
   </layout>

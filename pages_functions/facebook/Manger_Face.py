@@ -38,9 +38,9 @@ class Manger_Face(QWidget):
 
         self.ui.table.verticalHeader().hide()
         self.ui.table.setColumnWidth(0, 50)
+        self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
         headers = ["#"] + [description[0] for description in cursor.description]
         self.ui.table.setHorizontalHeaderLabels(headers)
-        self.ui.table.horizontalHeader().setStretchLastSection(True)
         self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
 
@@ -93,5 +93,5 @@ class Manger_Face(QWidget):
                 except: print('Failed Format')
 
     def Export(self):
-        table_dialog = Export_insta(self,self.ui.tableWidget )
+        table_dialog = Export_insta(self,self.ui.table )
         table_dialog.exec()

@@ -28,7 +28,7 @@ import pygame
 import logging
 from configparser import ConfigParser
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt , pyqtSignal , QThread
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()
@@ -45,6 +45,9 @@ def Header():
         'Sec-Fetch-User': '?1',
     }
     return headers
+def Update_cookies(cookie,new_cookie):
+    cursor.execute(f" UPDATE account cookies = '{new_cookie}' WHERE cookies = '{cookie}' ")
+    conn.commit()
 class QMessage(CTk):
     def __init__(self, text , title = None , *args, **kwargs) :
         super().__init__(*args, **kwargs)

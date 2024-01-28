@@ -246,6 +246,11 @@ p, li { white-space: pre-wrap; }
           <string>New Column</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string/>
+         </property>
+        </column>
        </widget>
       </item>
      </layout>

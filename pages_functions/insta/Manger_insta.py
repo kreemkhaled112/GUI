@@ -25,23 +25,25 @@ class Manger_Insta(QWidget):
         self.ui.Export.clicked.connect(self.Export)
     
     def loadTableData(self,data):
-        self.ui.tableWidget.setRowCount(len(data))
+        self.ui.table.setRowCount(len(data))
         for row, row_data in enumerate(data):
             select_checkbox_item = QTableWidgetItem()
             select_checkbox_item.setFlags(select_checkbox_item.flags() | 2) 
             select_checkbox_item.setCheckState(False)
             select_checkbox_item.setText(str(row + 1))
-            self.ui.tableWidget.setItem(row, 0, select_checkbox_item)
+            self.ui.table.setItem(row, 0, select_checkbox_item)
 
             for col, value in enumerate(row_data):
                 item = QTableWidgetItem(str(value))
-                self.ui.tableWidget.setItem(row, col + 1, item)  
-        self.ui.tableWidget.verticalHeader().hide()
-        self.ui.tableWidget.setColumnWidth(0, 50)
+                self.ui.table.setItem(row, col + 1, item)  
+        self.ui.table.verticalHeader().hide()
+        self.ui.table.setColumnWidth(0, 50)
+        self.ui.table.setColumnWidth(5, 320)
         headers = ["#"] + [description[0] for description in cursor.description]
-        self.ui.tableWidget.setHorizontalHeaderLabels(headers)
-        self.ui.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.ui.tableWidget.customContextMenuRequested.connect(self.show_context_menu)
+        self.ui.table.setHorizontalHeaderLabels(headers)
+        self.ui.table.horizontalHeader().setStretchLastSection(True)
+        self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
     def show_context_menu(self, position):
         context_menu = QMenu(self)
         

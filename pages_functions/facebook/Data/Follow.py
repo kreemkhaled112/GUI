@@ -1,15 +1,19 @@
 from pages_functions.__init__ import *
 
 class Follow:
-    def __init__(self, id ,cookie) -> None:
+    def __init__(self, url ,cookie):
         self.req = requests.Session()
         self.headers = Header()
         self.req.headers.update(self.headers)
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
-        self.Get_Profile(id)
-    def Get_Profile(self,id):
-        self.url = f"https://mbasic.facebook.com/profile.php?id={id}"
+
+        try: self.id = re.search(r'/([^/]+)/$', url).group(1) 
+        except: self = re.search(r'id=(\d+)', url).group(1) 
+
+        try:self.url = url.replace("www", "mbasic")
+        except:pass
+    def Start(self):
         response = self.req.get(self.url)
         sleep(1)
         if response.status_code == 200:
@@ -17,19 +21,17 @@ class Follow:
             try :
                 self.href = soup.select_one('a[href^="/a/subscribe.php?"]').get('href')
                 sleep(1)
-                self.Follow_Profile(id)
-            except:
-                print("Already followed")     
-        else:
-            print("Faild Get_Profile")
+                return self.Follow_Profile()
+            except: 
+                return "Already followed"    
+        else: return "Faild"
 
-    def Follow_Profile(self,id):
+    def Follow_Profile(self):
         self.headers['referer'] = self.url
         self.req.headers.update(self.headers)
 
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
-        
-        if response.status_code == 200 :
-            print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Done Follow ] : [ {id} ]', 1))
-            sleep(1)
+        if response.status_code == 200 : 
+            return (f'[ Done Follow ] : [ {self.id} ]')
+
 

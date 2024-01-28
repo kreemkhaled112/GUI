@@ -20,8 +20,6 @@ class Like:
         else:
             self.Type_reaction()
 
-        self.Get_post()
-
     def Type_reaction (self):
         if self.type == "Like" :
             self.reaction_id = '1635855486666999'
@@ -41,20 +39,21 @@ class Like:
         if self.type == "Sad" :
             self.reaction_id = '908563459236466'
             self.reaction_type = "7"
-    def Get_post(self):
+    def Start(self):
         response = self.req.get(self.url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
-            href = soup.select_one('a[href^="/reactions/picker/?"]').get('href')
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            self.href = soup.select_one('a[href^="/reactions/picker/?"]').get('href')
             sleep(1)
-            self.Get_reactions(href)
-        else:print("Faild Get_post")
+            return self.Get_reactions()
+        else: return "Faild Get_post"
 
-    def Get_reactions(self,href):
+    def Get_reactions(self):
         self.headers['referer'] = self.url
         self.req.headers.update(self.headers)
 
-        response = self.req.get( f'https://mbasic.facebook.com/{href}' )
+        response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         self.referer = response.url
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -63,13 +62,13 @@ class Like:
                 query_params = parse_qs(parsed_url.query)
 
                 if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
-                    print(f"Already {self.type} befor")
+                    return (f"Already {self.type} befor")
                 elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
                     href = a['href']
                     sleep(1)
-                    self.Like_post(href)
+                    return self.Like_post(href)
         else:
-            print("Faild Get_reactions") 
+            return "Faild Get_reactions"
 
     def Like_post(self,href):
         self.headers['referer'] = self.referer
@@ -77,6 +76,4 @@ class Like:
 
         response = self.req.get( f'https://mbasic.facebook.com/{href}' )
         if response.status_code == 200 :
-            print(f"Done {self.type}")
-            print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Done {self.type} ] : [ {id} ]', 1))
-            sleep(1)
+            return (f"Done {self.type}")

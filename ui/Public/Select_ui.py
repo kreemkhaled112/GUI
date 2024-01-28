@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(753, 435)
+        Form.resize(881, 435)
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
         self.widget_3 = QtWidgets.QWidget(Form)
@@ -40,6 +40,9 @@ class Ui_Form(object):
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
         self.gridLayout.addWidget(self.widget_3, 0, 0, 1, 1)
+        self.Save = QtWidgets.QPushButton(Form)
+        self.Save.setObjectName("Save")
+        self.gridLayout.addWidget(self.Save, 2, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.tableWidget = QtWidgets.QTableWidget(Form)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(9)
@@ -63,9 +66,6 @@ class Ui_Form(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(8, item)
         self.gridLayout.addWidget(self.tableWidget, 1, 0, 1, 1)
-        self.Save = QtWidgets.QPushButton(Form)
-        self.Save.setObjectName("Save")
-        self.gridLayout.addWidget(self.Save, 2, 0, 1, 1, QtCore.Qt.AlignHCenter)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -82,6 +82,7 @@ class Ui_Form(object):
         self.comboBox.setItemText(5, _translate("Form", "Gender"))
         self.comboBox.setItemText(6, _translate("Form", "Insta"))
         self.pushButton.setText(_translate("Form", "Searsh"))
+        self.Save.setText(_translate("Form", "Save"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Form", "New Column"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -100,4 +101,3 @@ class Ui_Form(object):
         item.setText(_translate("Form", "New Column"))
         item = self.tableWidget.horizontalHeaderItem(8)
         item.setText(_translate("Form", "New Column"))
-        self.Save.setText(_translate("Form", "Save"))

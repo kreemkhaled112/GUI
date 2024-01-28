@@ -15,9 +15,10 @@ class Edit_Face(QWidget):
         super(Edit_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.is_running = False
 
         self.ui.widget_Password.hide()
-        self.ui.Profrssional.hide()
+        self.ui.Profrssional_check.hide()
 
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         self.ui.browes_photo.clicked.connect(self.Browes_photo)
@@ -29,16 +30,16 @@ class Edit_Face(QWidget):
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
 
-        self.ui.Add_Profile_Photo.stateChanged.connect(lambda state: self.toggle_page(state, 0))
-        self.ui.Add_Cover.stateChanged.connect(lambda state: self.toggle_page(state, 1))
-        self.ui.Add_Post.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.Add_Friend.stateChanged.connect(lambda state: self.toggle_page(state, 4))
-        self.ui.Join_Group.stateChanged.connect(lambda state: self.toggle_page(state, 5))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 6))
-        self.ui.Like.stateChanged.connect(lambda state: self.toggle_page(state, 7))
-        self.ui.Add_Share.stateChanged.connect(lambda state: self.toggle_page(state, 8))
-        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 10))
+        self.ui.Add_Profile_Photo_check.stateChanged.connect(lambda state: self.toggle_page(state, 0))
+        self.ui.Add_Cover_check.stateChanged.connect(lambda state: self.toggle_page(state, 1))
+        self.ui.Add_Post_check.stateChanged.connect(lambda state: self.toggle_page(state, 2))
+        self.ui.Add_Bio_check.stateChanged.connect(lambda state: self.toggle_page(state, 3))
+        self.ui.Add_Friend_check.stateChanged.connect(lambda state: self.toggle_page(state, 4))
+        self.ui.Join_Group_check.stateChanged.connect(lambda state: self.toggle_page(state, 5))
+        self.ui.Follow_check.stateChanged.connect(lambda state: self.toggle_page(state, 6))
+        self.ui.Like_check.stateChanged.connect(lambda state: self.toggle_page(state, 7))
+        self.ui.Add_Share_check.stateChanged.connect(lambda state: self.toggle_page(state, 8))
+        self.ui.Change_Password_check.stateChanged.connect(lambda state: self.toggle_page(state, 10))
 
         self.checked_state = [False,False,False,False,False,False,False,False,False,False,False]
 
@@ -53,24 +54,30 @@ class Edit_Face(QWidget):
             self.ui.stackedWidget.setCurrentIndex(2)
 
     def Browes_photo(self):
-        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
-        if folderPath[0]:
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog  
+        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
+        if folderPath:
             corrected_path = normpath(folderPath).replace('/', '\\')
             random_file,file_count = self.get_random_file(folderPath)
             self.ui.lineEdit_photo.setText(folderPath)
             self.ui.number_photo.setText(f'{file_count}')
             self.profil_photo = corrected_path + '\\' + random_file
     def Browes_cover(self):
-        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
-        if folderPath[0]:
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog  
+        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
+        if folderPath:
             corrected_path = normpath(folderPath).replace('/', '\\')
             random_file,file_count = self.get_random_file(folderPath)
             self.ui.lineEdit_cover.setText(folderPath)
             self.ui.number_cover.setText(f'{file_count}')
             self.cover_photo = corrected_path + "\\" + random_file
     def Browes_post(self): 
-        folderPath = QFileDialog.getOpenFileName(self, "Open Folder", "")
-        if folderPath[0]:
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog  
+        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
+        if folderPath:
             corrected_path = normpath(folderPath).replace('/', '\\')
             random_file,file_count = self.get_random_file(folderPath)
             self.ui.number_post.setText(f'{file_count}')
@@ -118,35 +125,35 @@ class Edit_Face(QWidget):
 
     def Edit(self,cookie):
         try:
-            if self.ui.Add_Profile_Photo.isChecked() :
+            if self.ui.Add_Profile_Photo_check.isChecked() :
                 result = Edit_Photo(self.profil_photo,cookie)
                 if result == "Ban": return 'Ban'
-            if self.ui.Add_Cover.isChecked() :
+            if self.ui.Add_Cover_check.isChecked() :
                 while True :
                     cover = Edit_Cover(self.cover_photo,cookie)
                     if cover == "successfully" : break
-            if self.ui.Add_Post.isChecked() :
+            if self.ui.Add_Post_check.isChecked() :
                 pass
-            if self.ui.Add_Friend.isChecked() :
+            if self.ui.Add_Friend_check.isChecked() :
                 id = self.ui.textEdit_Friend.toPlainText()
                 for row in id:
                     AddFriend(row,cookie)
-            if self.ui.Add_Bio.isChecked() :Edit_bio(self.Bio())
-            if self.ui.Add_Share.isChecked() :
+            if self.ui.Add_Bio_check.isChecked() :Edit_bio(self.Bio())
+            if self.ui.Add_Share_check.isChecked() :
                 share(self.Bio())
-            if self.ui.Join_Group.isChecked() :
+            if self.ui.Join_Group_check.isChecked() :
                 id = self.ui.textEdit_Group.toPlainText()
                 for row in id :
                     JoinGroup(row,cookie)
-            if self.ui.Like.isChecked() :
+            if self.ui.Like_check.isChecked() :
                 id = self.ui.textEdit_Like.toPlainText()
                 for row in id :
                     Like(cookie)
-            if self.ui.Follow.isChecked() :
+            if self.ui.Follow_check.isChecked() :
                 id = self.ui.textEdit_Follow.toPlainText()
                 for row in id :
                     Follow(row,cookie)
-            if self.ui.Change_Password.isChecked() :
+            if self.ui.Change_Password_check.isChecked() :
                 self.new_password = self.Password()
                 result = Change_Password(self.password , self.new_password)
                 if result == 'success' :

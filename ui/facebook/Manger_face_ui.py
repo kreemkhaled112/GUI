@@ -89,7 +89,7 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.widget_2, 0, 0, 1, 1)
         self.table = QtWidgets.QTableWidget(self.widget)
         self.table.setObjectName("table")
-        self.table.setColumnCount(9)
+        self.table.setColumnCount(10)
         self.table.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.table.setHorizontalHeaderItem(0, item)
@@ -109,6 +109,8 @@ class Ui_Form(object):
         self.table.setHorizontalHeaderItem(7, item)
         item = QtWidgets.QTableWidgetItem()
         self.table.setHorizontalHeaderItem(8, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(9, item)
         self.gridLayout_2.addWidget(self.table, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
 

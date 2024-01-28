@@ -190,7 +190,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="table">
         <column>
          <property name="text">
           <string>New Column</string>
@@ -224,6 +224,11 @@ p, li { white-space: pre-wrap; }
         <column>
          <property name="text">
           <string>New Column</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string/>
          </property>
         </column>
        </widget>
