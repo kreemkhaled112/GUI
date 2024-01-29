@@ -13,11 +13,11 @@ class Edit_Insta(QWidget):
         self.type = 'normal'
 
         self.ui.widget_Password.hide()
-        self.ui.Add_Cover.hide()
-        self.ui.Add_Friend.hide()
-        self.ui.Join_Group.hide()
-        self.ui.Like.hide()
-        self.ui.Add_Share.hide()
+        self.ui.Add_Cover_check.hide()
+        self.ui.Add_Friend_check.hide()
+        self.ui.Join_Group_check.hide()
+        self.ui.Like_check.hide()
+        self.ui.Share_check.hide()
 
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         self.ui.browes_photo.clicked.connect(self.Browes_photo)
@@ -28,12 +28,12 @@ class Edit_Insta(QWidget):
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
 
-        self.ui.Add_Profile_Photo.stateChanged.connect(lambda state: self.toggle_page(state, 0))
-        self.ui.Add_Post.stateChanged.connect(lambda state: self.toggle_page(state, 2))
-        self.ui.Add_Bio.stateChanged.connect(lambda state: self.toggle_page(state, 3))
-        self.ui.Follow.stateChanged.connect(lambda state: self.toggle_page(state, 6))
-        self.ui.Profrssional.stateChanged.connect(lambda state: self.toggle_page(state, 9))
-        self.ui.Change_Password.stateChanged.connect(lambda state: self.toggle_page(state, 10))
+        self.ui.Add_Profile_Photo_check.stateChanged.connect(lambda state: self.toggle_page(state, 0))
+        self.ui.Add_Post_check.stateChanged.connect(lambda state: self.toggle_page(state, 2))
+        self.ui.Add_Bio_check.stateChanged.connect(lambda state: self.toggle_page(state, 3))
+        self.ui.Follow_check.stateChanged.connect(lambda state: self.toggle_page(state, 6))
+        self.ui.Profrssional_check.stateChanged.connect(lambda state: self.toggle_page(state, 9))
+        self.ui.Change_Password_check.stateChanged.connect(lambda state: self.toggle_page(state, 10))
 
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
 
@@ -140,7 +140,7 @@ class Edit_Insta(QWidget):
 
     def Edit(self):
         try:
-            if self.ui.Add_Profile.isChecked() :
+            if self.ui.Add_Profile_check.isChecked() :
                 result = self.Chrom.Add_Photo(self.addphoto)
                 if result == "Ban": return 'Ban'
             if self.ui.Add_Cover.isChecked() :self.Chrom.Add_Cover(self.addcover)

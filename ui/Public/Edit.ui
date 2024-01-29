@@ -34,7 +34,7 @@ border: none;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="1" column="0">
     <widget class="QWidget" name="widget_1" native="true">
      <layout class="QGridLayout" name="gridLayout_4">
       <property name="leftMargin">
@@ -121,7 +121,7 @@ border: none;
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="Add_Share_check">
+          <widget class="QCheckBox" name="Share_check">
            <property name="text">
             <string>Share</string>
            </property>
@@ -147,7 +147,7 @@ border: none;
       <item row="0" column="1">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>6</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_photo">
          <layout class="QGridLayout" name="gridLayout_3">
@@ -462,7 +462,7 @@ border: none;
         <widget class="QWidget" name="page_friend">
          <layout class="QGridLayout" name="gridLayout_29">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget_66" native="true">
+           <widget class="QWidget" name="widget_friend" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_43">
              <property name="spacing">
               <number>10</number>
@@ -501,8 +501,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>200</width>
-                  <height>592</height>
+                  <width>83</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_30">
@@ -599,7 +599,7 @@ border: none;
         <widget class="QWidget" name="page_group">
          <layout class="QGridLayout" name="gridLayout_35">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget_75" native="true">
+           <widget class="QWidget" name="widget_group" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_49">
              <item>
               <widget class="QScrollArea" name="scrollArea_12">
@@ -617,8 +617,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>200</width>
-                  <height>574</height>
+                  <width>71</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -658,7 +658,7 @@ border: none;
         <widget class="QWidget" name="page_follow">
          <layout class="QGridLayout" name="gridLayout_37">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget_76" native="true">
+           <widget class="QWidget" name="widget_follow" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_50">
              <item>
               <widget class="QScrollArea" name="scrollArea_13">
@@ -682,8 +682,8 @@ border: none;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>200</width>
-                  <height>574</height>
+                  <width>183</width>
+                  <height>71</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -726,7 +726,7 @@ border: none;
            <widget class="QWidget" name="widget_72" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QScrollArea" name="scrollArea_11">
+              <widget class="QScrollArea" name="scrollArea_Like">
                <property name="minimumSize">
                 <size>
                  <width>200</width>
@@ -748,7 +748,7 @@ border: none;
                   <x>0</x>
                   <y>0</y>
                   <width>200</width>
-                  <height>574</height>
+                  <height>595</height>
                  </rect>
                 </property>
                 <property name="maximumSize">
@@ -782,60 +782,69 @@ border: none;
              </item>
              <item>
               <widget class="QWidget" name="widget_3" native="true">
-               <layout class="QVBoxLayout" name="verticalLayout_2">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
-                 <widget class="QWidget" name="widget" native="true">
-                  <layout class="QHBoxLayout" name="horizontalLayout">
-                   <item>
-                    <widget class="QRadioButton" name="Like_2">
-                     <property name="text">
-                      <string>Like</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Love">
-                     <property name="text">
-                      <string>Love</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Care">
-                     <property name="text">
-                      <string>Care</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Haha">
-                     <property name="text">
-                      <string>Haha</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Wow">
-                     <property name="text">
-                      <string>Wow</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Sad">
-                     <property name="text">
-                      <string>Sad</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QRadioButton" name="Random">
-                     <property name="text">
-                      <string>Random</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                 <widget class="QRadioButton" name="Like_radio">
+                  <property name="text">
+                   <string>Like</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Love_radio">
+                  <property name="text">
+                   <string>Love</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Care_radio">
+                  <property name="text">
+                   <string>Care</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Haha_radio">
+                  <property name="text">
+                   <string>Haha</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Wow_radio">
+                  <property name="text">
+                   <string>Wow</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Sad_radio">
+                  <property name="text">
+                   <string>Sad</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QRadioButton" name="Random_radio">
+                  <property name="text">
+                   <string>Random</string>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -849,7 +858,7 @@ border: none;
         <widget class="QWidget" name="page_share">
          <layout class="QGridLayout" name="gridLayout_34">
           <item row="0" column="0">
-           <widget class="QWidget" name="widget_73" native="true">
+           <widget class="QWidget" name="widget_share" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_24">
              <property name="spacing">
               <number>10</number>
@@ -1037,7 +1046,7 @@ border: none;
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="2" column="0">
     <widget class="QWidget" name="widget_2" native="true">
      <layout class="QVBoxLayout" name="verticalLayout_16">
       <item>
@@ -1075,111 +1084,25 @@ border: none;
       </item>
       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
        <widget class="QPushButton" name="Start">
+        <property name="styleSheet">
+         <string notr="true">QPushButton:checked{
+background-color: rgb(255, 0, 0);
+}
+</string>
+        </property>
         <property name="text">
          <string>Start</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="widget_Info" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_31">
-         <item>
-          <widget class="QLabel" name="successful1">
-           <property name="text">
-            <string>Succeful :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="successful">
-           <property name="styleSheet">
-            <string notr="true"> QLabel {
-	color: rgb(0, 170, 127);
-	}</string>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_28">
-           <property name="text">
-            <string>Faild :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="faild">
-           <property name="styleSheet">
-            <string notr="true"> QLabel {
-color: rgb(255, 0, 0);
-	}</string>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_29">
-           <property name="text">
-            <string>Total :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="total">
-           <property name="styleSheet">
-            <string notr="true"> QLabel {
-color: rgb(0, 170, 127);
-	}
-</string>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_32">
-           <property name="text">
-            <string>Error :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="error">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(255, 170, 0);</string>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_34">
-           <property name="text">
-            <string>Time :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="time">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(148, 148, 148);</string>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QWidget" name="widget_Info" native="true"/>
    </item>
   </layout>
  </widget>

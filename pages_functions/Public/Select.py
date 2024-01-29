@@ -2,11 +2,11 @@ from pages_functions.__init__ import *
 
 from ui.Public.Select_ui import Ui_Form
 
-class Select_insta(QDialog):
+class Select(QDialog):
     update_info_signal = pyqtSignal(list)
 
     def __init__(self, parent=None, data=None):
-        super(Select_insta, self).__init__(parent)
+        super(Select, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 

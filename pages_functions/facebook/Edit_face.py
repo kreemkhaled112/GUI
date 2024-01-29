@@ -1,6 +1,7 @@
 from pages_functions.__init__ import *
 
 from ui.Public.Edit_ui import Ui_Form
+from pages_functions.Public.Info import Info
 from pages_functions.Facebook.Data.Chrome import *
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.AddFriend import *
@@ -8,13 +9,15 @@ from pages_functions.Facebook.Data.Share import *
 from pages_functions.Facebook.Data.Like import *
 from pages_functions.Facebook.Data.JoinGroup import *
 from pages_functions.Facebook.Data.Follow import *
-from pages_functions.Public.Select import Select_insta
+from pages_functions.Public.Select import Select
 
 class Edit_Face(QWidget):
     def __init__(self):
         super(Edit_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.Info = Info()
+        QVBoxLayout(self.ui.widget_Info).addWidget(self.Info)
         self.is_running = False
 
         self.ui.widget_Password.hide()
@@ -38,11 +41,11 @@ class Edit_Face(QWidget):
         self.ui.Join_Group_check.stateChanged.connect(lambda state: self.toggle_page(state, 5))
         self.ui.Follow_check.stateChanged.connect(lambda state: self.toggle_page(state, 6))
         self.ui.Like_check.stateChanged.connect(lambda state: self.toggle_page(state, 7))
-        self.ui.Add_Share_check.stateChanged.connect(lambda state: self.toggle_page(state, 8))
+        self.ui.Share_check.stateChanged.connect(lambda state: self.toggle_page(state, 8))
         self.ui.Change_Password_check.stateChanged.connect(lambda state: self.toggle_page(state, 10))
 
         self.checked_state = [False,False,False,False,False,False,False,False,False,False,False]
-
+        
     def toggle_page(self, state, index):
         if state == 2:
             self.checked_state[index] = True
@@ -120,39 +123,31 @@ class Edit_Face(QWidget):
     
     def Select(self):
         data = cursor.execute("SELECT * FROM account").fetchall()
-        table_dialog = Select_insta(self,data)
+        table_dialog = Select(self,data)
         table_dialog.exec()
 
-    def Edit(self,cookie):
+    def Edit(self,cookie,profil_photo=None,cover_photo=None,id_friend=None,url=None,text=None,id_group=None,id_like=None,type=None,id_follow=None):
         try:
+            result = ['success']
             if self.ui.Add_Profile_Photo_check.isChecked() :
-                result = Edit_Photo(self.profil_photo,cookie)
-                if result == "Ban": return 'Ban'
+                Profile = Edit_Photo(profil_photo,cookie)
+                if Profile == "Ban":  result.append(Profile) 
+                return 'Ban'
+            else: result.append(None)
             if self.ui.Add_Cover_check.isChecked() :
                 while True :
-                    cover = Edit_Cover(self.cover_photo,cookie)
-                    if cover == "successfully" : break
-            if self.ui.Add_Post_check.isChecked() :
-                pass
-            if self.ui.Add_Friend_check.isChecked() :
-                id = self.ui.textEdit_Friend.toPlainText()
-                for row in id:
-                    AddFriend(row,cookie)
-            if self.ui.Add_Bio_check.isChecked() :Edit_bio(self.Bio())
-            if self.ui.Add_Share_check.isChecked() :
-                share(self.Bio())
-            if self.ui.Join_Group_check.isChecked() :
-                id = self.ui.textEdit_Group.toPlainText()
-                for row in id :
-                    JoinGroup(row,cookie)
-            if self.ui.Like_check.isChecked() :
-                id = self.ui.textEdit_Like.toPlainText()
-                for row in id :
-                    Like(cookie)
-            if self.ui.Follow_check.isChecked() :
-                id = self.ui.textEdit_Follow.toPlainText()
-                for row in id :
-                    Follow(row,cookie)
+                    cover = Edit_Cover(cover_photo,cookie)
+                    if cover == "successfully" : result.append(cover) ; break
+            else: result.append(None)
+            result.extend([
+                "" if self.ui.Add_Post_check.isChecked() else None,
+                Edit_bio(self.Bio(), cookie) if self.ui.Add_Bio_check.isChecked() else None,
+                AddFriend(id_friend, cookie) if self.ui.Add_Friend_check.isChecked() else None,
+                JoinGroup(id_group, cookie) if self.ui.Join_Group_check.isChecked() else None,
+                Follow(id_follow, cookie) if self.ui.Follow_check.isChecked() else None,
+                Like(id_like, type, cookie).Start() if self.ui.Like_check.isChecked() else None,
+                share(url, text, cookie) if self.ui.Share_check.isChecked() else None
+            ])
             if self.ui.Change_Password_check.isChecked() :
                 self.new_password = self.Password()
                 result = Change_Password(self.password , self.new_password)
@@ -160,8 +155,11 @@ class Edit_Face(QWidget):
                     try:cursor.execute(f"UPDATE account SET password = '{self.new_password}' WHERE email = '{self.email}' ") ; conn.commit()
                     except:print(f"Faild Contect Database ")
                     self.password = self.new_password
-            return 'success'
-        except : return 'Error Edit'
+            else: result.append(None)
+            return result
+        except Exception as e : 
+            print(e)
+            return 'Error Edit'
 
     def Update_info(self,info):
         self.ui.Number_Account.setText(str(len(info)))
@@ -182,7 +180,11 @@ class Edit_Face(QWidget):
                     self.email = i[2]
                     self.password = i[3]
                     self.cookie = i[5]
-                    
+                    id_friend = self.ui.textEdit_Friend.toPlainText()
+                    id_group = self.ui.textEdit_Group.toPlainText()
+                    id_follow = self.ui.textEdit_Follow.toPlainText()
+                    id_like = self.ui.textEdit_Like.toPlainText()
+
                     result = self.Edit(self.cookie)
                     if result == 'success': print(Colorate.Diagonal(Colors.green_to_blue, f'[ Done Update Account ] : [ {self.email}:{self.password} ]', 1))   
                     elif result == 'Ban': print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error Update Account ] : [ {self.email}:{self.password} ]', 1))

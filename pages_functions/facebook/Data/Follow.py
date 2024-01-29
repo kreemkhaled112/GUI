@@ -8,11 +8,12 @@ class Follow:
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
 
-        try: self.id = re.search(r'/([^/]+)/$', url).group(1) 
-        except: self = re.search(r'id=(\d+)', url).group(1) 
+        try: self.id = re.search(r'\/([^\/]+)$', url).group(1) 
+        except: self.id = re.search(r'id=(\d+)', url).group(1) 
 
         try:self.url = url.replace("www", "mbasic")
         except:pass
+
     def Start(self):
         response = self.req.get(self.url)
         sleep(1)
@@ -23,8 +24,9 @@ class Follow:
                 sleep(1)
                 return self.Follow_Profile()
             except: 
-                return "Already followed"    
-        else: return "Faild"
+                open("html.html" , "w" , encoding="utf-8").write(response.text)
+                return "Already followed" , 2
+        else: return "Faild" , 0
 
     def Follow_Profile(self):
         self.headers['referer'] = self.url
@@ -32,6 +34,6 @@ class Follow:
 
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         if response.status_code == 200 : 
-            return (f'[ Done Follow ] : [ {self.id} ]')
+            return (f'Done Follow : {self.id}') , 1
 
 
