@@ -1,5 +1,4 @@
 from pages_functions.__init__ import *
-from datetime import datetime
 from ui.Public.Info_ui import Ui_Form
 
 class Info(QDialog):
@@ -8,12 +7,15 @@ class Info(QDialog):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.ui.table.hide()
-        self.ui.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
-        self.ui.table.setColumnWidth(0, 50)
-        self.ui.table.setColumnWidth(1, 150)
+        self.ui.table.setColumnWidth(0, 20)
+        self.ui.table.setColumnWidth(1, 120)
+        self.ui.table.setColumnWidth(2, 100)
     def Add(self,type,name,action,value):
+        if     type == 0 :  type = "❌"
+        elif   type == 1 :  type = "✅"
+        else : type = "⚠️"
+
         self.ui.table.insertRow(0)  
-        
         self.ui.table.setItem(0, 0,  QTableWidgetItem(type))
         self.ui.table.setItem(0, 1,  QTableWidgetItem(datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
         self.ui.table.setItem(0, 2 , QTableWidgetItem(name)) 

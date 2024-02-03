@@ -75,7 +75,7 @@ class Ui_Form(object):
         item = self.table.horizontalHeaderItem(2)
         item.setText(_translate("Form", "Link"))
         item = self.table.horizontalHeaderItem(3)
-        item.setText(_translate("Form", "Follwoing"))
+        item.setText(_translate("Form", "Acction"))
         self.label.setText(_translate("Form", "Query :"))
         self.lineEdit.setPlaceholderText(_translate("Form", "https://www.facebook.com/"))
         self.add.setText(_translate("Form", "Add"))

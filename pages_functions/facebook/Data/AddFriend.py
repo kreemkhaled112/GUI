@@ -1,36 +1,28 @@
 from pages_functions.__init__ import *
 
 class AddFriend:
-    def __init__(self, id, cookie ) -> None:
-        self.conn = sqlite3.connect('info.db')
-        self.cursor = self.conn.cursor()
+    def __init__(self, url, cookie ) :
         self.req = requests.Session()
         self.headers = Header()
         self.req.headers.update(self.headers)
+        self.cookie = cookie
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
-        self.Get_profile(id)
 
-    def Get_profile(self,id):
-        response = self.req.get( f'https://mbasic.facebook.com/profile.php?id={id}' )
-        try:
-            self.cursor.execute(f'SELECT * FROM account where username = {id}')
-            cookie = self.cursor.fetchone()
-            sleep(1)
-            if  "Content unavailable" in response.text :
-                self.cursor.execute('INSERT INTO Bad ( email, password,link ,Cookies) VALUES (?, ?, ?, ?)', ( cookie[1], cookie[2], cookie[3] ,cookie[4]))
-                try:self.cursor.execute(f"DELETE FROM account WHERE username = {id} ")
-                except:pass
-                print(Colorate.Diagonal(Colors.red_to_blue, f'[ Faild Account ] : [ {id} ]', 1))                     
-            else:
-                try:
-                    soup = BeautifulSoup(response.content, 'html.parser')  
-                    href = soup.select_one('a[href^="/a/friends/profile/add/"]')["href"]
-                    response = self.req.get( f'https://mbasic.facebook.com/{href}' )  
-                    if response.status_code == 200 :
-                        print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Done Friend ] : [ {id} ]', 1))
-                except:
-                    print(Colorate.Diagonal(Colors.yellow_to_red, f'[ Faild Account ] : [ {id} ]', 1))
+        self.id = (re.search(r'/([^/]+)$', url) or re.search(r'facebook.com/([^/]+)', url) or re.search(r'id=(\d+)', url) or "").group(1)
+
+        try:self.url = url.replace("www", "mbasic")
         except:pass
-        self.conn.commit()
-        self.conn.close()
+
+    def Start(self):
+        response = self.req.get(self.url )
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, 'html.parser')  
+            href = soup.select_one('a[href^="/a/friends/profile/add/"]')["href"]
+            sleep(1)
+            response = self.req.get( f'https://mbasic.facebook.com/{href}' )  
+            if response.status_code == 200 :  
+                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
+                return f'Done Friend   :  {self.id} ' , 1
+        else: return f'Faild Friend  :  {self.id} ' , 0
+        

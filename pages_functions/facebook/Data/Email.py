@@ -1,7 +1,5 @@
 from pages_functions.__init__ import *
-class Mohmal:
-    def __init__(self, name ,type):
-        pass
+
 class Maokt:
     def __init__(self, name ,type):
         self.req = requests.Session()
@@ -91,3 +89,83 @@ class Maokt:
             return response
         except:
             pass
+class Message:
+    message_ids = []
+
+    def message_list(self):
+        url = "https://api.mail.tm/messages"
+        headers = { 'Authorization': 'Bearer ' + self.token }
+        response = self.session.get(url, headers=headers)
+        response.raise_for_status()
+
+        data = response.json()
+        return  [
+                    msg for i, msg in enumerate(data['hydra:member']) 
+                        if data['hydra:member'][i]['id'] not in self.message_ids
+                ]
+    def message(self, idx):
+        url = "https://api.mail.tm/messages/" + idx
+        headers = { 'Authorization': 'Bearer ' + self.token }
+        response = self.session.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()
+
+    def Get_Message(self):
+        for message in self.message_list():
+            self.message_ids.append(message['id'])
+            message = self.message(message['id'])
+            return message
+class Mail_Tm(Message):
+    token = ""
+    domain = ""
+    address = ""
+    session = requests.Session()
+
+    def __init__(self , username ,password):
+        self.username = username
+        self.password = password
+        if not self.domains():
+            print("Failed to get domains")
+        self.register()
+
+    def domains(self):
+        url = "https://api.mail.tm/domains"
+        response = self.session.get(url)
+        response.raise_for_status()
+        try:
+            data = response.json()
+            for domain in data['hydra:member']:
+                if domain['isActive']:
+                    self.domain = domain['domain']
+                    return True
+            raise Exception("No Domain")
+        except: return False
+
+    def register(self):
+        url = "https://api.mail.tm/accounts"
+        payload = {
+            "address": f"{self.username}@{self.domain}",
+            "password": self.password
+        }
+        headers = { 'Content-Type': 'application/json' }
+        response = self.session.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+
+        data = response.json()
+        try: self.address = data['address']
+        except: self.address = f"{self.username}@{self.domain}"
+        self.get_token(self.password)
+        if not self.address:
+            raise Exception("Failed to make an address")
+
+    def get_token(self, password):
+        url = "https://api.mail.tm/token"
+        payload = {
+            "address": self.address,
+            "password": password
+        }
+        headers = {'Content-Type': 'application/json'}
+        response = self.session.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        try: self.token = response.json()['token']
+        except: raise Exception("Failed to get token")

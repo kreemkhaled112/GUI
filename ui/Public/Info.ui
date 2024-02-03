@@ -35,7 +35,7 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" alignment="Qt::AlignBottom">
+   <item row="0" column="0">
     <widget class="QWidget" name="widget_1" native="true">
      <property name="minimumSize">
       <size>
@@ -121,7 +121,7 @@
             </size>
            </property>
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>

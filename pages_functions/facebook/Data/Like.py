@@ -5,6 +5,7 @@ class Like:
         self.req = requests.Session()
         self.headers = Header()
         self.req.headers.update(self.headers)
+        self.cookie = cookie
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
         self.url = url
@@ -39,15 +40,17 @@ class Like:
         if self.type == "Sad" :
             self.reaction_id = '908563459236466'
             self.reaction_type = "7"
+        else : return
     def Start(self):
         response = self.req.get(self.url)
-        if response.status_code == 200:
+        try:
             soup = BeautifulSoup(response.content, 'html.parser')
-            open("html.html" , "w" , encoding="utf-8").write(response.text)
             self.href = soup.select_one('a[href^="/reactions/picker/?"]').get('href')
             sleep(1)
             return self.Get_reactions()
-        else: return "Faild Get_post" , 0
+        except Exception as e: 
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            return e , 0
 
     def Get_reactions(self):
         self.headers['referer'] = self.url
@@ -62,6 +65,7 @@ class Like:
                 query_params = parse_qs(parsed_url.query)
 
                 if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
+                    Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                     return (f"Already {self.type} befor") , 2
                 elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
                     href = a['href']
@@ -76,4 +80,5 @@ class Like:
 
         response = self.req.get( f'https://mbasic.facebook.com/{href}' )
         if response.status_code == 200 :
-            return (f"Done {self.type}") , 1
+            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
+            return f"Done {self.type} " , 1

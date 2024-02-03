@@ -113,7 +113,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/icon/icon/home-2.ico</pixmap>
+          <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -132,7 +132,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="../static/resource.qrc">
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -164,7 +164,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="../static/resource.qrc">
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -277,7 +277,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-1.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -330,7 +330,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-2.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -352,7 +352,7 @@
               <string>FACEBOOK</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="../static/resource.qrc">
                <normaloff>:/icon/icon/arrow-3.ico</normaloff>
                <normalon>:/icon/icon/arrow-4.ico</normalon>:/icon/icon/arrow-3.ico</iconset>
              </property>
@@ -413,44 +413,16 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Accept_Friend">
+            <widget class="QPushButton" name="User">
              <property name="text">
-              <string>Accept Frind</string>
+              <string>User</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Add_Friend">
+            <widget class="QPushButton" name="Post">
              <property name="text">
-              <string>Add Friend</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="Join_Groub">
-             <property name="text">
-              <string>Join Groub</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="Follow_face">
-             <property name="text">
-              <string>Follow</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="Like_face">
-             <property name="text">
-              <string>Like</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="Share">
-             <property name="text">
-              <string>Share</string>
+              <string>Post</string>
              </property>
             </widget>
            </item>
@@ -496,7 +468,7 @@
               <enum>Qt::PlainText</enum>
              </property>
              <property name="pixmap">
-              <pixmap>:/icon/icon/home-2.ico</pixmap>
+              <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -518,7 +490,7 @@
               <string>INSTGRAM</string>
              </property>
              <property name="icon">
-              <iconset>
+              <iconset resource="../static/resource.qrc">
                <normaloff>:/icon/icon/arrow-3.ico</normaloff>
                <normalon>:/icon/icon/arrow-4.ico</normalon>:/icon/icon/arrow-3.ico</iconset>
              </property>
@@ -600,7 +572,7 @@
     </item>
     <item row="0" column="2">
      <widget class="QWidget" name="main_widget" native="true">
-      <layout class="QGridLayout" name="gridLayout_4">
+      <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -613,160 +585,144 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <property name="spacing">
+       <property name="horizontalSpacing">
+        <number>3</number>
+       </property>
+       <property name="verticalSpacing">
         <number>0</number>
        </property>
        <item row="0" column="0">
-        <widget class="QSplitter" name="splitter">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="handleWidth">
-          <number>1</number>
-         </property>
-         <widget class="QWidget" name="widget_4" native="true">
-          <layout class="QGridLayout" name="gridLayout">
-           <property name="leftMargin">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QWidget" name="widget" native="true">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>40</height>
-              </size>
+        <widget class="QWidget" name="widget_4" native="true">
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>40</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="spacing">
+              <number>0</number>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>9</number>
-              </property>
-              <property name="bottomMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="change_btn">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>:/icon/icon/arrow-2.ico</normaloff>
-                  <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>14</width>
-                  <height>14</height>
-                 </size>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>236</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
-                <property name="spacing">
-                 <number>10</number>
-                </property>
-                <item>
-                 <widget class="QLineEdit" name="search_input">
-                  <property name="placeholderText">
-                   <string>Search...</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="search_btn">
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset>
-                    <normaloff>:/icon/icon/search.ico</normaloff>:/icon/icon/search.ico</iconset>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>236</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="user_btn">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>:/icon/icon/user.ico</normaloff>:/icon/icon/user.ico</iconset>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QTabWidget" name="tabWidget">
-             <property name="styleSheet">
-              <string notr="true">#tabWidget {
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="change_btn">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="../static/resource.qrc">
+                 <normaloff>:/icon/icon/arrow-2.ico</normaloff>
+                 <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>14</width>
+                 <height>14</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>236</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <item>
+                <widget class="QLineEdit" name="search_input">
+                 <property name="placeholderText">
+                  <string>Search...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="search_btn">
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../static/resource.qrc">
+                   <normaloff>:/icon/icon/search.ico</normaloff>:/icon/icon/search.ico</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>236</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="user_btn">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="../static/resource.qrc">
+                 <normaloff>:/icon/icon/user.ico</normaloff>:/icon/icon/user.ico</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTabWidget" name="tabWidget">
+            <property name="styleSheet">
+             <string notr="true">#tabWidget {
 	background-color: rgb(255, 0, 0);
 	
 }
@@ -796,37 +752,16 @@ QTabBar::tab:selected {
 				border-radius: 33px 34px 0px 0px;
 border: solid #0066cc 2px;
             }</string>
-             </property>
-             <property name="currentIndex">
-              <number>-1</number>
-             </property>
-             <property name="tabsClosable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="widget_information" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="tabletTracking">
-           <bool>false</bool>
-          </property>
-          <property name="acceptDrops">
-           <bool>false</bool>
-          </property>
-         </widget>
+            </property>
+            <property name="currentIndex">
+             <number>-1</number>
+            </property>
+            <property name="tabsClosable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

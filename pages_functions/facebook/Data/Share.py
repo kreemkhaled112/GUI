@@ -1,34 +1,35 @@
 from pages_functions.__init__ import *
 
-class share:
+class Share:
     def __init__(self, url ,message ,cookie) -> None:
         self.req = requests.Session()
         self.message = message
         self.headers = Header()
         self.req.headers.update(self.headers)
+        self.cookie = cookie
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
         self.url = url
         try:self.url = self.url.replace("www", "mbasic")
         except:pass
-    def Get_post(self):
-            response = self.req.get(self.url)
-            sleep(1)
-            try:
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.content, 'html.parser')
-                    self.href = soup.select_one('a[href^="/composer/mbasic/?"]').get('href')
-                    self.Get_data(self.href)
-                    return "successfully"
-                else:
-                    print("Faild Get_post")
-            except:
-                open("html.html" , "w" , encoding="utf-8").write(response.text)
-                print(Colorate.Diagonal(Colors.red_to_blue, f'[ Faild Share ]', 1))
-                return "failed"
-    def Get_data(self,href):
+    def Start(self):
+        if not self.message :
+            return
+        response = self.req.get(self.url)
+        sleep(1)
+        try:
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                self.href = soup.select_one('a[href^="/composer/mbasic/?"]').get('href')
+                return self.Get_data() 
+            else: return "Faild Get_post" , 0
+        except:
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            return "failed Share" , 0
+        
+    def Get_data(self):
         self.headers['sec-fetch-site'] = "same-origin"
-        response = self.req.get( f'https://mbasic.facebook.com/{href}' )
+        response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         sleep(1)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -39,7 +40,7 @@ class share:
             self.fb_dtsg = soup.find('input', {'name': 'fb_dtsg'}).get("value")
             self.jazoest = soup.find('input', {'name': 'jazoest'}).get("value")
             link = soup.select_one('form[action^="/composer/mbasic/?"]')["action"]
-            self.Share_post(link)
+            return self.Share_post(link)
             
     def Share_post(self,link):
         self.headers['origin'] = 'https://mbasic.facebook.com'
@@ -63,7 +64,7 @@ class share:
                 "shared_from_post_id":{self.shared_from_post_id},
                 }
         response = self.req.post( f'https://mbasic.facebook.com/{link}', data=data)
-        if response.status_code == 200 :
-            print(Colorate.Diagonal(Colors.green_to_cyan, f'[ Done Share ]', 1))
-        else:
-            print(Colorate.Diagonal(Colors.red_to_blue, f'[ Faild Share ]', 1))
+        if response.status_code == 200 : 
+            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
+            return f"Done Share To {self.url}" , 1
+        else: return "Faild Share" , 0

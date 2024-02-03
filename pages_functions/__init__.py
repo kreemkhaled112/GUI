@@ -28,7 +28,9 @@ import pygame
 import logging
 from configparser import ConfigParser
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt , pyqtSignal , QThread
+from datetime import datetime
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()
@@ -45,9 +47,11 @@ def Header():
         'Sec-Fetch-User': '?1',
     }
     return headers
-def Update_cookies(cookie,new_cookie):
-    cursor.execute(f" UPDATE account cookies = '{new_cookie}' WHERE cookies = '{cookie}' ")
+
+def Update_cookies(old_cookie, new_cookie):
+    cursor.execute(f"UPDATE account SET cookies = '{new_cookie}' WHERE cookies = '{old_cookie}'")
     conn.commit()
+
 class QMessage(CTk):
     def __init__(self, text , title = None , *args, **kwargs) :
         super().__init__(*args, **kwargs)
@@ -67,6 +71,51 @@ class QMessage(CTk):
     def Ok(self):
         self.value.set("Ok")
         self.destroy()
+class CustomMessageBox(QDialog):
+    def init(self, message, parent=None):
+        super(CustomMessageBox, self).init(parent)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setGeometry(300, 200, 600, 200)
+        self.setStyleSheet("border-radius: 15px; border:1px solid #6422ba; background-color: #1f2224;")
 
+        layout = QVBoxLayout()
+        label = QLabel(message)
+        label.setAlignment(Qt.AlignCenter)
+        label.setStyleSheet("border: none;color:white")
+        font = QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        label.setFont(font)
+        layout.addWidget(label)
+
+        button = QPushButton("OK")
+        button.setCursor(QCursor(Qt.PointingHandCursor))
+        button.setMinimumHeight(50)
+        button.setStyleSheet("""
+        QPushButton{
+        border:none;
+        background-color:#6422ba;
+        border-radius:15px;
+        color:white
+        }
+        QPushButton:hover{
+        background-color: #5e1fb0;
+        }
+        QPushButton:pressed{
+        background-color: #6c24ca;
+        }
+""")
+        font = QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        button.setFont(font)
+        button.clicked.connect(self.accept)
+        layout.addWidget(button)
+
+        self.setLayout(layout)
 
 

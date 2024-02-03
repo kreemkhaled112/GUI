@@ -54,7 +54,7 @@
         </column>
         <column>
          <property name="text">
-          <string>Follwoing</string>
+          <string>Acction</string>
          </property>
         </column>
        </widget>

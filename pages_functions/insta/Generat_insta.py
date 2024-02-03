@@ -19,7 +19,7 @@ class Generat_Insta(QWidget):
         self.ui.widget_Name1.hide()
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
-        self.ui.lineEdit_3.setText('pastaaa6000')
+        self.ui.lineEdit_password.setText('pastaaa6000')
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
         QVBoxLayout(self.ui.widget_Edit).addWidget(Edit_Insta())
     def Name(self):

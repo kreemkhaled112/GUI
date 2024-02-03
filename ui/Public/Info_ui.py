@@ -51,6 +51,7 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label = QtWidgets.QLabel(self.widget_2)
         self.label.setMinimumSize(QtCore.QSize(0, 20))
+        self.label.setText("")
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.widget_Info = QtWidgets.QWidget(self.widget_2)
@@ -109,7 +110,7 @@ class Ui_Form(object):
         self.pushButton_4.setObjectName("pushButton_4")
         self.horizontalLayout.addWidget(self.pushButton_4)
         self.gridLayout_4.addWidget(self.widget_2, 0, 0, 1, 1, QtCore.Qt.AlignBottom)
-        self.gridLayout.addWidget(self.widget_1, 0, 0, 1, 1, QtCore.Qt.AlignBottom)
+        self.gridLayout.addWidget(self.widget_1, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
         self.pushButton_4.toggled['bool'].connect(self.table.setVisible) # type: ignore
@@ -126,7 +127,6 @@ class Ui_Form(object):
         item.setText(_translate("Form", "Acction"))
         item = self.table.horizontalHeaderItem(4)
         item.setText(_translate("Form", "Message"))
-        self.label.setText(_translate("Form", "TextLabel"))
         self.successful1.setText(_translate("Form", "Succeful :"))
         self.successful.setText(_translate("Form", "0"))
         self.label_28.setText(_translate("Form", "Faild :"))

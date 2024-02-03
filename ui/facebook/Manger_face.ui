@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
+    <width>1076</width>
     <height>476</height>
    </rect>
   </property>
@@ -244,11 +244,6 @@ p, li { white-space: pre-wrap; }
         <column>
          <property name="text">
           <string>New Column</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string/>
          </property>
         </column>
        </widget>

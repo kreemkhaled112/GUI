@@ -38,7 +38,7 @@ class Manger_Face(QWidget):
                 self.ui.table.setItem(row, col + 1, item)
 
         self.ui.table.verticalHeader().hide()
-        self.ui.table.setColumnWidth(0, 100)
+        self.ui.table.setColumnWidth(0, 50)
         self.ui.table.setColumnWidth(1, 100)
         self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
         headers = ["#"] + [description[0] for description in cursor.description]

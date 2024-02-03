@@ -1,7 +1,7 @@
 from pages_functions.__init__ import *
 from ui.Public.Edit_ui import Ui_Form
 from pages_functions.Insta.Data.Chrome import *
-from pages_functions.Public.Select import Select_insta
+from pages_functions.Public.Select import Select
 
 class Edit_Insta(QWidget):
     def __init__(self):
@@ -102,7 +102,7 @@ class Edit_Insta(QWidget):
             QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
     def Select(self):
         data = cursor.execute("SELECT * FROM insta").fetchall()
-        table_dialog = Select_insta(self,data)
+        table_dialog = Select(self,data)
         table_dialog.exec_()
 
     def Start(self):
