@@ -2,7 +2,7 @@ from pages_functions.__init__ import *
 
 from ui.Insta.Manger_insta_ui import Ui_Form
 from pages_functions.__init__ import *
-from pages_functions.Public.Add_Account import Add_Account_insta
+from pages_functions.Public.Add_Account import Add_Account
 from pages_functions.Public.Export import Export_insta
 
 
@@ -88,7 +88,7 @@ class Manger_Insta(QWidget):
         header.setSortOrder(order)
     
     def Add_Account(self):
-        table_dialog = Add_Account_insta(self)
+        table_dialog = Add_Account(self)
         table_dialog.exec_()
 
     def Add_Multi_Account(self):

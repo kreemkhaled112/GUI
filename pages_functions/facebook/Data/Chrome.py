@@ -1,21 +1,21 @@
 from pages_functions.__init__ import *
+from pages_functions.Facebook.Data.Edit import *
 
 class Chrom:
     def __init__(self):
         self = self
         try:
+            service = Service(executable_path="pages_functions/chromedriver.exe")
             options = webdriver.ChromeOptions()
-            chrome_prefs = {"profile.default_content_setting_values.notifications": 2,
-                                "profile.managed_default_content_settings.images": 2} 
+            chrome_prefs = {"profile.default_content_setting_values.notifications": 2,"profile.managed_default_content_settings.images": 2}
             options.add_experimental_option("prefs", chrome_prefs)
             options.add_experimental_option("detach", True)
-            options.add_argument('--incognito')
             options.add_argument("--log-level=3")
-            self.bot = webdriver.Chrome(options=options)
+            self.bot = webdriver.Chrome(service=service , options=options)
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
 
-    def Login(self,email, password):
+    def Login(self,email, password, name):
         bot = self.bot
 
         self.bot.get("https://mbasic.facebook.com/login/")
@@ -31,15 +31,15 @@ class Chrom:
         except:pass
         url = self.bot.current_url
         if 'login/save-device/' or 'home.php?' in url:
-            input("......")
             cookies = bot.get_cookies()
             format = {}
             for cookie in cookies :
                 format[cookie['name']] = cookie['value']
             cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
             bot.quit()
-            cookie_string = self.update_cookie(cookie_string)
-            return 'success' , cookie_string
+            if not name  :
+                return 'success' , cookie_string , Get_Name(cookie_string).Get()
+            return 'success' , cookie_string , name
         elif 'checkpoint' in url:
             print('Verification checkpoint!')
             return "continue"
@@ -71,6 +71,7 @@ class Chrom:
                 return cookie_string
             except Exception as e : print(f"Faild Contect Database \n {e}")
         except : print("Faild Update Cookie")
+
     def scrap(self,id,cook):
         bot = self.bot
         files_in_folder = os.listdir('photo')

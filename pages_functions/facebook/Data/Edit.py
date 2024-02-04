@@ -1,12 +1,13 @@
 from pages_functions.__init__ import *
 class Name:
-    def __init__(self) :
+    def __init__(self,url) :
         self.req = requests.Session()
         self.req.headers.update(Header())
+        self.url = url
 
-    def Get(self , url):
+    def Get(self):
         try:  
-            response = self.req.get( url )
+            response = self.req.get( self.url )
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
             return name
         except :
@@ -21,7 +22,7 @@ class Get_Name:
         self.req.cookies.update(cookie)
     def Get(self):
         try:  
-            response = self.req.get( f'https://mbasic.facebook.com/profile.php?' )
+            response = self.req.get( 'https://mbasic.facebook.com/profile.php?' )
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
             return name
         except :

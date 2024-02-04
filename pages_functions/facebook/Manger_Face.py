@@ -1,19 +1,23 @@
 from pages_functions.__init__ import *
 
 from ui.Facebook.Manger_face_ui import Ui_Form
-from pages_functions.Public.Add_Account import Add_Account_insta
+
+from pages_functions.Public.Add_Account import Add_Account
+from pages_functions.Public.Info import Info
 from pages_functions.Public.Export import Export_insta
+from pages_functions.Facebook.Data.Chrome import *
+from pages_functions.Facebook.Data.Edit import *
 
 class Manger_Face(QWidget):
     def __init__(self):
         super(Manger_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
+        self.Info = Info()
+        layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
         # tabel
-        self.data = cursor.execute("SELECT * FROM account").fetchall()
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        self.loadTableData(self.data)
+        self.loadTableData()
 
         # Connect signal and slot
         self.ui.pushButton.clicked.connect(self.filter_table)
@@ -24,7 +28,8 @@ class Manger_Face(QWidget):
         self.ui.Export.clicked.connect(self.Export)
         self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
 
-    def loadTableData(self, data):
+    def loadTableData(self):
+        data = cursor.execute("SELECT * FROM account").fetchall()
         self.ui.table.setRowCount(len(data))
         for row, row_data in enumerate(data):
             select_checkbox_item = QTableWidgetItem()
@@ -81,7 +86,7 @@ class Manger_Face(QWidget):
         self.loadTableData(self.filtered_data)
 
     def Add_Account(self):
-        table_dialog = Add_Account_insta(self)
+        table_dialog = Add_Account(self)
         table_dialog.exec()
 
     def Add_Multi_Account(self):
@@ -93,7 +98,17 @@ class Manger_Face(QWidget):
                     group,name,email,password,username,cookies,type,insta = name.split(':')
                     cursor.execute('INSERT INTO account (groupname ,name ,email, password, username cookies, type, insta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', (group, name, email, password,username, cookies, type, insta)); conn.commit()
                 except: print('Failed Format')
-
+    def Check(self):
+        for row in range(self.ui.table.rowCount()):
+            item = self.ui.table.item(row, 5)
+            if item is None or item.text() == '':
+                row_values = [self.ui.table.item(row, col).text() for col in range(self.ui.table.columnCount())]
+                for i in row_values :
+                    self.Info.ui.label.setText(f"Logging {i[2]}:{i[3]}")
+                    result = Chrom().Login(i[2],i[3])
+                    item = QTableWidgetItem(result[1])
+                    self.ui.table.setItem(row, 5, item)
+                    return
     def Export(self):
         table_dialog = Export_insta(self,self.ui.table )
         table_dialog.exec()
