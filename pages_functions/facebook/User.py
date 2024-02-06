@@ -4,6 +4,9 @@ from ui.Facebook.Follow_ui import Ui_Form
 from pages_functions.Public.Info import Info
 from pages_functions.Public.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
+from pages_functions.Facebook.Data.JoinGroup import *
+from pages_functions.Facebook.Data.Follow import *
+from pages_functions.Facebook.Data.Un_Follow import *
 
 class User(QWidget):
     def __init__(self):
@@ -65,6 +68,23 @@ class User(QWidget):
         pass
     def delete_row(self, row):
         self.ui.table.removeRow(row)
+    def Edit(self,url,name,cookie):
+        try:
+            number = []
+            if  self.ui_Edit.ui.Follow_check.isChecked():
+                result = Follow(url, cookie).Start()  
+                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
+                self.ui_Edit.Info.Add(result[1],name,"Follow",f'{result[0]} To {url}')
+            if self.ui_Edit.ui.Un_Follow_check.isChecked():
+                result = Un_Follow(url, cookie).Start()  
+                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
+                self.ui_Edit.Info.Add(result[1],name,"Un Follow",f'{result[0]} To {url}')
+            if self.ui_Edit.ui.Join_Group_check.isChecked():
+                result = JoinGroup(url, cookie).Start()
+                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
+                self.ui_Edit.Info.Add(result[1],name,"JoinGroup",f'{result[0]} To {url}')
+            return number
+        except: return "Error Edit"
     def Start(self):
         success = 0
         failed = 0
@@ -80,12 +100,16 @@ class User(QWidget):
                     self.is_running = False
                 for url in second_column_data :
                     for info in self.ui_Edit.info :
-                        result = self.ui_Edit.Edit(info[1],info[5],url_id=url)
-                        failed += result.count(0)
-                        success += result.count(1)
-                        failed += result.count(2)
-                        self.ui_Edit.Info.Update(s=success,f=failed)
-                print('Fineshed')
+                        result = self.Edit(url,info[1],info[5],)
+                        if result == "Error Edit" :
+                            failed += 1
+                            self.ui_Edit.Info.Update(s=success,f=failed)
+                        else :
+                            failed += result.count(0)
+                            success += result.count(1)
+                            failed += result.count(2)
+                            self.ui_Edit.Info.Update(s=success,f=failed)
+                self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
                 self.is_running = False

@@ -1,17 +1,19 @@
 from pages_functions.__init__ import *
 
 class JoinGroup:
-    def __init__(self,id,cookie ) -> None:
+    def __init__(self,url,cookie ) -> None:
         self.req = requests.Session()
         self.headers = Header()
         self.req.headers.update(self.headers)
         self.cookie = cookie
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
-        self.id = id 
+        self.url = url
+        try:self.url = self.url.replace("www", "mbasic")
+        except:pass
 
     def Start(self):
-        response = self.req.get( f'https://mbasic.facebook.com/groups/{self.id}' )
+        response = self.req.get( self.url )
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             try:
@@ -33,10 +35,10 @@ class JoinGroup:
                     return self.Answer(link)     
                 elif response.status_code == 200 :
                       Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-                      return f'Done joined  :  {self.id}', 1
-                else: return f'Faild joine  :  {self.id} ', 0
-            except:   return f'Faild joine  :  {self.id} ', 0
-        else:         return f'Faild Find Group  :  {self.id} ', 0
+                      return f'Done joined', 1
+                else: return f'Faild joine', 0
+            except:   return f'Faild joine', 0
+        else:         return f'Faild Find Group', 0
     def Answer(self,link):      
         data = {
                 'fb_dtsg': self.fb_dtsg,
@@ -49,4 +51,4 @@ class JoinGroup:
         response = self.req.post( f'https://mbasic.facebook.com/{link}', data=data )
         if response.status_code == 200 and "Edit Answers" in response.text :
             Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-            return f"Done joined  :  {self.id}"
+            return f"Done joined"

@@ -29,6 +29,7 @@ class Edit(QWidget):
         self.ui.browes_cover.clicked.connect(self.Browes_cover)
         self.ui.browes_post.clicked.connect(self.Browes_post)
         self.ui.Select_Account.clicked.connect(self.Select)
+        self.ui.import_db_share.clicked.connect(self.Import_DB)
 
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
@@ -78,7 +79,7 @@ class Edit(QWidget):
             self.ui.lineEdit_cover.setText(random_file)
             files = [f for f in os.listdir(self.cover_photo) if os.path.isfile(os.path.join(self.cover_photo, f))]
             self.ui.number_cover.setText(str(len(files)))
-    def Browes_post(self): 
+    def Browes_post(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog  
         self.post = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
@@ -123,53 +124,78 @@ class Edit(QWidget):
             else: QMessageBox.warning(self, 'No Bio Selected', 'Please select an option.')
     
     def Select(self):
-        data = cursor.execute("SELECT * FROM account").fetchall()
-        table_dialog = Select(self,data)
+        table_dialog = Select(self)
         table_dialog.exec()
 
     def Edit(self,name,cookie):
         try:
             if self.ui.Add_Profile_Photo_check.isChecked() :
-                Profile = Edit_Photo(self.get_random_file(self.profil_photo),cookie)
-                if Profile == "Ban": return 'Error photo'
+                self.Info.ui.label.setText(f"{name} Try Change Profile Photo")
+                result = Edit_Photo(self.get_random_file(self.profil_photo),cookie).Start()
+                self.Info.Add(result[1],name,"Profile Photo",result[0])
+                if result[1] == 0: return 'Error photo'
             if self.ui.Add_Cover_check.isChecked() :
                 while True:
-                    cover = Edit_Cover(self.get_random_file(self.cover_photo),cookie)
-                    if cover == "successfully" :  break       
+                    self.Info.ui.label.setText(f"{name} Try Change Cover Photo")
+                    result = Edit_Cover(self.get_random_file(self.cover_photo),cookie).Start()
+                    if result[1] == 1 :
+                        self.Info.Add(result[1],name,"Cover Photo",result[0])
+                        break
+                    self.Info.Add(result[1],name,"Cover Photo",result[0])     
             if self.ui.Add_Post_check.isChecked():
                 pass
             if self.ui.Add_Bio_check.isChecked() :
-                result = Edit_bio(self.Bio(), cookie) 
-                self.Info.ui.label.setText(f"{name} {result[0]}")
+                self.Info.ui.label.setText(f"{name} Try Change Bio")
+                result = Edit_bio(self.Bio().strip(), cookie).Start()
                 self.Info.Add(result[1],name,"Bio",result[0])
             if self.ui.Add_Friend_check.isChecked():
-                result = AddFriend(self.id_friend, cookie)
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Add Friend",result[0])
+                if self.ui.textEdit_Friend.toPlainText():
+                    id_friend = random.sample(self.ui.textEdit_Friend.toPlainText().split(), int(self.ui.spinBox_friend.value()))
+                    self.Info.ui.label.setText(f"{name} Try Add Friend")
+                    for i in id_friend :
+                        result = AddFriend(i, cookie).Start()
+                        self.Info.Add(result[1],name,"Add Friend",result[0])
             if self.ui.Join_Group_check.isChecked():
-                result = JoinGroup(self.id_group,cookie).Start()  
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Join Groub",result[0])
+                if self.ui.textEdit_Group.toPlainText():
+                    id_group = random.sample(self.ui.textEdit_Group.toPlainText().split(), int(self.ui.spinBox_group.value()))
+                    self.Info.ui.label.setText(f"{name} Try Join Groub")
+                    for i in id_group :
+                        result = JoinGroup(i,cookie).Start()  
+                        self.Info.Add(result[1],name,"Join Groub",f'{result[0]} To {id_group}')
             if self.ui.Follow_check.isChecked():
-                result = Follow(self.id_follow, cookie).Start()
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Follow",result[0])
+                if self.ui.textEdit_Follow.toPlainText():
+                    id_follow = random.sample(self.ui.textEdit_Follow.toPlainText().split(), int(self.ui.spinBox_follow.value()))
+                    self.Info.ui.label.setText(f"{name} Try Follow")
+                    for i in id_follow :
+                        result = Follow(i, cookie).Start()
+                        self.Info.Add(result[1],name,"Follow",f'{result[0]} To {id_follow}')
             if self.ui.Un_Follow_check.isChecked():
-                result = Un_Follow(self.id_un_follow, cookie).Start()
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Un Follow",result[0])
+                if self.ui.textEdit_un_Follow.toPlainText() :
+                    id_un_follow = random.sample(self.ui.textEdit_un_Follow.toPlainText().split(), int(self.ui.spinBox_un_follow.value()))
+                    self.Info.ui.label.setText(f"{name} Try Un Follow")
+                    for i in id_un_follow :
+                        result = Un_Follow(i, cookie).Start()
+                        self.Info.Add(result[1],name,"Un Follow",f'{result[0]} To {id_un_follow}')
             if self.ui.Like_check.isChecked():
-                result = Like(self.id_like, type, cookie).Start()  
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Like",f'{result[0]} To {self.id_like}')
+                if self.ui.textEdit_Like.toPlainText() :
+                    id_like = random.sample(self.ui.textEdit_Like.toPlainText().split(), int(self.ui.spinBox_like.value()))
+                    self.Info.ui.label.setText(f"{name} Try Like")
+                    for i in id_like :
+                        result = Like(i, type, cookie).Start()  
+                        self.Info.Add(result[1],name,"Like",f'{result[0]} To {id_like}')
             if self.ui.Comment_check.isChecked():
-                result = Comment(self.id_like, self.text_comment, cookie).Start()  
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Comment",f'{result[0]} To {self.id_like}')
+                if self.ui.textEdit_Comment.toPlainText() :
+                    self.text_comment = random.sample(self.ui.textEdit_Comment.toPlainText().split(), int(self.ui.spinBox_share.value()))
+                    self.Info.ui.label.setText(f"{name} Try Comment")
+                    result = Comment(self.id_like, self.text_comment, cookie).Start()  
+                    self.Info.Add(result[1],name,"Comment",f'{result[0]} To {id_like}')
             if self.ui.Share_check.isChecked():
-                result = Share(self.id_like, "", cookie).Start()
-                self.Info.ui.label.setText(f"{name} {result[0]}")
-                self.Info.Add(result[1],name,"Share",f'{result[0]} To {self.id_like}')
+                if self.ui.textEdit_Share.toPlainText() :
+                    id_share = random.sample(self.ui.textEdit_Share.toPlainText().split(), int(self.ui.spinBox_share.value()))
+                    self.Info.ui.label.setText(f"{name} Try Share")
+                    for i in id_share :
+                        result = Share(i, '', cookie).Start()
+                        self.Info.Add(result[1],name,"Share",f'{result[0]} To {id_share}')
             if self.ui.Change_Password_check.isChecked() :
                 self.new_password = self.Password()
                 result = Change_Password(self.password , self.new_password)
@@ -179,23 +205,35 @@ class Edit(QWidget):
                     self.password = self.new_password
             return 'succes'
         except Exception as e :
-            self.Info.ui.label.setText(f"{name} Error")
+            self.Info.ui.label.setText(f"{name} Error Edit")
             self.Info.Add(0,name,"None",f'{e}')
             return 'Error Edit'
     def Start(self):
         if self.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop()
         else:
+            if self.is_running == False :
+                self.ui.Start.setText("Stop")
+                self.is_running = True
+            elif self.is_running :
+                self.ui.Start.setText("Start")
+                self.ui.Start.setChecked(False)
+                self.is_running = False
             for info in self.info :
-                self.id_friend = self.ui.textEdit_Friend.toPlainText()
-                self.id_group = self.ui.textEdit_Group.toPlainText()
-                self.id_follow = self.ui.textEdit_Follow.toPlainText()
-                self.id_un_follow = self.ui.textEdit_un_Follow.toPlainText()
-                self.id_like = self.ui.textEdit_Like.toPlainText()
-                self.text_comment = self.ui.textEdit_Like.toPlainText()
-                self.id_share = self.ui.textEdit_Like.toPlainText()
-                # url = self.ui.lineEdit_24.toPlainText()
+                print(self.Edit(info[1],info[5]))
+            self.Info.ui.label.setText("Finished")
+            self.ui.Start.setText("Start")
+            self.ui.Start.setChecked(False)
+            self.is_running = False
+    def Import_Text(self):
+        with open("file_name", 'r', encoding='utf-8') as file:
+            file_contents = file.read()
+            self.ui.textEdit_Share.setPlainText(file_contents)
+    def Import_DB(self):
+        data = cursor.execute("SELECT * FROM Share").fetchall()
+        for i in data :
+            self.ui.textEdit_Share.setPlainText(i[0])
 
-                self.Edit(info[1],info[5])
+
     def Update_info(self,info):
         self.ui.Number_Account.setText(str(len(info)))
         self.info = info

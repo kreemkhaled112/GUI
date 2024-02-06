@@ -13,8 +13,6 @@ class Share:
         try:self.url = self.url.replace("www", "mbasic")
         except:pass
     def Start(self):
-        if not self.message :
-            return
         response = self.req.get(self.url)
         sleep(1)
         try:
@@ -66,5 +64,5 @@ class Share:
         response = self.req.post( f'https://mbasic.facebook.com/{link}', data=data)
         if response.status_code == 200 : 
             Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-            return f"Done Share To {self.url}" , 1
+            return f"Done Share " , 1
         else: return "Faild Share" , 0

@@ -180,6 +180,13 @@ border: none;
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="Select">
+           <property name="text">
+            <string>Select All</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -198,6 +205,13 @@ border: none;
          <property name="bottomMargin">
           <number>0</number>
          </property>
+         <item>
+          <widget class="QPushButton" name="Checker">
+           <property name="text">
+            <string>Checker</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QPushButton" name="Add_Account">
            <property name="text">
@@ -231,6 +245,13 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QPushButton" name="Save">
+     <property name="text">
+      <string>Save</string>
+     </property>
     </widget>
    </item>
   </layout>

@@ -15,49 +15,48 @@ class Chrom:
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
 
-    def Login(self,email, password, name):
-        bot = self.bot
+    def Login(self,email, password):
+        try:
+            bot = self.bot
+            self.bot.get("https://mbasic.facebook.com/login/")
+            try: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.ID, "m_login_email"))).send_keys(email.strip())
+            except: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
 
-        self.bot.get("https://mbasic.facebook.com/login/")
-
-        try: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.ID, "m_login_email"))).send_keys(email.strip())
-        except: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
-
-        try: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password)
-        except: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='password']"))).send_keys(password)
-        WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
-        
-        try:WebDriverWait(self.bot, 10).until(EC.url_contains("https://mbasic.facebook.com/login/save-device/?login_source="))
-        except:pass
-        url = self.bot.current_url
-        if 'login/save-device/' or 'home.php?' in url:
-            cookies = bot.get_cookies()
-            format = {}
-            for cookie in cookies :
-                format[cookie['name']] = cookie['value']
-            cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-            bot.quit()
-            if not name  :
+            try: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password)
+            except: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='password']"))).send_keys(password)
+            WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
+            
+            try:WebDriverWait(self.bot, 10).until(EC.url_contains("https://mbasic.facebook.com/login/save-device/?login_source="))
+            except:pass
+            url = self.bot.current_url
+            if 'login/save-device/' or 'home.php?' in url:
+                cookies = bot.get_cookies()
+                format = {}
+                for cookie in cookies :
+                    format[cookie['name']] = cookie['value']
+                cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
                 return 'success' , cookie_string , Get_Name(cookie_string).Get()
-            return 'success' , cookie_string , name
-        elif 'checkpoint' in url:
-            print('Verification checkpoint!')
-            return "continue"
-        else:
-            print('Email or password incorrect!')
-            return "continue"
+            elif 'checkpoint' in url:
+                print('Verification checkpoint!')
+                return "Failed"
+            else:
+                print('Email or password incorrect!')
+                return "Failed"
+        except: return "Failed"
         
     def View(self,cook):
-        self.bot.get("https://www.facebook.com/")
-        cookies = cook.strip().split(";")
-        for cookie in cookies:
-            cookie_parts = cookie.split("=")
-            if len(cookie_parts) == 2:
-                cookie_name, cookie_value = cookie_parts
-                self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-        self.bot.get("https://www.facebook.com/profile.php?")
-        cookie_string = self.update_cookie(cook)
-        return cookie_string
+        try:
+            self.bot.get("https://www.facebook.com/")
+            cookies = cook.strip().split(";")
+            for cookie in cookies:
+                cookie_parts = cookie.split("=")
+                if len(cookie_parts) == 2:
+                    cookie_name, cookie_value = cookie_parts
+                    self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            self.bot.get("https://www.facebook.com/profile.php?")
+            cookie_string = self.update_cookie(cook)
+            return cookie_string
+        except: return "Failed"
     
     def update_cookie(self,cook):
         try:

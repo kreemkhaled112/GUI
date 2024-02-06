@@ -30,7 +30,8 @@ class Post(QWidget):
         self.ui_Edit.ui.Profrssional_check.hide()
         self.ui_Edit.ui.Change_Password_check.hide()
 
-        self.ui_Edit.ui.scrollArea_Like.hide()
+        self.ui_Edit.ui.widget_73.hide()
+        self.ui_Edit.ui.widget_75.hide()
         self.ui_Edit.ui.widget_share.hide()
 
 
@@ -87,23 +88,23 @@ class Post(QWidget):
                     reaction_type = "Sad"
                 elif self.ui_Edit.ui.Random_radio.isChecked():
                     reaction_type = "Random"
+                self.ui_Edit.Info.ui.label.setText(f"{name} Try Like")
                 result = Like(url, reaction_type, cookie).Start()  
-                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"Like",f'{result[0]} To {url}')
             if self.ui_Edit.ui.Comment_check.isChecked():
+                self.ui_Edit.Info.ui.label.setText(f"{name} Try Comment")
                 result = Comment(url, 'good', cookie).Start()  
-                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"Comment",f'{result[0]} To {url}')
             if self.ui_Edit.ui.Share_check.isChecked():
+                self.ui_Edit.Info.ui.label.setText(f"{name} Try Share")
                 result = Share(url, "", cookie).Start()
-                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"Share",f'{result[0]} To {url}')
             return number
         except: return "Error Edit"
     def Start(self):
         success = 0
         failed = 0
-        if self.ui_Edit.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop()
+        if self.ui_Edit.ui.Number_Account.text() == '0': self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop()
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]
             if second_column_data :
@@ -125,9 +126,9 @@ class Post(QWidget):
                             success += result.count(1)
                             failed += result.count(2)
                             self.ui_Edit.Info.Update(s=success,f=failed)
-                print('Fineshed')
+                self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
                 self.is_running = False
-            else: QMessage(text = 'No Url Add').mainloop()
+            else: self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Url Add').mainloop()
         

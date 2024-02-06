@@ -1,19 +1,17 @@
 from __init__ import *
 
 # تحديد من جدول واستخراج
-# with open("name.txt", "w",encoding="UTF-8") as file:
-#     data = cursor.execute("SELECT * FROM name  WHERE type = 'male' ").fetchall()
+# with open("account.txt", "w",encoding="UTF-8") as file:
+#     data = cursor.execute("SELECT * FROM account  WHERE password = 'Sameh@565' ").fetchall()
 #     for i in data:
-#         try:
-#             file.write(f"{i[0]}")
+#         try:file.write(f"{i[2]}:{i[3]}:{i[5]}\n")
 #         except:pass
 
 # تحديد من جدول واضافات الي جدول اخر وحذفه
-# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'wait' ").fetchall()
-# for i in data:
-#     cursor.execute('INSERT INTO Sell ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
-#     cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" ')
-# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'wait' ").fetchall()
+data = cursor.execute("SELECT * FROM account  WHERE insta = 'checkpoint' ").fetchall()
+for i in data:
+    cursor.execute('INSERT INTO edit ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
+    cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" ')
 
 # حذف السجلات المكررة
 # duplicate_rows_query = "SELECT email, COUNT(*) FROM account GROUP BY email HAVING COUNT(*) > 1"

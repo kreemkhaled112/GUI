@@ -100,7 +100,7 @@ class Generat_Face(QWidget):
         self.ui_Edit.Info.Add(type,f'{self.email}:{self.password}',"Generat Account", message )
         self.ui_Edit.Info.Update(s=self.success,f=self.failed)
     
-    def Creat(self): 
+    def Creat(self):
         self.name , self.gender = self.Name()
         if not self.name : return "stop"
         if not self.gender : return "stop"

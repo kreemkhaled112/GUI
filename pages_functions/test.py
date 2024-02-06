@@ -1,67 +1,67 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
-import sqlite3
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, QHBoxLayout, QCheckBox
 
-class MyWindow(QMainWindow):
+
+class TableExample(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.central_widget = QWidget(self)
-        self.setCentralWidget(self.central_widget)
+        self.initUI()
 
-        self.layout = QVBoxLayout(self.central_widget)
+    def initUI(self):
+        # إعداد النافذة والمكونات
+        self.setGeometry(100, 100, 600, 400)
+        self.setWindowTitle('PyQt Table Example')
 
-        self.table_widget = QTableWidget(self)
-        self.layout.addWidget(self.table_widget)
+        self.layout = QVBoxLayout()
 
-        self.init_db()
-        self.populate_table()
+        # إعداد الجدول
+        self.tableWidget = QTableWidget(self)
+        self.tableWidget.setRowCount(5)
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setHorizontalHeaderLabels(['العنصر', 'تحديد'])
 
-        self.table_widget.itemChanged.connect(self.handle_item_change)
+        # إضافة بيانات عينة
+        data = [('عنصر 1', False), ('عنصر 2', False), ('عنصر 3', False), ('عنصر 4', False), ('عنصر 5', False)]
+        for row, (item, checked) in enumerate(data):
+            self.tableWidget.setItem(row, 0, QTableWidgetItem(item))
 
-    def init_db(self):
-        self.connection = sqlite3.connect('example.db')
-        self.cursor = self.connection.cursor()
+            checkbox = QCheckBox()
+            checkbox.setChecked(checked)
+            self.tableWidget.setCellWidget(row, 1, checkbox)
 
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS my_table (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                value INTEGER
-            )
-        ''')
-        self.connection.commit()
+        # إعداد زر التحديد/الغاء
+        toggleButton = QPushButton('تحديد', self)
+        toggleButton.clicked.connect(self.toggleSelection)
 
-    def populate_table(self):
-        self.cursor.execute('SELECT * FROM my_table')
-        rows = self.cursor.fetchall()
+        # إعداد التخطيط
+        self.layout.addWidget(self.tableWidget)
+        self.layout.addWidget(toggleButton)
 
-        self.table_widget.setRowCount(len(rows))
-        self.table_widget.setColumnCount(3)
+        # تعيين التخطيط للنافذة
+        self.setLayout(self.layout)
 
-        for row_index, row_data in enumerate(rows):
-            for col_index, col_data in enumerate(row_data):
-                item = QTableWidgetItem(str(col_data))
-                self.table_widget.setItem(row_index, col_index, item)
+    def toggleSelection(self):
+        current_text = self.sender().text()
 
-    def handle_item_change(self, item):
-        row = item.row()
-        col = item.column()
+        if current_text == 'تحديد':
+            for row in range(self.tableWidget.rowCount()):
+                checkbox = self.tableWidget.cellWidget(row, 1)
+                checkbox.setSelected(True)
+            self.sender().setText('إلغاء تحديد')
+        else:
+            for row in range(self.tableWidget.rowCount()):
+                checkbox = self.tableWidget.cellWidget(row, 1)
+                checkbox.setChecked(False)
+            self.sender().setText('تحديد')
 
-        # قم بالتحقق من العمود قبل تحديث البيانات
-        if col in [1, 2]:  # افتراضيًا، 1 يشير إلى عمود الاسم و 2 يشير إلى عمود القيمة
-            new_value = item.text()
 
-            # تحديث الاسم أو القيمة في قاعدة البيانات
-            if col == 1:
-                self.cursor.execute('UPDATE my_table SET name = ? WHERE id = ?', (new_value, row + 1))
-            elif col == 2:
-                self.cursor.execute('UPDATE my_table SET value = ? WHERE id = ?', (new_value, row + 1))
+def main():
+    app = QApplication(sys.argv)
+    ex = TableExample()
+    ex.show()
+    sys.exit(app.exec_())
 
-            self.connection.commit()
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = MyWindow()
-    window.show()
-    sys.exit(app.exec_())
+    main()
