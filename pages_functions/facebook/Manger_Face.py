@@ -29,7 +29,7 @@ class Manger_Face(QWidget):
         self.ui.Export.clicked.connect(self.Export)
 
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
-        # self.ui.table.itemChanged.connect(self.handle_item_change)
+        self.ui.table.itemChanged.connect(self.handle_item_change)
 
         self.data = cursor.execute("SELECT * FROM account").fetchall()
         self.loadTableData(self.data)
@@ -95,10 +95,10 @@ class Manger_Face(QWidget):
         self.loadTableData(self.filtered_data)
     def handle_item_change(self, row):
         try:
-            i = [self.ui.table.item(row, col).text() for col in range(self.ui.table.columnCount())]
-            cursor.execute('UPDATE account SET name = ? WHERE email = ?', (i[2], i[3])); conn.commit()
-            cursor.execute('UPDATE account SET username = ? WHERE email = ?', (i[5], i[3])); conn.commit()
-            cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (i[6], i[3])); conn.commit()
+            i = [self.ui.table.item(row, col).text() for col in range(1,self.ui.table.columnCount())]
+            cursor.execute('UPDATE account SET name = ? WHERE email = ?', (i[1], i[2])); conn.commit()
+            cursor.execute('UPDATE account SET username = ? WHERE email = ?', (i[4], i[2])); conn.commit()
+            cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (i[5], i[2])); conn.commit()
         except : print("Failed Update DB")
 
     def Add_Account(self):

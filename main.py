@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import *
-
 from ui.main_ui import Ui_MainWindow
 
 from pages_functions.Facebook.Manger_Face import Manger_Face

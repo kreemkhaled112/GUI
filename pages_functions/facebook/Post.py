@@ -21,6 +21,8 @@ class Post(QWidget):
 
         self.ui_Edit.ui.Add_Profile_Photo_check.hide()
         self.ui_Edit.ui.Add_Cover_check.hide()
+        self.ui_Edit.ui.Add_City_check.hide()
+        self.ui_Edit.ui.Add_Hometown_check.hide()
         self.ui_Edit.ui.Add_Post_check.hide()
         self.ui_Edit.ui.Add_Bio_check.hide()
         self.ui_Edit.ui.Add_Friend_check.hide()

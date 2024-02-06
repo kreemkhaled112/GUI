@@ -140,7 +140,7 @@ class Edit_City:
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change City' , 0
             else: 
                 Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-                return 'Successfully Change City' , 1 
+                return f'Successfully Change City To {self.city}' , 1 
         except Exception as e: return 'Failed Change City' , 0
 class Edit_Hometown:
     def __init__(self, hometown ,cookie) -> None:
@@ -165,11 +165,11 @@ class Edit_Hometown:
             sleep(1)
             pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
             cek = pos.find('title').text
-            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change City' , 0
+            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change Hometown' , 0
             else: 
                 Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-                return 'Successfully Change City' , 1
-        except Exception as e: return 'Failed Change City' , 0
+                return f'Successfully Change Hometown To {self.hometown}' , 1
+        except Exception as e: return 'Failed Change Hometown' , 0
 class lock_profile:
     def __init__(self,cookie) -> None:
         self.req = requests.Session()

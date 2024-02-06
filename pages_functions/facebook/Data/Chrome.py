@@ -56,7 +56,7 @@ class Chrom:
             self.bot.get("https://www.facebook.com/profile.php?")
             cookie_string = self.update_cookie(cook)
             return cookie_string
-        except: return "Failed"
+        except:  return "Failed"
     
     def update_cookie(self,cook):
         try:
