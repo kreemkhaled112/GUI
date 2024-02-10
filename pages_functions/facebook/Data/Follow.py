@@ -29,8 +29,8 @@ class Follow:
                     return "Already followed" , 2
             except: 
                 open("html.html" , "w" , encoding="utf-8").write(response.text)
-                return "Faild" , 0
-        else: return "Faild" , 0
+                return "Faild Follow" , 0
+        else: return "Faild Follow" , 0
 
     def Follow_Profile(self):
         self.headers['referer'] = self.url

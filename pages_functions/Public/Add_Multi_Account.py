@@ -7,7 +7,7 @@ class Add_Account(QDialog):
         super(Add_Account, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.ui.widget_5.hide()
+
         self.ui.Save.clicked.connect(self.save)
         self.ui.Cancel.clicked.connect(self.accept)
 

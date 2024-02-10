@@ -93,14 +93,17 @@ class Post(QWidget):
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Like")
                 result = Like(url, reaction_type, cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,"Like",f'{result[0]} To {url}')
+                number.append(result[1])
             if self.ui_Edit.ui.Comment_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Comment")
                 result = Comment(url, 'good', cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,"Comment",f'{result[0]} To {url}')
+                number.append(result[1])
             if self.ui_Edit.ui.Share_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Share")
                 result = Share(url, "", cookie).Start()
                 self.ui_Edit.Info.Add(result[1],name,"Share",f'{result[0]} To {url}')
+                number.append(result[1])
             return number
         except: return "Error Edit"
     def Start(self):

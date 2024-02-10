@@ -16,33 +16,29 @@ class Chrom:
             print(f"Failed to start the browser : \n{e}")
 
     def Login(self,email, password):
-        try:
+        # try:
             bot = self.bot
             self.bot.get("https://mbasic.facebook.com/login/")
-            try: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.ID, "m_login_email"))).send_keys(email.strip())
-            except: WebDriverWait(self.bot, 20).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
-
-            try: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password)
-            except: WebDriverWait(self.bot, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='password']"))).send_keys(password)
-            WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
-            
-            try:WebDriverWait(self.bot, 10).until(EC.url_contains("https://mbasic.facebook.com/login/save-device/?login_source="))
+            WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
+            WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
+            try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
             except:pass
             url = self.bot.current_url
-            if 'login/save-device/' or 'home.php?' in url:
+            if 'checkpoint' in url:
+                print('Verification checkpoint!')
+                return "checkpoint"
+            elif 'login/save-device/' or 'home.php?' in url:
                 cookies = bot.get_cookies()
                 format = {}
                 for cookie in cookies :
                     format[cookie['name']] = cookie['value']
                 cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+                bot.close()
                 return 'success' , cookie_string , Get_Name(cookie_string).Get()
-            elif 'checkpoint' in url:
-                print('Verification checkpoint!')
-                return "Failed"
             else:
                 print('Email or password incorrect!')
                 return "Failed"
-        except: return "Failed"
+        # except Exception as e : return e
         
     def View(self,cook):
         try:

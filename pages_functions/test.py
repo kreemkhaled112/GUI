@@ -1,67 +1,23 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, QHBoxLayout, QCheckBox
-
-
-class TableExample(QWidget):
-    def __init__(self):
-        super().__init__()
-
-        self.initUI()
-
-    def initUI(self):
-        # إعداد النافذة والمكونات
-        self.setGeometry(100, 100, 600, 400)
-        self.setWindowTitle('PyQt Table Example')
-
-        self.layout = QVBoxLayout()
-
-        # إعداد الجدول
-        self.tableWidget = QTableWidget(self)
-        self.tableWidget.setRowCount(5)
-        self.tableWidget.setColumnCount(2)
-        self.tableWidget.setHorizontalHeaderLabels(['العنصر', 'تحديد'])
-
-        # إضافة بيانات عينة
-        data = [('عنصر 1', False), ('عنصر 2', False), ('عنصر 3', False), ('عنصر 4', False), ('عنصر 5', False)]
-        for row, (item, checked) in enumerate(data):
-            self.tableWidget.setItem(row, 0, QTableWidgetItem(item))
-
-            checkbox = QCheckBox()
-            checkbox.setChecked(checked)
-            self.tableWidget.setCellWidget(row, 1, checkbox)
-
-        # إعداد زر التحديد/الغاء
-        toggleButton = QPushButton('تحديد', self)
-        toggleButton.clicked.connect(self.toggleSelection)
-
-        # إعداد التخطيط
-        self.layout.addWidget(self.tableWidget)
-        self.layout.addWidget(toggleButton)
-
-        # تعيين التخطيط للنافذة
-        self.setLayout(self.layout)
-
-    def toggleSelection(self):
-        current_text = self.sender().text()
-
-        if current_text == 'تحديد':
-            for row in range(self.tableWidget.rowCount()):
-                checkbox = self.tableWidget.cellWidget(row, 1)
-                checkbox.setSelected(True)
-            self.sender().setText('إلغاء تحديد')
-        else:
-            for row in range(self.tableWidget.rowCount()):
-                checkbox = self.tableWidget.cellWidget(row, 1)
-                checkbox.setChecked(False)
-            self.sender().setText('تحديد')
-
-
-def main():
-    app = QApplication(sys.argv)
-    ex = TableExample()
-    ex.show()
-    sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()
+Message: 
+Stacktrace:
+	GetHandleVerifier [0x00007FF6DD1B2142+3514994]
+	(No symbol) [0x00007FF6DCDD0CE2]
+	(No symbol) [0x00007FF6DCC776AA]
+	(No symbol) [0x00007FF6DCCC1860]
+	(No symbol) [0x00007FF6DCCC197C]
+	(No symbol) [0x00007FF6DCD04EE7]
+	(No symbol) [0x00007FF6DCCE602F]
+	(No symbol) [0x00007FF6DCD028F6]
+	(No symbol) [0x00007FF6DCCE5D93]
+	(No symbol) [0x00007FF6DCCB4BDC]
+	(No symbol) [0x00007FF6DCCB5C64]
+	GetHandleVerifier [0x00007FF6DD1DE16B+3695259]
+	GetHandleVerifier [0x00007FF6DD236737+4057191]
+	GetHandleVerifier [0x00007FF6DD22E4E3+4023827]
+	GetHandleVerifier [0x00007FF6DCF004F9+689705]
+	(No symbol) [0x00007FF6DCDDC048]
+	(No symbol) [0x00007FF6DCDD8044]
+	(No symbol) [0x00007FF6DCDD81C9]
+	(No symbol) [0x00007FF6DCDC88C4]
+	BaseThreadInitThunk [0x00007FFC85387344+20]
+	RtlUserThreadStart [0x00007FFC873626B1+33]

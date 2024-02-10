@@ -8,6 +8,7 @@ class Select(QDialog):
         super(Select, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        
         self.manage = Manger_Face()
         layout = QVBoxLayout(self.ui.widget); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.manage)
         self.manage.ui.widget_4.hide()

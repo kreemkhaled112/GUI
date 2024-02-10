@@ -7,6 +7,7 @@ class Info(QDialog):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.ui.table.hide()
+        self.ui.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
         self.ui.table.setColumnWidth(0, 20)
         self.ui.table.setColumnWidth(1, 120)
         self.ui.table.setColumnWidth(2, 100)
@@ -21,7 +22,6 @@ class Info(QDialog):
         self.ui.table.setItem(0, 2 , QTableWidgetItem(name)) 
         self.ui.table.setItem(0, 3 , QTableWidgetItem(action)) 
         self.ui.table.setItem(0, 4 , QTableWidgetItem(value)) 
-        self.ui.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.Stretch)
         self.ui.table.verticalHeader().hide()
     def Update(self,s=None,f=None,time=None):
         self.ui.successful.setText(str(s))

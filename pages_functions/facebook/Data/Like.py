@@ -12,15 +12,7 @@ class Like:
         self.type = type
         try:self.url = self.url.replace("www", "mbasic")
         except:pass
-        
-        if self.type == "Random":
-            list = ["Like","Love","Care","Haha","Wow","Sad"]
-            rand = random.choice(list)
-            self.type = rand
-            self.Type_reaction()
-        else:
-            self.Type_reaction()
-
+        self.Type_reaction()
     def Type_reaction (self):
         if self.type == "Like" :
             self.reaction_id = '1635855486666999'
@@ -36,11 +28,11 @@ class Like:
             self.reaction_type = "4"
         if self.type == "Wow" :
             self.reaction_id = '478547315650144'
-            self.reaction_type = 3
+            self.reaction_type = '3'
         if self.type == "Sad" :
             self.reaction_id = '908563459236466'
             self.reaction_type = "7"
-        else : return
+
     def Start(self):
         response = self.req.get(self.url)
         try:

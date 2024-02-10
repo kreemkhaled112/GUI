@@ -106,7 +106,7 @@ class Edit_bio:
                 'bio'             : self.bio,
                 'publish_to_feed' : False,
                 'submit'          : 'Save'}
-            sleep(1)
+            sleep(2)
             pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Bio" , 0
@@ -134,7 +134,7 @@ class Edit_City:
                 'type'       : 'basic',
                 'current_city[]' : self.city,
                 'save'       : 'submit'}
-            sleep(1)
+            sleep(2)
             pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change City' , 0
@@ -162,7 +162,7 @@ class Edit_Hometown:
                 'type'       : 'basic',
                 'hometown[]' : self.hometown,
                 'save'       : 'submit'}
-            sleep(1)
+            sleep(2)
             pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change Hometown' , 0
@@ -187,9 +187,9 @@ class lock_profile:
         # else:
         #     print('Correct Contents!')
         stat = True
-        self.execute(stat)
-    def execute(self,stat):
+    def Start(self):
         try:
+            stat = True
             req = BeautifulSoup(self.req.get(f'https://www.facebook.com/{self.id}',allow_redirects=True).content,'html.parser')
             haste = re.search('"haste_session":"(.*?)",',str(req)).group(1)
             rev = re.search('{"rev":(.*?)}',str(req)).group(1)

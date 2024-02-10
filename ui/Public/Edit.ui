@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1057</width>
-    <height>796</height>
+    <height>794</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,7 +110,7 @@ border: none;
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string> 20 Second</string>
+            <string> 10 Second</string>
            </property>
           </widget>
          </item>
@@ -330,6 +330,13 @@ border: none;
               </widget>
              </item>
              <item>
+              <widget class="QCheckBox" name="Lock_Profile">
+               <property name="text">
+                <string>Lock Profile</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QCheckBox" name="Change_Password_check">
                <property name="text">
                 <string>Change_Password</string>
@@ -342,7 +349,7 @@ border: none;
           <item row="0" column="1">
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>8</number>
+             <number>15</number>
             </property>
             <widget class="QWidget" name="page_photo">
              <layout class="QGridLayout" name="gridLayout_3">
@@ -577,8 +584,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>846</width>
-                   <height>586</height>
+                   <width>98</width>
+                   <height>71</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47" rowstretch="0">
@@ -684,8 +691,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>846</width>
-                   <height>586</height>
+                   <width>98</width>
+                   <height>71</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_48" rowstretch="0">
@@ -917,8 +924,8 @@ border: none;
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>846</width>
-                      <height>586</height>
+                      <width>98</width>
+                      <height>71</height>
                      </rect>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_46" rowstretch="0">
@@ -1048,8 +1055,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>846</width>
-                         <height>562</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_45" rowstretch="0">
@@ -1202,8 +1209,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>544</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_44" rowstretch="0">
@@ -1356,8 +1363,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>544</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_43" rowstretch="0">
@@ -1510,8 +1517,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>544</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_42" rowstretch="0">
@@ -1677,7 +1684,7 @@ border: none;
                          <x>0</x>
                          <y>0</y>
                          <width>846</width>
-                         <height>539</height>
+                         <height>519</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_41" rowstretch="0">
@@ -1812,6 +1819,69 @@ border: none;
                    </layout>
                   </widget>
                  </item>
+                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                  <widget class="QWidget" name="widget_19" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                    <property name="spacing">
+                     <number>5</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QCheckBox" name="Like_checkBox">
+                      <property name="text">
+                       <string>Like</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="Love_checkBox">
+                      <property name="text">
+                       <string>Love</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="Care_checkBox">
+                      <property name="text">
+                       <string>Care</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="Haha_checkBox">
+                      <property name="text">
+                       <string>Haha</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="Wow_checkBox">
+                      <property name="text">
+                       <string>Wow</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="Sad_checkBox">
+                      <property name="text">
+                       <string>Sad</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
                  <item>
                   <widget class="QWidget" name="widget_75" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_52">
@@ -1925,7 +1995,7 @@ border: none;
                          <x>0</x>
                          <y>0</y>
                          <width>846</width>
-                         <height>536</height>
+                         <height>539</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_40" rowstretch="0">
@@ -2231,12 +2301,28 @@ background-color: rgb(255, 0, 0);
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>966</x>
-     <y>28</y>
+     <x>209</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
-     <x>988</x>
-     <y>653</y>
+     <x>209</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Random_radio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widget_19</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>952</x>
+     <y>606</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>586</x>
+     <y>630</y>
     </hint>
    </hints>
   </connection>
