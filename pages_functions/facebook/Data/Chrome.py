@@ -24,7 +24,7 @@ class Chrom:
             try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
             except:pass
             if 'checkpoint' in self.bot.current_url:
-                print('Verification checkpoint!')
+                bot.close()
                 return "checkpoint"
             elif 'login/save-device/' or 'home.php?' in self.bot.current_url:
                 cookies = bot.get_cookies()

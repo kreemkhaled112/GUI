@@ -113,6 +113,7 @@ class Generat_Face(QWidget):
         first_name = self.name[0]
         second_name = self.name[1]
 
+        self.ui_Edit.Info.ui.label.setText(f"Createing {self.email}:{self.password}")
         try:
             service = Service(executable_path="pages_functions/chromedriver.exe")
             options = webdriver.ChromeOptions()
@@ -122,7 +123,6 @@ class Generat_Face(QWidget):
             options.add_argument("--log-level=3")
             self.bot = webdriver.Chrome(service=service , options=options)
             bot = self.bot
-            self.ui_Edit.Info.ui.label.setText(f"Createing {self.email}:{self.password}")
             try:
                 bot.get("https://www.facebook.com/")  
                 WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div[1]/form/div[5]/a"))).click()
@@ -163,7 +163,6 @@ class Generat_Face(QWidget):
                             matches = re.findall(code_pattern, message)
                     elif type == 'Mail':
                         m = self.Message.Get_Message()
-                        print(m)
                         matches = re.findall(r'FB-(\d+)', m['subject'])
                 except:
                     self.failed +=1
@@ -185,7 +184,7 @@ class Generat_Face(QWidget):
                 self.username = re.search(r'c_user=(\d+)', self.cookie_string).group(1)
                 try: 
                     result = self.ui_Edit.Edit(first_name,self.cookie_string)
-                    if result[0] == 'succes' :
+                    if result == 'succes' :
                         self.bot.refresh()
                         WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
                         cookies = self.bot.get_cookies()

@@ -165,7 +165,7 @@
             <item>
              <widget class="QLabel" name="label_28">
               <property name="text">
-               <string>Faild :</string>
+               <string>Failed :</string>
               </property>
              </widget>
             </item>
