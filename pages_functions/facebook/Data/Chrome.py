@@ -23,11 +23,10 @@ class Chrom:
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
             try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
             except:pass
-            url = self.bot.current_url
-            if 'checkpoint' in url:
+            if 'checkpoint' in self.bot.current_url:
                 print('Verification checkpoint!')
                 return "checkpoint"
-            elif 'login/save-device/' or 'home.php?' in url:
+            elif 'login/save-device/' or 'home.php?' in self.bot.current_url:
                 cookies = bot.get_cookies()
                 format = {}
                 for cookie in cookies :
@@ -50,9 +49,14 @@ class Chrom:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
             self.bot.get("https://www.facebook.com/profile.php?")
-            cookie_string = self.update_cookie(cook)
-            return cookie_string
-        except:  return "Failed"
+            if 'checkpoint' in self.bot.current_url :
+                return 'checkpoint'
+            else:
+                cookie_string = self.update_cookie(cook)
+                return cookie_string
+        except Exception as e:  
+            print(e)
+            return "Failed"
     
     def update_cookie(self,cook):
         try:

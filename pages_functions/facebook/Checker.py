@@ -19,6 +19,7 @@ class Checker(QDialog):
         if self.ui.Email_Password.isChecked():
             for i in self.data:
                 result = Chrom().Login(i[2],i[3])
+                self.ui.table.setItem(selected_row, 6, QTableWidgetItem(str(result)))
                 input(".......")
         elif self.ui.Cookie.isChecked():
             for i in self.data:

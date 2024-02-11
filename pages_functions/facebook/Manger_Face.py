@@ -19,22 +19,24 @@ class Manger_Face(QWidget):
         self.ui.Save.setVisible(False)
         
         # Connect signal and slot
-        self.ui.comboBox.currentIndexChanged.connect(lambda : Thread(target=self.filter_table).start())
-        self.ui.lineEdit.textChanged.connect(lambda : Thread(target=self.filter_table).start())
-        self.ui.Checker.clicked.connect(self.Checker)
+        self.ui.comboBox.currentIndexChanged.connect(self.filter_table)
+        self.ui.lineEdit.textChanged.connect(self.filter_table)
         self.ui.Select.clicked.connect(self.select_all_rows)
+        self.ui.Checker.clicked.connect(lambda : Thread(target=self.Checker).start())
         self.ui.Add_Account.clicked.connect(self.Add_Account)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)
+        self.ui.Refresh.clicked.connect(self.Refresh)
+        self.ui.Write_Change.clicked.connect(self.handle_item_change)
 
         # self.ui.tableWidget.horizontalHeader().sectionClicked.connect(self.sortTable)
 
-        self.data = cursor.execute("SELECT * FROM account").fetchall()
-        self.loadTableData(self.data)
+        
         self.ui.table.verticalHeader().hide()
-        self.ui.table.setColumnWidth(0, 50)
-        self.ui.table.setColumnWidth(1, 100)
-        # self.ui.table.itemChanged.connect(self.handle_item_change)
+        self.Refresh()
+        self.ui.table.itemChanged.connect(lambda item: {self.changed_items.append(item) , self.ui.Write_Change.setEnabled(True)})
+
+        self.changed_items = []
     def loadTableData(self,data):
         try:
             self.ui.table.setRowCount(len(data))
@@ -49,13 +51,19 @@ class Manger_Face(QWidget):
                     item = QTableWidgetItem(str(value))
                     self.ui.table.setItem(row, col + 1, item)
 
+            self.ui.table.setColumnWidth(0, 50)
+            self.ui.table.setColumnWidth(1, 100)
             self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
             headers = ["#"] + [description[0] for description in cursor.description]
             self.ui.table.setHorizontalHeaderLabels(headers)
             self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
             self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
+            self.ui.Write_Change.setEnabled(False)
+            self.changed_items.clear()
         except:pass
-
+    def Refresh(self):
+        self.data = cursor.execute("SELECT * FROM account").fetchall()
+        self.loadTableData(self.data)
     def show_context_menu(self, position):
         context_menu = QMenu(self)
         
@@ -69,7 +77,7 @@ class Manger_Face(QWidget):
 
         show.setShortcut(Qt.CTRL + Qt.Key_S)
         Update.setShortcut(Qt.CTRL + Qt.Key_U)
-        Delete.setShortcut(Qt.CTRL + Qt.Key_D)
+        Delete.setShortcut(Qt.Key_Delete)
 
         context_menu.addAction(Update)
         context_menu.addAction(show)
@@ -79,29 +87,36 @@ class Manger_Face(QWidget):
 
     def select_all_rows(self): 
         all_selected = all(self.ui.table.item(row, 0).checkState() == Qt.Checked for row in range(self.ui.table.rowCount()))
-
         for row in range(self.ui.table.rowCount()):
             checkbox_item = self.ui.table.item(row, 0)
             if all_selected:
-                checkbox_item.setCheckState(Qt.Unchecked)  # Deselect the checkbox
+                checkbox_item.setCheckState(Qt.Unchecked)  
             else:
-                checkbox_item.setCheckState(Qt.Checked)  # Check the checkbox
+                checkbox_item.setCheckState(Qt.Checked)  
                 
     def filter_table(self):
         search_text = self.ui.lineEdit.text().lower()
         selected_column = self.ui.comboBox.currentIndex()
 
-        if not search_text: self.filtered_data = self.data
-        else: self.filtered_data = [item for item in self.data if item[selected_column] and search_text in item[selected_column].lower()]
-        self.loadTableData(self.filtered_data)
-    def handle_item_change(self, item):
+        if not search_text: pass
+        else: 
+            filtered_data = [item for item in self.data if item[selected_column] and search_text in item[selected_column].lower()]
+            self.loadTableData(filtered_data)
+    def handle_item_change(self):
         try:
-            item = [self.ui.table.item(item.row(), col).text() for col in range(1, self.ui.table.columnCount())]
-            cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', (item[0], item[2])); conn.commit()
-            cursor.execute('UPDATE account SET name = ? WHERE email = ?', (item[1], item[2])); conn.commit()
-            cursor.execute('UPDATE account SET username = ? WHERE email = ?', (item[4], item[2])); conn.commit()
-            cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (item[5], item[2])); conn.commit()
-        except Exception as e:self.Info.Add(0,item,"Update",e)
+            for i in self.changed_items:
+                item = [self.ui.table.item(i.row(), col).text() for col in range(1, self.ui.table.columnCount())]
+                cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', (item[0], item[2]))
+                cursor.execute('UPDATE account SET name = ? WHERE email = ?', (item[1], item[2]))
+                cursor.execute('UPDATE account SET username = ? WHERE email = ?', (item[4], item[2]))
+                cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (item[5], item[2]))
+                cursor.execute('UPDATE account SET insta = ? WHERE email = ?', (item[7], item[2]))
+                conn.commit()
+            self.ui.Write_Change.setEnabled(False)
+            self.changed_items.clear()
+        except Exception as e:
+            print(e)
+            pass
     
     def Add_Account(self):
         table_dialog = Add_Account(self)
@@ -156,10 +171,11 @@ class Manger_Face(QWidget):
         selected_row = self.ui.table.currentRow()
         if selected_row >= 0:
             deleted_row_data = []
-            for col in range(self.ui.table.columnCount()):
+            for col in range(1,self.ui.table.columnCount()):
                 item = self.ui.table.item(selected_row, col)
                 deleted_row_data.append(item.text())
-            Chrom().View(deleted_row_data[6])
+            value = Chrom().View(deleted_row_data[5])
+            self.ui.table.setItem(selected_row, 6, QTableWidgetItem(str(value)))
         else: print("لا يوجد صف محدد.")
     def Delete(self):
         selected_row = self.ui.table.currentRow()
@@ -170,16 +186,18 @@ class Manger_Face(QWidget):
                 deleted_row_data.append(item.text())
             self.ui.table.removeRow(selected_row)
             cursor.execute(f'DELETE FROM account WHERE email = "{deleted_row_data[3]}" '); conn.commit()
+            self.ui.Write_Change.setEnabled(False)
+            self.changed_items.clear()
         else: print("لا يوجد صف محدد.")
     def Checker(self):
-        data_to_save = []
         for row in range(self.ui.table.rowCount()):
             checkbox_item = self.ui.table.item(row, 0)
             if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
                 data = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
-                data_to_save.append(data)
-        table_dialog = Checker(self,data_to_save)
-        table_dialog.exec()        
+                value = Chrom().View(data[5])
+                if value == 'checkpoint':
+                    cursor.execute(f'DELETE FROM account WHERE email = "{data[2]}" '); conn.commit()
+                else: self.ui.table.setItem(row, 6, QTableWidgetItem(str(value)))
     def Export(self):
         table_dialog = Export_insta(self,self.ui.table )
         table_dialog.exec()
