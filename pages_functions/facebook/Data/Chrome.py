@@ -24,7 +24,7 @@ class Chrom:
             try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
             except:pass
             if 'checkpoint' in self.bot.current_url:
-                bot.close()
+                bot.quit()
                 return "checkpoint"
             elif 'login/save-device/' or 'home.php?' in self.bot.current_url:
                 cookies = bot.get_cookies()
@@ -32,7 +32,7 @@ class Chrom:
                 for cookie in cookies :
                     format[cookie['name']] = cookie['value']
                 cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-                bot.close()
+                bot.quit()
                 return 'success' , cookie_string , Get_Name(cookie_string).Get()
             else:
                 print('Email or password incorrect!')

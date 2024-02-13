@@ -72,24 +72,29 @@ class User(QWidget):
         self.ui.table.removeRow(row)
     def Edit(self,url,name,cookie):
         try:
-            number = []
             if  self.ui_Edit.ui.Follow_check.isChecked():
                 result = Follow(url, cookie).Start()  
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"Follow",f'{result[0]} To {url}')
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Un_Follow_check.isChecked():
                 result = Un_Follow(url, cookie).Start()  
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"Un Follow",f'{result[0]} To {url}')
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Join_Group_check.isChecked():
                 result = JoinGroup(url, cookie).Start()
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,"JoinGroup",f'{result[0]} To {url}')
-            return number
-        except: return "Error Edit"
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
+            return 'succes'
+        except Exception as e: 
+            self.ui_Edit.Info.ui.label.setText(f"{name} Error Edit")
+            self.ui_Edit.Info.Add(0,name,"None",f'{e}')
+            return 'Error Edit'
     def Start(self):
-        success = 0
-        failed = 0
+        self.success = 0
+        self.failed = 0
         if self.ui_Edit.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop()
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]
@@ -102,15 +107,8 @@ class User(QWidget):
                     self.is_running = False
                 for url in second_column_data :
                     for info in self.ui_Edit.info :
-                        result = self.Edit(url,info[1],info[5],)
-                        if result == "Error Edit" :
-                            failed += 1
-                            self.ui_Edit.Info.Update(s=success,f=failed)
-                        else :
-                            failed += result.count(0)
-                            success += result.count(1)
-                            failed += result.count(2)
-                            self.ui_Edit.Info.Update(s=success,f=failed)
+                        if self.is_running :
+                            self.Edit(url,info[1],info[5])
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)

@@ -74,7 +74,6 @@ class Post(QWidget):
         self.ui.table.removeRow(row)
     def Edit(self,url,name,cookie):
         try:
-            number = []
             if  self.ui_Edit.ui.Like_check.isChecked():
                 if self.ui_Edit.ui.Like_radio.isChecked():
                     reaction_type = "Like"
@@ -93,22 +92,22 @@ class Post(QWidget):
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Like")
                 result = Like(url, reaction_type, cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,"Like",f'{result[0]} To {url}')
-                number.append(result[1])
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed) ; sleep(self.ui_Edit.time) 
             if self.ui_Edit.ui.Comment_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Comment")
                 result = Comment(url, 'good', cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,"Comment",f'{result[0]} To {url}')
-                number.append(result[1])
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed); sleep(self.ui_Edit.time) 
             if self.ui_Edit.ui.Share_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Share")
                 result = Share(url, "", cookie).Start()
                 self.ui_Edit.Info.Add(result[1],name,"Share",f'{result[0]} To {url}')
-                number.append(result[1])
-            return number
+                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed); sleep(self.ui_Edit.time) 
+            return 'succes'
         except: return "Error Edit"
     def Start(self):
-        success = 0
-        failed = 0
+        self.success = 0
+        self.failed = 0
         if self.ui_Edit.ui.Number_Account.text() == '0': self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop()
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]
@@ -122,15 +121,8 @@ class Post(QWidget):
                 
                 for url in second_column_data :
                     for info in self.ui_Edit.info :
-                        result = self.Edit(url,info[1],info[5])
-                        if result == "Error Edit" :
-                            failed += 1
-                            self.ui_Edit.Info.Update(s=success,f=failed)
-                        else :
-                            failed += result.count(0)
-                            success += result.count(1)
-                            failed += result.count(2)
-                            self.ui_Edit.Info.Update(s=success,f=failed)
+                        if self.is_running :
+                            result = self.Edit(url,info[1],info[5])
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)

@@ -66,22 +66,15 @@ class Manger_Face(QWidget):
         self.loadTableData(self.data)
     def show_context_menu(self, position):
         context_menu = QMenu(self)
-        
-        show= QAction("Show in Browser", self)
-        Update= QAction("Update", self)
-        Delete= QAction("Delete", self)
-
-        Update.triggered.connect(lambda : Thread(target=self.Update).start())
-        Delete.triggered.connect(lambda : Thread(target=self.Delete).start())
-        show.triggered.connect(lambda : Thread(target=self.View).start())
+    
+        Update = context_menu.addAction("Update" , lambda : Thread(target=self.Update).start())
+        show = context_menu.addAction("Show in Browser", lambda : Thread(target=self.View).start())
+        Delete = context_menu.addAction("Delete", lambda : Thread(target=self.Delete).start())
 
         show.setShortcut(Qt.CTRL + Qt.Key_S)
         Update.setShortcut(Qt.CTRL + Qt.Key_U)
         Delete.setShortcut(Qt.Key_Delete)
 
-        context_menu.addAction(Update)
-        context_menu.addAction(show)
-        context_menu.addAction(Delete)
 
         context_menu.exec_(self.mapToGlobal(position))
 

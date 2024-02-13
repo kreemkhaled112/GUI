@@ -154,6 +154,7 @@ class Generat_Face(QWidget):
                 try:
                     if type == 'text' :
                         matches = [input('Enter Code : ')]
+                        self.ui.lineEdit_2.setText("")
                     if  type == 'Moakt':
                         soup = BeautifulSoup(self.Message.Get_Message().content, 'html.parser')
                         message_elements = soup.find_all('div', class_='email-messages modal')
