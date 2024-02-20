@@ -16,7 +16,7 @@ class Chrom:
             print(f"Failed to start the browser : \n{e}")
 
     def Login(self,email, password):
-        # try:
+        try:
             bot = self.bot
             self.bot.get("https://mbasic.facebook.com/login/")
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
@@ -37,7 +37,7 @@ class Chrom:
             else:
                 print('Email or password incorrect!')
                 return "Failed"
-        # except Exception as e : return e
+        except Exception as e : return e
         
     def View(self,cook):
         try:
@@ -54,9 +54,7 @@ class Chrom:
             else:
                 cookie_string = self.update_cookie(cook)
                 return cookie_string
-        except Exception as e:  
-            print(e)
-            return "Failed"
+        except : return ''
     
     def update_cookie(self,cook):
         try:

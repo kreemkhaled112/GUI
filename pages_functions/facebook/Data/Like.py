@@ -57,8 +57,7 @@ class Like:
                 query_params = parse_qs(parsed_url.query)
 
                 if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
-                    Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-                    return (f"Already {self.type} befor") , 2
+                    return (f"Already {self.type} befor :") , 2
                 elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
                     href = a['href']
                     sleep(1)
@@ -72,5 +71,4 @@ class Like:
 
         response = self.req.get( f'https://mbasic.facebook.com/{href}' )
         if response.status_code == 200 :
-            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-            return f"Done {self.type} " , 1
+            return f"Done {self.type} :" , 1

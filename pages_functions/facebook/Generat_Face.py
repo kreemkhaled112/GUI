@@ -26,8 +26,10 @@ class Generat_Face(QWidget):
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
         self.ui_Edit.ui.widget_Select.hide()
-        self.ui_Edit.ui.Change_Password_check.hide()
+        self.ui_Edit.ui.Change_Password_check.hide() 
         self.ui_Edit.ui.widget_Select.hide()
+        self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
+
         self.ui_Edit.ui.Start.setText("Creat")
         self.ui_Edit.Info.ui.table.setHorizontalHeaderItem(2, QTableWidgetItem("Name : Password"))
         self.ui_Edit.Info.ui.table.setColumnWidth(2, 200)
@@ -97,7 +99,7 @@ class Generat_Face(QWidget):
     
     def message(self,type,message):
         self.ui_Edit.Info.ui.label.setText(f"{message}")
-        self.ui_Edit.Info.Add(type,f'{self.email}:{self.password}',"Generat Account", message )
+        self.ui_Edit.Info.Add(type,f'{self.email}:{self.password}','Generat Account',"Generat Account", message )
         self.ui_Edit.Info.Update(s=self.success,f=self.failed)
     
     def Creat(self):

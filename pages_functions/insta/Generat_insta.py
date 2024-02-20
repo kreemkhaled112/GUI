@@ -1,8 +1,8 @@
 from pages_functions.__init__ import *
 
 from ui.Public.Generat_ui import Ui_Form
-from pages_functions.Insta.Edit_Insta import Edit_Insta
-
+from pages_functions.Public.Info import Info
+from pages_functions.Public.Edit import Edit
 from pages_functions.Insta.Data.Chrome import *
 
 class Generat_Insta(QWidget):
@@ -10,39 +10,31 @@ class Generat_Insta(QWidget):
         super(Generat_Insta, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
+        self.ui_Edit = Edit(Info())
+        layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
         self.is_running = False
         self.Error = 3
         self.Error1 = 600
         self.mp3 = "Data\\error.mp3"
-        self.type = 'normal'
-        self.ui.widget_Name1.hide()
+
         self.ui.widget_Email1.hide()
         self.ui.widget_Password1.hide()
-        self.ui.lineEdit_password.setText('pastaaa6000')
+        self.ui_Edit.ui.widget_Select.hide()
+        self.ui_Edit.ui.Change_Password_check.hide()
+        self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
+
+        self.ui_Edit.ui.Start.setText("Switch")
+        self.ui_Edit.Info.ui.table.setHorizontalHeaderItem(2, QTableWidgetItem("Username : Password"))
+        self.ui_Edit.Info.ui.table.setColumnWidth(2, 200)
+
         self.ui.Generat_Password_2.clicked.connect(self.Generat_password)
-        QVBoxLayout(self.ui.widget_Edit).addWidget(Edit_Insta())
-    def Name(self):
-        if self.ui.lineEdit.text() : return self.ui.lineEdit.text()
-        else:
-            if self.ui.checkBox.isChecked() :
-                if self.ui.radioButton.isChecked():
-                    random_item = cursor.execute("SELECT data FROM name WHERE type='male' ORDER BY RANDOM() LIMIT 1").fetchone()
-                    return random_item
-                elif self.ui.radioButton_2.isChecked(): 
-                    random_item = cursor.execute("SELECT data FROM name WHERE type='female' ORDER BY RANDOM() LIMIT 1").fetchone()
-                    return random_item
-                elif self.ui.radioButton_3.isChecked():
-                    random_item = cursor.execute("SELECT data FROM name ORDER BY RANDOM() LIMIT 1").fetchone() 
-                    return random_item
-                else: QMessageBox.warning(self, 'No Name Selected', 'Please select an option.')
-            else: QMessageBox.warning(self, 'No Name Selected', 'Please select an option.')
+        self.ui_Edit.ui.Start.clicked.connect(lambda : Thread(target=self.Switch).start())
+    
     def Password(self):
-        if self.ui.lineEdit_3.text() : return self.ui.lineEdit_3.text()
+        if self.ui.lineEdit_password.text() : return self.ui.lineEdit_password.text()
         else:
-            if self.ui.checkBox_3.isChecked() : return self.Generat_password()
-            else:
-                QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
+            if self.ui.checkBox_password.isChecked() : return self.Generat_password()
+            else: QMessage( 'No Password Selected', 'Please select an option.').mainloop() ;return  None
     def Generat_password(self):
         if self.ui.checkBox_4.isChecked() or self.ui.checkBox_5.isChecked() :
             chrs = ''
@@ -53,73 +45,23 @@ class Generat_Insta(QWidget):
             password = text1 + ''.join(random.choices(list(chrs) if chrs else '', k=value))
             self.ui.Generat_Password_2.setText(password)
             return password
-        else:
-            QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
-    def Browes_photo(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog  
-        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
-        if folderPath:
-            corrected_path = normpath(folderPath).replace('/', '\\')
-            random_file,file_count = self.get_random_file(folderPath)
-            self.ui.lineEdit_8.setText(folderPath)
-            self.ui.label_15.setText(f'{file_count}')
-            self.addphoto = corrected_path + '\\' + random_file
-
-    def Browes_cover(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog  
-        folderPath = QFileDialog.getExistingDirectory(self, "Open Folder", "", options=options)
-        if folderPath:
-            corrected_path = normpath(folderPath).replace('/', '\\')
-            random_file,file_count = self.get_random_file(folderPath)
-            self.ui.lineEdit_9.setText(folderPath)
-            self.ui.label_17.setText(f'{file_count}')
-            self.addcover = corrected_path + "\\" + random_file
-
-    def get_random_file(self, folder_path):
-        try:
-            files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
-            if files:return random.choice(files) , len(files)
-            else:
-                print('No files in the folder.')
-                return 'No files in the folder.'
-        except Exception as e:
-            print(f"Error getting random file: {e}")
-            return 'Error getting random file.'
-    def switch(self):
-        ac = cursor.execute(f"SELECT * FROM account  ").fetchall()
-        for row in ac :
-            if row[6] == 'pending' :
-                self.email = row[1]
-                pas = row[2]
-                cookie = row[4]
-                break
-        name = self.Name()
-        self.password = self.Password()
+        else: QMessageBox.warning(self, 'No Password Selected', 'Please select an option.')
+    def message(self,type,message):
+        self.ui_Edit.Info.ui.label.setText(f"{message}")
+        self.ui_Edit.Info.Add(type,f'{self.email}:{self.password}','Generat Account',"Generat Account", message )
+        self.ui_Edit.Info.Update(s=self.success,f=self.failed)
+    
+    def Start(self):
         self.Chrom = Chrom_Insta()
-        switch = self.Chrom.switch(self.email,name[0],self.password,cookie,pas)
+        switch = self.Chrom.switch(self.email,self.name,self.password,self.cookie,self.password)
         if switch is not None:
             self.username , self.Cookie = switch
             if self.Cookie is None:
                 cursor.execute(f"UPDATE account SET insta = 'ban' WHERE email = '{self.email}' ")
                 conn.commit()
-                self.Chrom.bot.quit()
-                print(Colorate.Diagonal(Colors.red_to_blue, f'[ BAN ] : [ {self.email}:{pas} ]', 1))
-            else:return 'success'
-        else:return 'faild'
-
-    def Start(self):
-        if self.is_running == False :
-            self.ui.start.setText("Stop")
-            self.is_running = True
-        elif self.is_running :
-            self.ui.Switch.setText("Switch")
-            self.is_running = False
-
-        while self.is_running :
-            result = self.switch()
-            if result == 'success':
+                input("......")
+                print(Colorate.Diagonal(Colors.red_to_blue, f'[ BAN ] : [ {self.email}:{self.password} ]', 1))
+            else:
                 result = self.Edit()
                 if result == 'success':
                     try:
@@ -132,26 +74,46 @@ class Generat_Insta(QWidget):
                     print(Colorate.Diagonal(Colors.red_to_blue, f'[ Error ] : [ {self.email}:{self.password} ]', 1))
                     cursor.execute(f"UPDATE account SET insta = 'ban' WHERE email = '{self.email}' ")
                     conn.commit()
-                    self.Chrom.bot.quit()
+                    input("......")
                 elif result == 'Error Edit':
                     print('Error Edit')
-            elif result == 'Failed':
-                print('Failed')
-    def Update(self,successful,faild,time):
-        self.ui.successful.setText(successful)
-        self.ui.faild.setText(successful)
-        self.ui.total.setText(successful+faild)
-        self.ui.time.setText(time)
+        else:return 'faild'
+
+    def Switch(self):
+        if self.is_running == False :
+            self.ui_Edit.ui.Start.setText("Stop")
+            self.is_running = True
+        elif self.is_running :
+            self.ui_Edit.ui.Start.setText("Switch")
+            self.is_running = False
+
+        while self.is_running :
+            ac = cursor.execute(f"SELECT * FROM account  ").fetchall()
+            for row in ac :
+                if row[7] == 'pending' :
+                    self.name = row[1]
+                    self.email = row[2]
+                    self.password = row[3]
+                    self.cookie = row[5]
+                    break
+            self.Start()
 
     def Edit(self):
         try:
-            if self.ui.Add_Profile.isChecked() :
-                result = self.Chrom.Add_Photo(self.addphoto)
+            if self.ui_Edit.ui.Add_Profile_Photo_check.isChecked() :
+                self.ui_Edit.Info.ui.label.setText(f"{self.username} Try Change Profile Photo")
+                result = self.Chrom.Add_Photo(self.ui_Edit.get_random_file(self.ui_Edit.profil_photo))
                 if result == "Ban" : return 'Ban'
-            if self.ui.Add_Cover.isChecked() :self.Chrom.Add_Cover(self.addcover)
-            if self.ui.Edit_Bio.isChecked() :self.Chrom.Edit_Bio(self.ui.lineEdit_10.text())
-            if self.ui.Profrssional.isChecked() :
+            if self.ui_Edit.ui.Add_Cover_check.isChecked() :
+                self.ui_Edit.Info.ui.label.setText(f"{self.username} Try Change Cover Photo")
+                self.Chrom.Add_Cover(self.ui_Edit.get_random_file(self.ui_Edit.cover_photo))
+            if self.ui_Edit.ui.Add_Bio_check.isChecked() :
+                if self.ui.textEdit_bio.toPlainText() :
+                    bio = random.choice(self.ui_Edit.ui.textEdit_bio.toPlainText().split('\n'))
+                    self.ui_Edit.Info.ui.label.setText(f"{self.username} Try Change Bio")
+                    self.Chrom.Edit_Bio(bio)
+            if self.ui_Edit.ui.Profrssional_check.isChecked() :
                 type = self.Chrom.profrssional()
-                if type == 'successfully': self.type = 'pro'
+                self.type = 'pro' if type == 'successfully' else 'normal'
             return 'success'
         except : return 'Error Edit'

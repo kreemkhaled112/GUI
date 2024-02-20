@@ -78,6 +78,11 @@
         </column>
         <column>
          <property name="text">
+          <string>Section</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Acction</string>
          </property>
         </column>
@@ -239,7 +244,7 @@ color: rgb(0, 170, 127);
             <string/>
            </property>
            <property name="icon">
-            <iconset>
+            <iconset resource="../../static/resource.qrc">
              <normaloff>:/icon/icon/arrow-4.ico</normaloff>
              <normalon>:/icon/icon/arrow-3.ico</normalon>:/icon/icon/arrow-4.ico</iconset>
            </property>
@@ -266,7 +271,7 @@ color: rgb(0, 170, 127);
   </layout>
  </widget>
  <resources>
-  <include location="../static/resource.qrc"/>
+  <include location="../../static/resource.qrc"/>
  </resources>
  <connections>
   <connection>

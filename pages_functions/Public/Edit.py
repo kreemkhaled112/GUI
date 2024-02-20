@@ -24,9 +24,8 @@ class Edit(QWidget):
 
         self.ui.widget_Password.hide()
         self.ui.Profrssional_check.hide()
-        self.ui.widget_19.hide()
         self.ui.widget_17.setVisible(False)
-
+        self.Info.ui.table.setColumnHidden(3, True)
 
         self.ui.spinBox_2.textChanged.connect(self.filter)
         self.ui.spinBox_3.textChanged.connect(self.filter)
@@ -155,132 +154,120 @@ class Edit(QWidget):
         self.info = info
     
     def reaction_id(self):
-        if self.ui.Like_radio.isChecked() :
-            return "Like"
-        if self.ui.Love_radio.isChecked() :
-            return "Love"
-        if self.ui.Care_radio.isChecked() :
-            return "Care"
-        if self.ui.Haha_radio.isChecked() :
-            return "Haha"
-        if self.ui.Wow_radio.isChecked() :
-            return "Wow"
-        if self.ui.Sad_radio.isChecked() :
-            return "Sad"
-        if self.ui.Random_radio.isChecked() :
-            type = []
-            if self.ui.Like_checkBox.isChecked() :
-                type.append("Like")
-            if self.ui.Love_checkBox.isChecked() :
-                type.append("Love") 
-            if self.ui.Care_checkBox.isChecked() :
-                type.append("Care") 
-            if self.ui.Haha_checkBox.isChecked() :
-                type.append("Haha") 
-            if self.ui.Wow_checkBox.isChecked() :
-                type.append("Wow") 
-            if self.ui.Sad_checkBox.isChecked() :
-                type.append("Sad") 
-            type = random.choice(type)
-            return type
+        type = []
+        if self.ui.Like_checkBox.isChecked() :
+            type.append("Like")
+        if self.ui.Love_checkBox.isChecked() :
+            type.append("Love") 
+        if self.ui.Care_checkBox.isChecked() :
+            type.append("Care") 
+        if self.ui.Haha_checkBox.isChecked() :
+            type.append("Haha") 
+        if self.ui.Wow_checkBox.isChecked() :
+            type.append("Wow") 
+        if self.ui.Sad_checkBox.isChecked() :
+            type.append("Sad") 
+        type = random.choice(type)
+        return type
     def Edit(self,name,cookie):
         try:
-            if self.ui.Add_Profile_Photo_check.isChecked() :
+            if self.ui.Add_Profile_Photo_check.isChecked() and self.is_running :
                 self.Info.ui.label.setText(f"{name} Try Change Profile Photo")
                 result = Edit_Photo(self.get_random_file(self.profil_photo),cookie).Start()
-                self.Info.Add(result[1],name,"Profile Photo",result[0])
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
+                self.Info.Add(result[1],name,'Edit',"Profile Photo",result[0])
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
                 if result[1] == 0: return 'Error photo'
-            if self.ui.Add_Cover_check.isChecked() :
-                while True:
+            if self.ui.Add_Cover_check.isChecked() and self.is_running :
+                while self.is_running:
                     self.Info.ui.label.setText(f"{name} Try Change Cover Photo")
                     result = Edit_Cover(self.get_random_file(self.cover_photo),cookie).Start()
                     if result[1] == 1 :
-                        self.Info.Add(result[1],name,"Cover Photo",result[0])
+                        self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0])
                         break
-                    self.Info.Add(result[1],name,"Cover Photo",result[0])   
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Add_City_check.isChecked():
+                    self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0])
+                    sleep(1)
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Add_City_check.isChecked() and self.is_running :
                 if self.ui.textEdit_city.toPlainText() :
                     city = random.choice(self.ui.textEdit_city.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Add City")
                     result = Edit_City(city, cookie).Start()
-                    self.Info.Add(result[1],name,"City",result[0])
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Add_Hometown_check.isChecked():
+                    self.Info.Add(result[1],name,'Edit',"City",result[0])
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Add_Hometown_check.isChecked() and self.is_running :
                 if self.ui.textEdit_hometown.toPlainText() :
                     hometown = random.choice(self.ui.textEdit_hometown.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Add Hometown")
                     result = Edit_Hometown(hometown, cookie).Start()
-                    self.Info.Add(result[1],name,"Hometown",result[0])
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Add_Bio_check.isChecked() :
+                    self.Info.Add(result[1],name,'Edit',"Hometown",result[0])
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Add_Bio_check.isChecked() and self.is_running :
                 if self.ui.textEdit_bio.toPlainText() :
                     bio = random.choice(self.ui.textEdit_bio.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Change Bio")
                     result = Edit_bio(bio, cookie).Start()
-                    self.Info.Add(result[1],name,"Bio",result[0])
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Add_Friend_check.isChecked():
+                    self.Info.Add(result[1],name,'Edit',"Bio",result[0])
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Add_Friend_check.isChecked() and self.is_running :
                 if self.ui.textEdit_friend.toPlainText():
                     id_friend = random.sample(self.ui.textEdit_friend.toPlainText().split(), int(self.ui.spinBox_friend.value()))
                     self.Info.ui.label.setText(f"{name} Try Add Friend")
                     for i in id_friend :
                         result = AddFriend(i, cookie).Start()
-                        self.Info.Add(result[1],name,"Add Friend",result[0])
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Join_Group_check.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Add Friend",result[0])
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Join_Group_check.isChecked() and self.is_running :
                 if self.ui.textEdit_group.toPlainText():
                     id_group = random.sample(self.ui.textEdit_group.toPlainText().split(), int(self.ui.spinBox_group.value()))
                     self.Info.ui.label.setText(f"{name} Try Join Groub")
                     for i in id_group :
                         result = JoinGroup(i,cookie).Start()  
-                        self.Info.Add(result[1],name,"Join Groub",f'{result[0]} To {i}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Follow_check.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Join Groub",f'{result[0]} To {i}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+            if self.ui.Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Follow.toPlainText():
                     id_follow = random.sample(self.ui.textEdit_Follow.toPlainText().split(), int(self.ui.spinBox_follow.value()))
                     self.Info.ui.label.setText(f"{name} Try Follow")
                     for i in id_follow :
                         result = Follow(i, cookie).Start()
-                        self.Info.Add(result[1],name,"Follow",f'{result[0]} To {i}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Un_Follow_check.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Follow",f'{result[0]} {i}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Un_Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_un_Follow.toPlainText() :
                     id_un_follow = random.sample(self.ui.textEdit_un_Follow.toPlainText().split(), int(self.ui.spinBox_un_follow.value()))
                     self.Info.ui.label.setText(f"{name} Try Un Follow")
                     for i in id_un_follow :
                         result = Un_Follow(i, cookie).Start()
-                        self.Info.Add(result[1],name,"Un Follow",f'{result[0]} To {i}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Like_check.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Un Follow",f'{result[0]} {i}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Like_check.isChecked() and self.is_running :
                 if self.ui.textEdit_like.toPlainText() :
                     id_like = random.sample(self.ui.textEdit_like.toPlainText().split(), int(self.ui.spinBox_like.value()))
                     self.Info.ui.label.setText(f"{name} Try Like")
                     for i in id_like :
                         result = Like(i, self.reaction_id(), cookie).Start()  
-                        self.Info.Add(result[1],name,"Like",f'{result[0]} To {i}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Comment_check.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Like",f'{result[0]} {i}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+            if self.ui.Comment_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Comment.toPlainText() :
                     self.text_comment = random.sample(self.ui.textEdit_Comment.toPlainText().split(), int(self.ui.spinBox_share.value()))
                     self.Info.ui.label.setText(f"{name} Try Comment")
                     result = Comment(self.id_like, self.text_comment, cookie).Start()  
-                    self.Info.Add(result[1],name,"Comment",f'{result[0]} To {i}')
-            if self.ui.Share_check.isChecked():
+                    self.Info.Add(result[1],name,'Edit',"Comment",f'{result[0]} {i}')
+            if self.ui.Share_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Share.toPlainText() :
                     id_share = random.sample(self.ui.textEdit_Share.toPlainText().split(), int(self.ui.spinBox_share.value()))
                     self.Info.ui.label.setText(f"{name} Try Share")
                     for i in id_share :
                         result = Share(i, '', cookie).Start()
-                        self.Info.Add(result[1],name,"Share",f'{result[0]} To {i}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Lock_Profile.isChecked():
+                        self.Info.Add(result[1],name,'Edit',"Share",f'{result[0]} {i}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+            if self.ui.Lock_Profile.isChecked() and self.is_running :
                 self.Info.ui.label.setText(f"{name} Try Lock Profile")
                 result = lock_profile(cookie).Start()
-                self.Info.Add(result[1],name,"Lock Profile",f'{result[0]}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.Info.Update(s=self.success,f=self.failed) ; sleep(self.time) 
-            if self.ui.Change_Password_check.isChecked() :
+                self.Info.Add(result[1],name,'Edit',"Lock Profile",f'{result[0]}')
+                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+            if self.ui.Change_Password_check.isChecked() and self.is_running :
                 self.new_password = self.Password()
                 result = Change_Password(self.password , self.new_password)
                 if result == 'success' :
@@ -290,28 +277,27 @@ class Edit(QWidget):
             return 'succes'
         except Exception as e :
             self.Info.ui.label.setText(f"{name} Error Edit")
-            self.Info.Add(0,name,"None",f'{e}')
+            self.Info.Add(0,name,'Edit',"None",f'{e}')
             return 'Error Edit'
     def Start(self):
-        self.success = 0
-        self.failed = 0
         if self.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop()
         else:
             if self.is_running == False :
                 self.ui.Start.setText("Stop")
                 self.is_running = True
+                self.Info.Update(s=0)
             elif self.is_running :
                 self.ui.Start.setText("Start")
                 self.ui.Start.setChecked(False)
                 self.is_running = False
             for info in self.info :
-                if self.is_running :
-                    self.Edit(info[1],info[5])
+                self.Edit(info[1],info[5])
+                        
             self.Info.ui.label.setText("Finished")
             self.ui.Start.setText("Start")
             self.ui.Start.setChecked(False)
             self.is_running = False
-    
+
     def Import_Text(self):
         button = self.sender()
         if button.objectName() == "checkBox_city" :

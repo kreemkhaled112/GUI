@@ -31,10 +31,13 @@ class Post(QWidget):
         self.ui_Edit.ui.Un_Follow_check.hide()
         self.ui_Edit.ui.Profrssional_check.hide()
         self.ui_Edit.ui.Change_Password_check.hide()
+        self.ui_Edit.ui.Lock_Profile.hide()
 
         self.ui_Edit.ui.widget_73.hide()
         self.ui_Edit.ui.widget_75.hide()
         self.ui_Edit.ui.widget_share.hide()
+        self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
+
 
 
         self.ui.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
@@ -75,34 +78,20 @@ class Post(QWidget):
     def Edit(self,url,name,cookie):
         try:
             if  self.ui_Edit.ui.Like_check.isChecked():
-                if self.ui_Edit.ui.Like_radio.isChecked():
-                    reaction_type = "Like"
-                elif self.ui_Edit.ui.Love_radio.isChecked():
-                    reaction_type = "Love"
-                elif self.ui_Edit.ui.Care_radio.isChecked():
-                    reaction_type = "Care"
-                elif self.ui_Edit.ui.Haha_radio.isChecked():
-                    reaction_type = "Haha"
-                elif self.ui_Edit.ui.Wow_radio.isChecked():
-                    reaction_type = "Wow"
-                elif self.ui_Edit.ui.Sad_radio.isChecked():
-                    reaction_type = "Sad"
-                elif self.ui_Edit.ui.Random_radio.isChecked():
-                    reaction_type = "Random"
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Like")
-                result = Like(url, reaction_type, cookie).Start()  
-                self.ui_Edit.Info.Add(result[1],name,"Like",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed) ; sleep(self.ui_Edit.time) 
+                result = Like(url, self.ui_Edit.reaction_id(), cookie).Start()  
+                self.ui_Edit.Info.Add(result[1],name,'Post',"Like",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time) 
             if self.ui_Edit.ui.Comment_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Comment")
                 result = Comment(url, 'good', cookie).Start()  
-                self.ui_Edit.Info.Add(result[1],name,"Comment",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed); sleep(self.ui_Edit.time) 
+                self.ui_Edit.Info.Add(result[1],name,'Post',"Comment",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time) 
             if self.ui_Edit.ui.Share_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f"{name} Try Share")
                 result = Share(url, "", cookie).Start()
-                self.ui_Edit.Info.Add(result[1],name,"Share",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed); sleep(self.ui_Edit.time) 
+                self.ui_Edit.Info.Add(result[1],name,'Post',"Share",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time)  
             return 'succes'
         except: return "Error Edit"
     def Start(self):

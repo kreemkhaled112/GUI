@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from ui.main_ui import Ui_MainWindow
 
-from pages_functions.Facebook.Manger_Face import Manger_Face
+from pages_functions.Facebook.Manger_Face import Manager_Face
 from pages_functions.Facebook.Edit_Face import Edit_Face
 from pages_functions.Facebook.Generat_Face import Generat_Face
 from pages_functions.Facebook.User import User
@@ -27,7 +27,7 @@ class MyWindow(QMainWindow):
 
         ## Create dict for menu buttons and tab windows
         self.menu_btns_list = {
-            self.Account_Manger_face: Manger_Face(),
+            self.Account_Manger_face: Manager_Face(),
             self.Account_Edit_face: Edit_Face(),
             self.Account_Generat_face: Generat_Face(),
             self.User: User(),
@@ -60,7 +60,7 @@ class MyWindow(QMainWindow):
         if result[0]: self.ui.tabWidget.setCurrentIndex(result[1])
         else:
             title = self.Account_Manger_face.text()
-            curIndex = self.ui.tabWidget.addTab(Manger_Face(), title)
+            curIndex = self.ui.tabWidget.addTab(Manager_Face(), title)
             self.ui.tabWidget.setCurrentIndex(curIndex)
             self.ui.tabWidget.setVisible(True)
 

@@ -25,7 +25,6 @@ class Follow:
                     return self.Follow_Profile()
                 except : 
                     self.href = soup.select_one('a[href^="/a/subscriptions/remove?"]').get('href')
-                    Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                     return "Already followed" , 2
             except: 
                 open("html.html" , "w" , encoding="utf-8").write(response.text)
@@ -38,7 +37,6 @@ class Follow:
 
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         if response.status_code == 200 :
-            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
             return (f'Done Follow : {self.id}') , 1
 
 
@@ -76,6 +74,5 @@ class Like_Page:
 
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         if response.status_code == 200 :
-            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
             return (f'Done Follow ') , 1
 

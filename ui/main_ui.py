@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1038, 656)
+        MainWindow.resize(1149, 627)
         MainWindow.setStyleSheet("#icon_only_widget {\n"
 "        background-color: #313a46;\n"
 "        width:50px;\n"
@@ -104,7 +104,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem)
         self.gridLayout_2.addWidget(self.icon_only_widget, 0, 0, 1, 1)
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        self.scrollArea.setMinimumSize(QtCore.QSize(110, 0))
+        self.scrollArea.setMinimumSize(QtCore.QSize(150, 0))
         self.scrollArea.setMaximumSize(QtCore.QSize(150, 16777215))
         self.scrollArea.setStyleSheet("border: none;\n"
 "\n"
@@ -112,7 +112,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.full_menu_widget = QtWidgets.QWidget()
-        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 656))
+        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 150, 627))
         self.full_menu_widget.setObjectName("full_menu_widget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.full_menu_widget)
         self.verticalLayout_4.setContentsMargins(2, 0, 0, 0)
@@ -336,13 +336,13 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.logo_label_2.setText(_translate("MainWindow", "Dashbord"))
         self.pushButton_3.setText(_translate("MainWindow", "FACEBOOK"))
-        self.Account_Manger_face.setText(_translate("MainWindow", "Account Manger"))
+        self.Account_Manger_face.setText(_translate("MainWindow", "Account Manager"))
         self.Account_Edit_face.setText(_translate("MainWindow", "Account Edit"))
         self.Account_Generat_face.setText(_translate("MainWindow", "Account Generat"))
         self.User.setText(_translate("MainWindow", "User"))
         self.Post.setText(_translate("MainWindow", "Post"))
         self.pushButton_8.setText(_translate("MainWindow", "INSTGRAM"))
-        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Manger"))
+        self.Account_Manger_insta.setText(_translate("MainWindow", "Account Manager"))
         self.Account_Edit_insta.setText(_translate("MainWindow", "Account Edit"))
         self.Account_Generat_insta.setText(_translate("MainWindow", "Account Generat"))
         self.search_input.setPlaceholderText(_translate("MainWindow", "Search..."))

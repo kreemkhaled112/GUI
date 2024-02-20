@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:/Users/kareem/AppData/Local/Temp/Manger_faceHFswLx.ui'
+# Form implementation generated from reading ui file 'p:\API\GUI\ui\Facebook\Manger_face.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -15,7 +15,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.setEnabled(True)
-        Form.resize(1076, 595)
+        Form.resize(1076, 639)
         Form.setStyleSheet("QPushButton l{\n"
 "        border:none;\n"
 "        border-radius: 3px;\n"
@@ -87,8 +87,30 @@ class Ui_Form(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.Checker = QtWidgets.QPushButton(self.widget_4)
+        self.Checker.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}\n"
+"")
+        self.Checker.setCheckable(True)
         self.Checker.setObjectName("Checker")
         self.horizontalLayout_2.addWidget(self.Checker)
+        self.Update_all = QtWidgets.QPushButton(self.widget_4)
+        self.Update_all.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}\n"
+"")
+        self.Update_all.setCheckable(True)
+        self.Update_all.setChecked(False)
+        self.Update_all.setObjectName("Update_all")
+        self.horizontalLayout_2.addWidget(self.Update_all)
+        self.Delete_all = QtWidgets.QPushButton(self.widget_4)
+        self.Delete_all.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}\n"
+"")
+        self.Delete_all.setCheckable(True)
+        self.Delete_all.setObjectName("Delete_all")
+        self.horizontalLayout_2.addWidget(self.Delete_all)
         self.Write_Change = QtWidgets.QPushButton(self.widget_4)
         self.Write_Change.setEnabled(False)
         self.Write_Change.setObjectName("Write_Change")
@@ -152,6 +174,8 @@ class Ui_Form(object):
         self.Select.setText(_translate("Form", "Select All"))
         self.Refresh.setText(_translate("Form", "Refresh"))
         self.Checker.setText(_translate("Form", "Checker"))
+        self.Update_all.setText(_translate("Form", "Update All"))
+        self.Delete_all.setText(_translate("Form", "Delete All"))
         self.Write_Change.setText(_translate("Form", "Write Change"))
         self.Add_Account.setText(_translate("Form", "AddAcount"))
         self.AddMultiAccount.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

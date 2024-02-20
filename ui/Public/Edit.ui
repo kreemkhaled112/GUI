@@ -349,7 +349,7 @@ border: none;
           <item row="0" column="1">
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>15</number>
+             <number>11</number>
             </property>
             <widget class="QWidget" name="page_photo">
              <layout class="QGridLayout" name="gridLayout_3">
@@ -584,8 +584,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
-                   <height>71</height>
+                   <width>846</width>
+                   <height>591</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47" rowstretch="0">
@@ -691,8 +691,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
-                   <height>71</height>
+                   <width>846</width>
+                   <height>591</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_48" rowstretch="0">
@@ -924,8 +924,8 @@ border: none;
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>98</width>
-                      <height>71</height>
+                      <width>846</width>
+                      <height>591</height>
                      </rect>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_46" rowstretch="0">
@@ -1055,8 +1055,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>98</width>
-                         <height>71</height>
+                         <width>846</width>
+                         <height>567</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_45" rowstretch="0">
@@ -1209,8 +1209,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>98</width>
-                         <height>71</height>
+                         <width>828</width>
+                         <height>549</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_44" rowstretch="0">
@@ -1363,8 +1363,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>98</width>
-                         <height>71</height>
+                         <width>828</width>
+                         <height>549</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_43" rowstretch="0">
@@ -1385,6 +1385,13 @@ border: none;
                         </property>
                         <item row="0" column="0">
                          <widget class="QTextEdit" name="textEdit_Follow">
+                          <property name="html">
+                           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;https://www.facebook.com/Kreem.Khaled112/&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          </property>
                           <property name="placeholderText">
                            <string>Links</string>
                           </property>
@@ -1517,8 +1524,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>98</width>
-                         <height>71</height>
+                         <width>828</width>
+                         <height>549</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_42" rowstretch="0">
@@ -1626,7 +1633,7 @@ border: none;
             <widget class="QWidget" name="page_like">
              <layout class="QGridLayout" name="gridLayout_32">
               <item row="0" column="0">
-               <widget class="QWidget" name="widget_72" native="true">
+               <widget class="QWidget" name="widget_like" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_6">
                  <property name="leftMargin">
                   <number>0</number>
@@ -1684,7 +1691,7 @@ border: none;
                          <x>0</x>
                          <y>0</y>
                          <width>846</width>
-                         <height>519</height>
+                         <height>541</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_41" rowstretch="0">
@@ -1749,77 +1756,7 @@ border: none;
                    </layout>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QWidget" name="widget_3" native="true">
-                   <layout class="QHBoxLayout" name="horizontalLayout">
-                    <property name="spacing">
-                     <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <widget class="QRadioButton" name="Like_radio">
-                      <property name="text">
-                       <string>Like</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Love_radio">
-                      <property name="text">
-                       <string>Love</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Care_radio">
-                      <property name="text">
-                       <string>Care</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Haha_radio">
-                      <property name="text">
-                       <string>Haha</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Wow_radio">
-                      <property name="text">
-                       <string>Wow</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Sad_radio">
-                      <property name="text">
-                       <string>Sad</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="Random_radio">
-                      <property name="text">
-                       <string>Random</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                 <item alignment="Qt::AlignVCenter">
                   <widget class="QWidget" name="widget_19" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_14">
                     <property name="spacing">
@@ -1842,12 +1779,20 @@ border: none;
                       <property name="text">
                        <string>Like</string>
                       </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/like.png</normaloff>:/icon/icon/like.png</iconset>
+                      </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QCheckBox" name="Love_checkBox">
                       <property name="text">
                        <string>Love</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/love.png</normaloff>:/icon/icon/love.png</iconset>
                       </property>
                      </widget>
                     </item>
@@ -1856,12 +1801,20 @@ border: none;
                       <property name="text">
                        <string>Care</string>
                       </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/care.png</normaloff>:/icon/icon/care.png</iconset>
+                      </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QCheckBox" name="Haha_checkBox">
                       <property name="text">
                        <string>Haha</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/haha.png</normaloff>:/icon/icon/haha.png</iconset>
                       </property>
                      </widget>
                     </item>
@@ -1870,12 +1823,26 @@ border: none;
                       <property name="text">
                        <string>Wow</string>
                       </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/wow.png</normaloff>:/icon/icon/wow.png</iconset>
+                      </property>
                      </widget>
                     </item>
                     <item>
                      <widget class="QCheckBox" name="Sad_checkBox">
                       <property name="text">
                        <string>Sad</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../static/resource.qrc">
+                        <normaloff>:/icon/icon/sad.png</normaloff>:/icon/icon/sad.png</iconset>
+                      </property>
+                      <property name="autoRepeat">
+                       <bool>false</bool>
+                      </property>
+                      <property name="autoExclusive">
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
@@ -1994,8 +1961,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>846</width>
-                         <height>539</height>
+                         <width>83</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_40" rowstretch="0">
@@ -2292,7 +2259,9 @@ background-color: rgb(255, 0, 0);
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../static/resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>checkBox_password</sender>
@@ -2307,22 +2276,6 @@ background-color: rgb(255, 0, 0);
     <hint type="destinationlabel">
      <x>209</x>
      <y>83</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Random_radio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>widget_19</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>952</x>
-     <y>606</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>586</x>
-     <y>630</y>
     </hint>
    </hints>
   </connection>

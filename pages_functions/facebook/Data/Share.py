@@ -63,6 +63,5 @@ class Share:
                 }
         response = self.req.post( f'https://mbasic.facebook.com/{link}', data=data)
         if response.status_code == 200 : 
-            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
-            return f"Done Share " , 1
+            return f"Done Share : " , 1
         else: return "Faild Share" , 0

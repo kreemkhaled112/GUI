@@ -1,7 +1,7 @@
 from pages_functions.__init__ import *
 
 from ui.Public.Select_ui import Ui_Form
-from pages_functions.Facebook.Manger_Face import Manger_Face
+from pages_functions.Facebook.Manger_Face import Manager_Face
 
 class Select(QDialog):
     def __init__(self, parent=None):
@@ -9,7 +9,7 @@ class Select(QDialog):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         
-        self.manage = Manger_Face()
+        self.manage = Manager_Face()
         layout = QVBoxLayout(self.ui.widget); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.manage)
         self.manage.ui.widget_4.hide()
         self.manage.ui.widget_Info.hide()

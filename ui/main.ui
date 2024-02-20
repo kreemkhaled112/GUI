@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1038</width>
-    <height>656</height>
+    <width>1149</width>
+    <height>627</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,7 +204,7 @@
      <widget class="QScrollArea" name="scrollArea">
       <property name="minimumSize">
        <size>
-        <width>110</width>
+        <width>150</width>
         <height>0</height>
        </size>
       </property>
@@ -228,7 +228,7 @@
          <x>0</x>
          <y>0</y>
          <width>150</width>
-         <height>656</height>
+         <height>627</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -394,7 +394,7 @@
            <item>
             <widget class="QPushButton" name="Account_Manger_face">
              <property name="text">
-              <string>Account Manger</string>
+              <string>Account Manager</string>
              </property>
             </widget>
            </item>
@@ -532,7 +532,7 @@
            <item>
             <widget class="QPushButton" name="Account_Manger_insta">
              <property name="text">
-              <string>Account Manger</string>
+              <string>Account Manager</string>
              </property>
             </widget>
            </item>

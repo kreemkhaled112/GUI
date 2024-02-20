@@ -4,13 +4,13 @@ class Chrom_Insta:
     def __init__(self):
         self = self
         try:
-            self.options = webdriver.ChromeOptions()
+            service = Service(executable_path="pages_functions/chromedriver.exe")
+            options = webdriver.ChromeOptions()
             chrome_prefs = {"profile.default_content_setting_values.notifications": 2}
-            self.options.add_experimental_option("prefs", chrome_prefs)
-            self.options.add_experimental_option("detach", True)
-            self.options.add_argument('--incognito')
-            self.options.add_argument("--log-level=3")
-            self.bot = webdriver.Chrome(options=self.options)
+            options.add_experimental_option("prefs", chrome_prefs)
+            options.add_experimental_option("detach", True)
+            options.add_argument("--log-level=3")
+            self.bot = webdriver.Chrome(service=service , options=options)
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
     def face(self,email,pas,cook):
@@ -123,16 +123,8 @@ class Chrom_Insta:
                     sleep(random.randrange(5,10))
                     WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acap _acaq _acas _aj1- _ap30']"))).click()
                     sleep(random.randrange(5,10))
-                    Password = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Password']")))
-                    Password.send_keys(password.strip())
+                    WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Password']"))).send_keys(password.strip())
                     sleep(random.randrange(5,10))
-                    Email = WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[aria-label='Email']")))
-                    Email.send_keys(email.strip())
-                    sleep(random.randrange(5,10))
-                    # Name = WebDriverWait(bot, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "input[aria-label='Full Name']")))
-                    # Name.send_keys(Keys.CONTROL, 'a')
-                    # Name.send_keys(Keys.DELETE)
-                    # Name.send_keys(name.strip())
                     try:
                         WebDriverWait(bot, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[class=' _acan _acao _acas _aj1- _ap30']"))).click()
                         sleep(random.randrange(10,15))
@@ -147,7 +139,8 @@ class Chrom_Insta:
                     else  :
                         cookie_string = self.login(email,password)
                     return Username , cookie_string
-                except:
+                except Exception as e :
+                    print(e)
                     return None,None
             except Exception as e :print(e)
     def Add_Photo(self,photo):

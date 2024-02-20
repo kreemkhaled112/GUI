@@ -24,7 +24,6 @@ class Get_Name:
         try:  
             response = self.req.get( 'https://mbasic.facebook.com/profile.php?' )
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
-            Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
             return name
         except :
             print(Colorate.Diagonal(Colors.red_to_blue, f'[ Failed Get Name ]', 1))
@@ -52,7 +51,6 @@ class Edit_Photo:
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Profile Photo" , 0
             else: 
-                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 return "Successfully Change Profile Photo" , 1
         except Exception as e: return "Failed Change Profile Photo" , 0
 class Edit_Cover:
@@ -84,7 +82,6 @@ class Edit_Cover:
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Cover Photo" , 0
             else: 
-                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 return "Successfully Change Cover Photo" , 1
         except Exception as e: return "Failed Change Cover Photo" , 0
 class Edit_bio:
@@ -111,7 +108,6 @@ class Edit_bio:
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Bio" , 0
             else: 
-                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 return "Successfully Change Bio" , 1
         except Exception as e: return "Failed Change Bio" , 0
 class Edit_City:
@@ -139,7 +135,6 @@ class Edit_City:
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change City' , 0
             else: 
-                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 return f'Successfully Change City To {self.city}' , 1 
         except Exception as e: return 'Failed Change City' , 0
 class Edit_Hometown:
@@ -167,7 +162,6 @@ class Edit_Hometown:
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change Hometown' , 0
             else: 
-                Update_cookies(self.cookie,(';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 return f'Successfully Change Hometown To {self.hometown}' , 1
         except Exception as e: return 'Failed Change Hometown' , 0
 class lock_profile:

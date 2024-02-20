@@ -30,11 +30,14 @@ class User(QWidget):
         self.ui_Edit.ui.Share_check.hide()
         self.ui_Edit.ui.Profrssional_check.hide()
         self.ui_Edit.ui.Change_Password_check.hide()
+        self.ui_Edit.ui.Lock_Profile.hide()
 
         self.ui_Edit.ui.widget_friend.hide()
         self.ui_Edit.ui.widget_group.hide()
         self.ui_Edit.ui.widget_follow.hide()
         self.ui_Edit.ui.widget_follow_2.hide()
+        self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
+
 
         self.ui.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.ui.table.setColumnWidth(0, 50)
@@ -75,22 +78,22 @@ class User(QWidget):
             if  self.ui_Edit.ui.Follow_check.isChecked():
                 result = Follow(url, cookie).Start()  
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
-                self.ui_Edit.Info.Add(result[1],name,"Follow",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Add(result[1],name,'User',"Follow",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Un_Follow_check.isChecked():
                 result = Un_Follow(url, cookie).Start()  
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
-                self.ui_Edit.Info.Add(result[1],name,"Un Follow",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Add(result[1],name,'User',"Un Follow",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Join_Group_check.isChecked():
                 result = JoinGroup(url, cookie).Start()
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
-                self.ui_Edit.Info.Add(result[1],name,"JoinGroup",f'{result[0]} To {url}')
+                self.ui_Edit.Info.Add(result[1],name,'User',"JoinGroup",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             return 'succes'
         except Exception as e: 
             self.ui_Edit.Info.ui.label.setText(f"{name} Error Edit")
-            self.ui_Edit.Info.Add(0,name,"None",f'{e}')
+            self.ui_Edit.Info.Add(0,name,'User',"None",f'{e}')
             return 'Error Edit'
     def Start(self):
         self.success = 0

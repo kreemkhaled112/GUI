@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1076</width>
-    <height>595</height>
+    <height>639</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -201,8 +201,52 @@ border: none;
              </property>
              <item>
               <widget class="QPushButton" name="Checker">
+               <property name="styleSheet">
+                <string notr="true">QPushButton:checked{
+background-color: rgb(255, 0, 0);
+}
+</string>
+               </property>
                <property name="text">
                 <string>Checker</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Update_all">
+               <property name="styleSheet">
+                <string notr="true">QPushButton:checked{
+background-color: rgb(255, 0, 0);
+}
+</string>
+               </property>
+               <property name="text">
+                <string>Update All</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Delete_all">
+               <property name="styleSheet">
+                <string notr="true">QPushButton:checked{
+background-color: rgb(255, 0, 0);
+}
+</string>
+               </property>
+               <property name="text">
+                <string>Delete All</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
