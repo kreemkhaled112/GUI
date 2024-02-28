@@ -152,6 +152,7 @@ class Generat_Face(QWidget):
                     self.failed +=1
                     self.message(0,"Checkpoint")
                     self.bot.quit()
+                    self.ui.lineEdit_2.setText("")
                     return
                 try:
                     if type == 'text' :

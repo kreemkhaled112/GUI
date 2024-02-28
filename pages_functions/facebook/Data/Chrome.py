@@ -7,7 +7,9 @@ class Chrom:
         try:
             service = Service(executable_path="pages_functions/chromedriver.exe")
             options = webdriver.ChromeOptions()
-            chrome_prefs = {"profile.default_content_setting_values.notifications": 2,"profile.managed_default_content_settings.images": 2}
+            options.add_extension('pages_functions/cookie.crx')
+            chrome_prefs = {"profile.default_content_setting_values.notifications": 2}
+            # chrome_prefs = {"profile.default_content_setting_values.notifications": 2,"profile.managed_default_content_settings.images": 2}
             options.add_experimental_option("prefs", chrome_prefs)
             options.add_experimental_option("detach", True)
             options.add_argument("--log-level=3")

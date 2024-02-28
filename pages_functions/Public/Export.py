@@ -2,22 +2,19 @@ from pages_functions.__init__ import *
 
 from ui.Public.Export_ui import Ui_Form
 
-class Export_insta(QDialog):
+class Export(QDialog):
     def __init__(self, parent=None, tableWidget=None):
-        super(Export_insta, self).__init__(parent)
+        super(Export, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        with open("static\style.qss", "r",encoding='utf-8') as style_file:
-            style_str = style_file.read()
-        self.setStyleSheet(style_str)
 
         self.tableWidget = tableWidget
         self.ui.Export.clicked.connect(self.Export)
         self.ui.Cancel.clicked.connect(self.accept)
         self.ui.pushButton.clicked.connect(self.select_file)
-
+        
     def Export(self):
-        if self.ui.lineEdit.text()  == '' : warning(self, 'No File Name', 'Please Select File.') ; return ""
+        if self.ui.lineEdit.text()  == '' : QMessageBox.warning(self, 'No File Name', 'Please Select File.') ; return ""
         with open(self.ui.lineEdit.text(), "w",encoding="UTF-8") as file:
             for row in range(self.tableWidget.rowCount()):
                 row_data = []
@@ -28,7 +25,7 @@ class Export_insta(QDialog):
                     if self.ui.UserName.isChecked() : row_data.append(data[1])
                     if self.ui.Email.isChecked() : row_data.append(data[2])
                     if self.ui.Password.isChecked() : row_data.append(data[3])
-                    
+                    if self.ui.Cookie.isChecked() : row_data.append(data[5])
                     file.write(':'.join(row_data) + '\n')
                     if self.ui.checkBox.isChecked() :
                         found = cursor.execute(f"Select username from instasell where username = '{data[1]}' ").fetchone()

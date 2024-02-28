@@ -1,19 +1,19 @@
-from NamasteiG import Instagram
+# from NamasteiG import Instagram
 from pages_functions.Facebook.Data.Follow import *
 chrs = 'abcdefghijklmnopqrstuvwxyz'
 chrs = ''.join((chrs, '0123456789'))
 ser = ''.join(random.choices(chrs, k=random.randrange(7,8)))  
 while True:
-       random_item = cursor.execute("SELECT data FROM name WHERE type='female' ORDER BY RANDOM() LIMIT 1").fetchone()
-       input(f'{random_item[0].strip()} ' )
+      random_item = cursor.execute("SELECT data FROM name WHERE type='female' ORDER BY RANDOM() LIMIT 1").fetchone()
+      input(f'{random_item[0].strip()} ' )
 
 
-#with open("250.txt", "r") as file:
-     #lines = file.readlines()
-     #for line in lines:
-          #if line.strip() and "Kreeem" not in line:
-              #print(line.strip())
-#from pages_functions.Facebook.Data.Edit import *
+with open("250.txt", "r") as file:
+     lines = file.readlines()
+     for line in lines:
+          if line.strip() and "Kreem," not in line:
+              print(line.strip())
+from pages_functions.Facebook.Data.Edit import * 
 
 # class FaceBook_RegIster():
 #     def __init__(self):

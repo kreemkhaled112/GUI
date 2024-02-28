@@ -18,7 +18,7 @@ class Add_Account(QDialog):
         elif selected_column == 1: self.ui.widget_email.hide() ; self.ui.widget_username.setVisible(True)
     
     def save(self):
-        if self.ui.Email.text()  == ''  or self.ui.User_Name.text()  == '' : QMessageBox.warning(self, 'No Email', 'Please Enter an Email.') ; return
+        if self.ui.Email.text()  == ''  : QMessageBox.warning(self, 'No Email', 'Please Enter an Email.') ; return
         if self.ui.Password.text() == '' : QMessageBox.warning(self, 'No Password', 'Please Enter an Password.') ; return
         if self.ui.Cookies.text() == '' : Name = "None" ; username = "None"
         else:
@@ -31,4 +31,4 @@ class Add_Account(QDialog):
         self.parent().loadTableData(data)
         Thread(target=self.parent().Update()).start()
 
-        
+# kzndrvca@hi2.in:830382t8e

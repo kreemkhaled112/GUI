@@ -5,7 +5,7 @@ from ui.Facebook.Manger_face_ui import Ui_Form
 from pages_functions.Public.Add_Account import Add_Account
 from pages_functions.Facebook.Checker import Checker
 from pages_functions.Public.Info import Info
-from pages_functions.Public.Export import Export_insta
+from pages_functions.Public.Export import Export
 from pages_functions.Facebook.Data.Chrome import *
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Login import *
@@ -150,7 +150,7 @@ class Manager_Face(QWidget):
             self.Info.Update(s=0)
             self.update_run = True
         elif self.update_run == True:
-            self.ui.Update_all.setText("Update all")
+            self.ui.Update_all.setText("Update")
             self.ui.Update_all.setChecked(False)
             self.update_run = False
             self.Info.ui.label.setText(f"Finished")
@@ -192,7 +192,7 @@ class Manager_Face(QWidget):
                             conn.commit()
                             self.Info.Add(1,result,'Account Manager',"Update",f"Done Update {i[2]}:{i[3]}")
                             self.Info.Update(s=1)
-        self.ui.Update_all.setText("Update all")
+        self.ui.Update_all.setText("Update")
         self.ui.Update_all.setChecked(False)
         self.update_run = False
         self.Info.ui.label.setText(f"Finished")
@@ -205,7 +205,8 @@ class Manager_Face(QWidget):
                 item = self.ui.table.item(selected_row, col)
                 i.append(item.text())
             value = Chrom().View(i[5])
-            cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2])); self.ui.table.setItem(selected_row, 6, QTableWidgetItem(str(value)))
+            if value == "" : pass
+            else : cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2])); self.ui.table.setItem(selected_row, 6, QTableWidgetItem(str(value)))
         else: print("لا يوجد صف محدد.")
     def Delete(self):
         selected_row = self.ui.table.currentRow()
@@ -229,5 +230,5 @@ class Manager_Face(QWidget):
                     cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" '); conn.commit()
                 else: cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2]));self.ui.table.setItem(row, 6, QTableWidgetItem(str(value)))
     def Export(self):
-        table_dialog = Export_insta(self,self.ui.table )
+        table_dialog = Export(self,self.ui.table )
         table_dialog.exec()

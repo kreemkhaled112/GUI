@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'p:\API\GUI\ui\Facebook\Manger_face.ui'
+# Form implementation generated from reading ui file 'C:/Users/kareem/AppData/Local/Temp/Manger_faceCVutJA.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -174,8 +174,8 @@ class Ui_Form(object):
         self.Select.setText(_translate("Form", "Select All"))
         self.Refresh.setText(_translate("Form", "Refresh"))
         self.Checker.setText(_translate("Form", "Checker"))
-        self.Update_all.setText(_translate("Form", "Update All"))
-        self.Delete_all.setText(_translate("Form", "Delete All"))
+        self.Update_all.setText(_translate("Form", "Update"))
+        self.Delete_all.setText(_translate("Form", "Delete"))
         self.Write_Change.setText(_translate("Form", "Write Change"))
         self.Add_Account.setText(_translate("Form", "AddAcount"))
         self.AddMultiAccount.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

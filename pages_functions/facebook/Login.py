@@ -1,6 +1,7 @@
 from pages_functions.Facebook.Data.Edit import *
 import time
 from urllib.parse import urlencode
+from requests.exceptions import ReadTimeout, ConnectTimeout
 
 class Login:
     def __init__(self,email,password):
@@ -77,4 +78,6 @@ class Login:
                 print((';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
                 open("html.html" , "w" , encoding="utf-8").write(response.text)
                 webbrowser.open('html.html')
+        except (ReadTimeout, ConnectTimeout):
+            return "failed"
         except Exception as e: return e

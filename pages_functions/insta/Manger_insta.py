@@ -3,7 +3,7 @@ from pages_functions.__init__ import *
 from ui.Insta.Manger_insta_ui import Ui_Form
 from pages_functions.__init__ import *
 from pages_functions.Public.Add_Account import Add_Account
-from pages_functions.Public.Export import Export_insta
+from pages_functions.Public.Export import Export
 from pages_functions.Public.Info import Info
 
 
@@ -117,5 +117,5 @@ class Manger_Insta(QWidget):
                 except: print('Failed Format')
 
     def Export(self):
-        table_dialog = Export_insta(self,self.ui.tableWidget )
-        table_dialog.exec_()
+        table_dialog = Export(self,self.ui.tableWidget )
+        table_dialog.exec()
