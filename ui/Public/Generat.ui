@@ -204,7 +204,7 @@ border: none;
           <item>
            <widget class="QRadioButton" name="radioButton_4">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
              <string>Moakt</string>

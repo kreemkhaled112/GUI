@@ -8,7 +8,7 @@ from __init__ import *
 #         except:pass
 
 # تحديد من جدول واضافات الي جدول اخر وحذفه
-data = cursor.execute("SELECT * FROM account  WHERE groupname = 'zeyad' ").fetchall()
+data = cursor.execute("SELECT * FROM account  WHERE groupname = 'copy' ").fetchall()
 for i in data:
     cursor.execute('INSERT INTO Sell ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
     cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" ')

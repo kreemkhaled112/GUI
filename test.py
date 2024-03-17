@@ -1,19 +1,24 @@
 # from NamasteiG import Instagram
-from pages_functions.Facebook.Data.Follow import *
-chrs = 'abcdefghijklmnopqrstuvwxyz'
-chrs = ''.join((chrs, '0123456789'))
-ser = ''.join(random.choices(chrs, k=random.randrange(7,8)))  
-while True:
-      random_item = cursor.execute("SELECT data FROM name WHERE type='female' ORDER BY RANDOM() LIMIT 1").fetchone()
-      input(f'{random_item[0].strip()} ' )
+# from pages_functions.Facebook.Data.Follow import *
+# chrs = 'abcdefghijklmnopqrstuvwxyz'
+# chrs = ''.join((chrs, '0123456789'))
+# ser = ''.join(random.choices(chrs, k=random.randrange(7,8)))  
+# while True:
+#       random_item = cursor.execute("SELECT data FROM name WHERE type='female' ORDER BY RANDOM() LIMIT 1").fetchone()
+#       input(f'{random_item[0].strip()} ' )
 
 
-with open("250.txt", "r") as file:
+with open("Newt.txt", "r") as file:
      lines = file.readlines()
      for line in lines:
           if line.strip() and "Kreem," not in line:
               print(line.strip())
-from pages_functions.Facebook.Data.Edit import * 
+
+# with open("Newt.txt", "r") as file:
+#      lines = file.readlines()
+#      for line in lines:
+#           a = line.split(";")
+#           print(a[0])
 
 # class FaceBook_RegIster():
 #     def __init__(self):
@@ -114,3 +119,18 @@ from pages_functions.Facebook.Data.Edit import *
 #         #         print("[X] Use Vpn")
 #         #         print('=' * 40)
 #         #         self.save_to_text_file('', '', '', 'Use VPN')
+# with open("New.txt", "r") as file1:
+#     text = file1.readlines()
+
+# with open("t.txt", "r") as file2:
+#     lines = file2.readlines()
+#     non_matching_lines = [line for line in lines if not any(entry.split(':')[0] in line for entry in text)]
+
+# with open("Newt.txt", "a") as output_file:
+#     output_file.writelines(non_matching_lines)
+
+# from pages_functions.Facebook.Data.Edit import *
+# while True:
+#      cookie_string = input("cookie:")
+#      input(f"{cookie_string};i_user={Get_i_user(cookie_string).Get()};")
+#      os.system('cls')

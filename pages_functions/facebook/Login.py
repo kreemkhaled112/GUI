@@ -1,5 +1,5 @@
-from pages_functions.Facebook.Data.Edit import *
-import time
+from pages_functions.Facebook.Data.Checker import *
+import time 
 from urllib.parse import urlencode
 from requests.exceptions import ReadTimeout, ConnectTimeout
 
@@ -64,18 +64,21 @@ class Login:
             self.req.headers.update(headers)
 
             response = self.req.post(f'https://www.facebook.com/login/?privacy_mutation_token={_token}', data=data)
-
-            if 'welcome' in response.text:
-                cookie_string = (';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", "")
+            cookie_string = (';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", "")
+            if 'Chat' in response.text or "دردشة" in response.text :
                 return 'success' , cookie_string , Get_Name(cookie_string).Get()
-            elif 'The email address or mobile number you entered isn&#039;t connected to an account' in response.text:
-                return 'The email address or mobile number you entered is not connected to an account'
-            elif 'The password that you&#039;ve entered is incorrect.' in response.text:
-                return "The password that you've entered is incorrect"
+            elif  "We suspended your account" in response.text :
+                return "checkpoint" , cookie_string
+            elif "The email address you entered isn&#039;t connected to an account." in response.text:
+                return "The email address you entered isn't connected to an account" , cookie_string
+            elif 'Try another way' in response.text:
+                return "The password that you've entered is incorrect" , cookie_string
+            elif "You've entered an old password" in response.text :
+                return "You've entered an old password" , cookie_string
             elif 'Choose a way to confirm that it&#039;s you' in response.text:
-                return 'Two Factor Code Sended.....'
+                return 'Two Factor Code Sended.....' , cookie_string
             else:
-                print((';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", ""))
+                print(cookie_string)
                 open("html.html" , "w" , encoding="utf-8").write(response.text)
                 webbrowser.open('html.html')
         except (ReadTimeout, ConnectTimeout):

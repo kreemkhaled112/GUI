@@ -10,7 +10,6 @@ class Name:
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
             return name
         except :
-            print(Colorate.Diagonal(Colors.red_to_blue, f'[ Failed Get Name ]', 1))
             open("html.html" , "w" , encoding="utf-8").write(response.text)
             return ""
 class Get_Name:
@@ -24,10 +23,28 @@ class Get_Name:
         try:  
             response = self.req.get( 'https://mbasic.facebook.com/profile.php?' )
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
+            if name == "" :
+                return "CheckPoint" 
             return name
         except :
-            print(Colorate.Diagonal(Colors.red_to_blue, f'[ Failed Get Name ]', 1))
-            return "failed"
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            return ""
+class Get_i_user:
+    def __init__(self , cookie) -> None:
+        self.req = requests.Session()
+        self.req.headers.update(Header())
+        self.cookie = cookie
+        cookie = {'cookie': cookie }
+        self.req.cookies.update(cookie)
+    def Get(self):
+        try:
+            response = self.req.get( 'https://www.facebook.com/profile.php?' )
+            id_index_start = response.text.find('"id":"', response.text.find('{"profile":{"id":"')) + len('"id":"')
+            id_index_end = response.text.find('"', id_index_start)
+            profile_id = response.text[id_index_start:id_index_end]
+            cookie = f"{self.cookie};i_user={profile_id};"
+            return "success" , cookie , Get_Name(cookie).Get()
+        except : return "" 
 class Edit_Photo:
     def __init__(self, photo, cookie) :
         self.req = requests.Session()

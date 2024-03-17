@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'p:\API\GUI\ui\Public\Generat.ui'
+# Form implementation generated from reading ui file 'C:/Users/kareem/AppData/Local/Temp/GeneratUnoMgS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -104,7 +104,7 @@ class Ui_Form(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_Email1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.radioButton_4 = QtWidgets.QRadioButton(self.widget_Email1)
-        self.radioButton_4.setEnabled(False)
+        self.radioButton_4.setEnabled(True)
         self.radioButton_4.setObjectName("radioButton_4")
         self.horizontalLayout_4.addWidget(self.radioButton_4)
         self.radioButton_5 = QtWidgets.QRadioButton(self.widget_Email1)

