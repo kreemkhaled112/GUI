@@ -8,7 +8,7 @@
 #       input(f'{random_item[0].strip()} ' )
 
 
-with open("Newt.txt", "r") as file:
+with open("110.txt", "r") as file:
      lines = file.readlines()
      for line in lines:
           if line.strip() and "Kreem," not in line:

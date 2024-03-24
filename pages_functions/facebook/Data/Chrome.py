@@ -20,15 +20,15 @@ class Chrom:
     def Login(self,email, password):
         try:
             bot = self.bot
-            self.bot.get("https://mbasic.facebook.com/login/")
+            self.bot.get("https://www.facebook.com/login/")
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(email.strip())
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
-            try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "input[value='Log In']"))).click()
+            try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.NAME, "login"))).click()
             except:pass
             if 'checkpoint' in self.bot.current_url:
                 bot.quit()
                 return "checkpoint"
-            elif 'login/save-device/' or 'home.php?' in self.bot.current_url:
+            else :
                 cookies = bot.get_cookies()
                 format = {}
                 for cookie in cookies :
@@ -36,9 +36,7 @@ class Chrom:
                 cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
                 bot.quit()
                 return 'success' , cookie_string , Get_Name(cookie_string).Get()
-            else:
-                print('Email or password incorrect!')
-                return "Failed"
+
         except Exception as e : return e
         
     def View(self,cook):

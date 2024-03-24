@@ -2,7 +2,6 @@ from customtkinter import *
 import undetected_chromedriver as uc
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait

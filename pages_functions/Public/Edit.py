@@ -178,7 +178,7 @@ class Edit(QWidget):
                 self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
                 if result[1] == 0: return 'Error photo'
             if self.ui.Add_Cover_check.isChecked() and self.is_running :
-                while self.is_running:
+                for _ in range(3) : 
                     self.Info.ui.label.setText(f"{name} Try Change Cover Photo")
                     result = Edit_Cover(self.get_random_file(self.cover_photo),cookie).Start()
                     if result[1] == 1 :
