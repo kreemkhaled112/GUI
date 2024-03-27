@@ -254,14 +254,28 @@ class Manager_Face(QWidget):
             self.changed_items.clear()
         else: print("لا يوجد صف محدد.")
     def Checker(self):
+        if self.update_run == False:
+            self.ui.Checker.setText("Stop")
+            self.Info.Update(s=0)
+            self.update_run = True
+        elif self.update_run == True:
+            self.ui.Checker.setText("Checker")
+            self.ui.Checker.setChecked(False)
+            self.update_run = False
+            self.Info.ui.label.setText(f"Finished")
         for row in range(self.ui.table.rowCount()):
-            checkbox_item = self.ui.table.item(row, 0)
-            if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
-                i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
-                value = Chrom().View(i[5])
-                if value == 'checkpoint':
-                    cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" '); conn.commit()
-                else: cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2]));self.ui.table.setItem(row, 6, QTableWidgetItem(str(value)))
+            if self.update_run:
+                checkbox_item = self.ui.table.item(row, 0)
+                if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
+                    i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
+                    value = Chrom().Epsilon(i[2],i[5])
+                    if value == 'checkpoint':
+                        cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" '); conn.commit()
+                    else: cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2]));self.ui.table.setItem(row, 6, QTableWidgetItem(str(value)))
+        self.ui.Checker.setText("Checker")
+        self.ui.Checker.setChecked(False)
+        self.update_run = False
+        self.Info.ui.label.setText(f"Finished")
     def Export(self):
         table_dialog = Export(self,self.ui.table )
         table_dialog.exec()

@@ -55,7 +55,41 @@ class Chrom:
                 cookie_string = self.update_cookie(cook)
                 return cookie_string
         except : return ''
-    
+    def Epsilon(self,user,cook):
+        try:
+            self.bot.get('https://moakt.com/ar')
+            sleep(1)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[2]/div/div/form/span[3]/input"))).send_keys(user)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[2]/div/div/form/input[2]"))).click()
+            self.bot.execute_script("window.open()")
+            self.bot.switch_to.window(self.bot.window_handles[-1])
+            self.bot.get("https://www.facebook.com/")
+            cookies = cook.strip().split(";")
+            for cookie in cookies:
+                cookie_parts = cookie.split("=")
+                if len(cookie_parts) == 2:
+                    cookie_name, cookie_value = cookie_parts
+                    self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            self.bot.get("https://www.facebook.com/profile.php?")
+            if 'checkpoint' in self.bot.current_url :
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get started')]"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get a code by email')]"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get code')]"))).click()
+                code = input("code: ")
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/label/div/div/input"))).send_keys(code)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Submit')]"))).click() 
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[4]/div/div/div/div/div[1]/div/span/span"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Back to Facebook')]"))).click()
+                input("......")
+                cookie_string = self.update_cookie(cook)
+                return cookie_string
+            else:
+                cookie_string = self.update_cookie(cook)
+                return cookie_string
+        except : return ''
     def update_cookie(self,cook):
         try:
             cookies = self.bot.get_cookies()
