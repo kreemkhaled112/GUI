@@ -1,3 +1,4 @@
+import requests , random , os , queue ,json , sys , webbrowser , logging , pygame , sqlite3 , re
 from customtkinter import *
 import undetected_chromedriver as uc
 from selenium import webdriver
@@ -8,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
-import  os, json, re 
 from os.path import normpath, join
 import random 
 import pyautogui as pg
@@ -17,21 +17,15 @@ from selenium.webdriver.common.window import WindowTypes
 import  urllib
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
-import requests , random , os , queue ,json , sys
 from pystyle import *
 from threading import Thread
 from time import sleep ,time
-import re
-import sqlite3
 from pystyle import *
-import pygame
-import logging
 from configparser import ConfigParser
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt , pyqtSignal , QThread
 from datetime import datetime
-import webbrowser
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
 cursor = conn.cursor()

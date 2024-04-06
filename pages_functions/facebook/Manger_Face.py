@@ -189,7 +189,7 @@ class Manager_Face(QWidget):
                     elif item is None or item.text() == '' or item.text() == 'None':
                         i = [self.ui.table.item(row, col).text() for col in range(1,self.ui.table.columnCount())]
                         self.Info.ui.label.setText(f"Logging {i[2]}:{i[3]}")
-                        result = Login(i[2],i[3]).Start()
+                        result = Chrom().Login(i[2],i[3])
                         try:
                             if result[0]  == 'success':
                                 try:
@@ -268,7 +268,7 @@ class Manager_Face(QWidget):
                 checkbox_item = self.ui.table.item(row, 0)
                 if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
                     i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
-                    value = Chrom().Epsilon(i[2],i[5])
+                    value = Chrom().Epsilon(i[2],i[3],i[5])
                     if value == 'checkpoint':
                         cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" '); conn.commit()
                     else: cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value, i[2]));self.ui.table.setItem(row, 6, QTableWidgetItem(str(value)))

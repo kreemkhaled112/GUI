@@ -15,11 +15,16 @@ from pages_functions.__init__ import *
 #           if line.strip() and "Kreem," not in line:
 #               print(line.strip())
 
-# with open("Newt.txt", "r") as file:
+# with open("32.txt", "r") as file:
 #      lines = file.readlines()
 #      for line in lines:
-#           a = line.split(";")
-#           print(a[0])
+#           a = line.split("/")
+#           input(a[-2])
+with open("pages_functions\\name.txt", "r",encoding="UTF-8") as file:
+    data = file.readlines()
+    for i in data:
+        cursor.execute('INSERT INTO name ( data , type) VALUES ( ?, ?)', (i, 'male'))
+conn.commit()
 
 # class FaceBook_RegIster():
 #     def __init__(self):
@@ -135,22 +140,23 @@ from pages_functions.__init__ import *
 #      cookie_string = input("cookie:")
 #      input(f"{cookie_string};i_user={Get_i_user(cookie_string).Get()};")
 #      os.system('cls')
-chrs = 'abcdefghijklmnopqrstuvwxyz'
-user = ''.join(random.choices(chrs, k=random.randrange(8,10)))      
-list = ["teml.net","tmail.ws","moakt.cc"]
-rand = random.choice(list)
-input(f'{user}@{rand}')
-m = Maokt(user,rand)
-while True:
-     soup = BeautifulSoup(m.Get_Message().content, 'html.parser')
-     message_elements = soup.find_all('div', class_='email-messages modal')
-     try:
-          for element in message_elements:
-               input(element)
-               links = element.find_all('a', href=True)
-               for link in links:
-                    print(link['href'])
-               message = element.get_text().strip()
-               code_pattern = r'FB-(\d+)'
-               matches = re.findall(code_pattern, message)
-     except: pass
+
+# chrs = 'abcdefghijklmnopqrstuvwxyz'
+# user = ''.join(random.choices(chrs, k=random.randrange(8,10)))      
+# list = ["teml.net","tmail.ws","moakt.cc"]
+# rand = random.choice(list)
+# input(f'{user}@{rand}')
+# m = Maokt(user,rand)
+# while True:
+#      soup = BeautifulSoup(m.Get_Message().content, 'html.parser')
+#      message_elements = soup.find_all('div', class_='email-messages modal')
+#      try:
+#           for element in message_elements:
+#                input(element)
+#                links = element.find_all('a', href=True)
+#                for link in links:
+#                     print(link['href'])
+#                message = element.get_text().strip()
+#                code_pattern = r'FB-(\d+)'
+#                matches = re.findall(code_pattern, message)
+#      except: pass

@@ -25,17 +25,14 @@ class Chrom:
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
             try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.NAME, "login"))).click()
             except:pass
-            if 'checkpoint' in self.bot.current_url:
-                bot.quit()
-                return "checkpoint"
-            else :
-                cookies = bot.get_cookies()
-                format = {}
-                for cookie in cookies :
-                    format[cookie['name']] = cookie['value']
-                cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-                bot.quit()
-                return 'success' , cookie_string , Get_Name(cookie_string).Get()
+            
+            cookies = bot.get_cookies()
+            format = {}
+            for cookie in cookies :
+                format[cookie['name']] = cookie['value']
+            cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+            bot.quit()
+            return 'success' , cookie_string , Get_Name(cookie_string).Get()
 
         except Exception as e : return e
         
@@ -55,7 +52,7 @@ class Chrom:
                 cookie_string = self.update_cookie(cook)
                 return cookie_string
         except : return ''
-    def Epsilon(self,user,cook):
+    def Epsilon(self,user,password,cook):
         try:
             self.bot.get('https://moakt.com/ar')
             sleep(1)
@@ -63,30 +60,37 @@ class Chrom:
             WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[2]/div/div/form/input[2]"))).click()
             self.bot.execute_script("window.open()")
             self.bot.switch_to.window(self.bot.window_handles[-1])
-            self.bot.get("https://www.facebook.com/")
-            cookies = cook.strip().split(";")
-            for cookie in cookies:
-                cookie_parts = cookie.split("=")
-                if len(cookie_parts) == 2:
-                    cookie_name, cookie_value = cookie_parts
-                    self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-            self.bot.get("https://www.facebook.com/profile.php?")
+            self.bot.get("https://www.facebook.com/login/")
+            WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "email"))).send_keys(user.strip())
+            WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
+            try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.NAME, "login"))).click()
+            except:pass
+            # cookies = cook.strip().split(";")
+            # for cookie in cookies:
+            #     cookie_parts = cookie.split("=")
+            #     if len(cookie_parts) == 2:
+            #         cookie_name, cookie_value = cookie_parts
+            #         self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            # self.bot.get("https://www.facebook.com/profile.php?")
             if 'checkpoint' in self.bot.current_url :
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get started')]"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get a code by email')]"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get code')]"))).click()
-                code = input("code: ")
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/label/div/div/input"))).send_keys(code)
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Submit')]"))).click() 
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[4]/div/div/div/div/div[1]/div/span/span"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
-                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Back to Facebook')]"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get started')]"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get a code by email')]"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Get code')]"))).click()
+                # code = input("code: ")
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/label/div/div/input"))).send_keys(code)
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Submit')]"))).click()
+                # input("......")
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Next')]"))).click()
+                # input("......")
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[4]/div/div/div/div/div[1]/div/span/span"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/div/div/div/div/div[2]/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/div/div/div/div/div/div/div[5]/div/div[2]/div/div/div[1]/div/span/span"))).click()
+                # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Back to Facebook')]"))).click()
                 input("......")
                 cookie_string = self.update_cookie(cook)
                 return cookie_string
             else:
+                input("......")
                 cookie_string = self.update_cookie(cook)
                 return cookie_string
         except : return ''
