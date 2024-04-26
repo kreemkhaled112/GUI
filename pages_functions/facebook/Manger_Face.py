@@ -96,6 +96,7 @@ class Manager_Face(QWidget):
 
         if not search_text: self.loadTableData(self.data)
         else: 
+            self.changed_items.clear()
             filtered_data = [item for item in self.data if item[selected_column] and search_text in item[selected_column].lower()]
             self.loadTableData(filtered_data)
     def handle_item_change(self):

@@ -25,7 +25,9 @@ class Chrom:
             WebDriverWait(self.bot, 5).until(EC.presence_of_element_located((By.NAME, "pass"))).send_keys(password.strip())
             try:WebDriverWait(bot, 5).until(EC.element_to_be_clickable((By.NAME, "login"))).click()
             except:pass
-            
+            sleep(5)
+            self.bot.get("https://www.facebook.com/profile.php?")
+            sleep(2)
             cookies = bot.get_cookies()
             format = {}
             for cookie in cookies :
@@ -88,10 +90,12 @@ class Chrom:
                 # WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Back to Facebook')]"))).click()
                 input("......")
                 cookie_string = self.update_cookie(cook)
+                self.bot.quit()
                 return cookie_string
             else:
                 input("......")
                 cookie_string = self.update_cookie(cook)
+                self.bot.quit()
                 return cookie_string
         except : return ''
     def update_cookie(self,cook):

@@ -23,7 +23,7 @@ from pages_functions.__init__ import *
 with open("pages_functions\\name.txt", "r",encoding="UTF-8") as file:
     data = file.readlines()
     for i in data:
-        cursor.execute('INSERT INTO name ( data , type) VALUES ( ?, ?)', (i, 'male'))
+        cursor.execute('INSERT INTO name ( data , type) VALUES ( ?, ?)', (i, 'femalea'))
 conn.commit()
 
 # class FaceBook_RegIster():

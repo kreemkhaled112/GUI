@@ -78,16 +78,13 @@ class MyWindow(QMainWindow):
             self.ui.tabWidget.setVisible(True)
 
     def close_tab(self, index):
-
         self.ui.tabWidget.removeTab(index)
-
         if self.ui.tabWidget.count() == 0:
             # self.ui.scrollArea.setCurrentIndex(0)
             self.show_home_window()
 
     def open_tab_flag(self, tab):
         open_tab_count = self.ui.tabWidget.count()
-
         for i in range(open_tab_count):
             tab_name = self.ui.tabWidget.tabText(i)
             if tab_name == tab:
@@ -102,7 +99,6 @@ class MyWindow(QMainWindow):
 
 if __name__ == '__main__':
     import sys
-    
     app = QApplication(sys.argv)
     window = MyWindow()
     window.show()
