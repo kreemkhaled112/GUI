@@ -27,7 +27,6 @@ class Get_Name:
                 return "CheckPoint" 
             return name
         except :
-            open("html.html" , "w" , encoding="utf-8").write(response.text)
             return ""
 class Get_i_user:
     def __init__(self , cookie) -> None:
@@ -64,12 +63,14 @@ class Edit_Photo:
                 'submit'  : 'Save'}
             fil = {'pic' : open(self.photo, 'rb')}
             sleep(1)
-            pos = BeautifulSoup(self.req.post(raq['action'],data=dat,files=fil).content,'html.parser')
+            respons = self.req.post(raq['action'],data=dat,files=fil)
+            pos = BeautifulSoup(respons.content,'html.parser')
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Profile Photo" , 0
-            else: 
+            else:
+                
                 return "Successfully Change Profile Photo" , 1
-        except Exception as e: return "Failed Change Profile Photo" , 0
+        except Exception as e: return "Failed Change Profile Photo1" , 0
 class Edit_Cover:
     def __init__(self, photo, cookie) -> None:
         self.req = requests.Session()

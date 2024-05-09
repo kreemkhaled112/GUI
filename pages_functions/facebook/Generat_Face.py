@@ -5,11 +5,8 @@ from pages_functions.Public.Info import Info
 from pages_functions.Public.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.Email import *
-from pages_functions.Facebook.Data.Follow import *
-from pages_functions.Facebook.Data.AddFriend import *
-from pages_functions.Facebook.Data.JoinGroup import *
+from pages_functions.Facebook.Data.Action import *
 from pages_functions.Facebook.Data.Chrome import *
-from pages_functions.Facebook.Data.Share import *
 
 class Generat_Face(QWidget):
     def __init__(self):

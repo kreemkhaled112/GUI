@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:/Users/kareem/AppData/Local/Temp/Manger_faceCVutJA.ui'
+# Form implementation generated from reading ui file 'p:\API\GUI\ui\Facebook\Manger_face.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -15,7 +15,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.setEnabled(True)
-        Form.resize(1076, 639)
+        Form.resize(1056, 545)
         Form.setStyleSheet("QPushButton l{\n"
 "        border:none;\n"
 "        border-radius: 3px;\n"
@@ -71,8 +71,6 @@ class Ui_Form(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
         self.horizontalLayout.addWidget(self.comboBox)
         self.Select = QtWidgets.QPushButton(self.widget_3)
         self.Select.setObjectName("Select")
@@ -86,15 +84,36 @@ class Ui_Form(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_4)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.Epsilon = QtWidgets.QPushButton(self.widget_4)
+        self.Epsilon.setMinimumSize(QtCore.QSize(0, 0))
+        self.Epsilon.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Epsilon.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}")
+        self.Epsilon.setCheckable(True)
+        self.Epsilon.setObjectName("Epsilon")
+        self.horizontalLayout_2.addWidget(self.Epsilon)
+        self.Change = QtWidgets.QPushButton(self.widget_4)
+        self.Change.setMinimumSize(QtCore.QSize(0, 0))
+        self.Change.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Change.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}")
+        self.Change.setCheckable(True)
+        self.Change.setObjectName("Change")
+        self.horizontalLayout_2.addWidget(self.Change)
         self.Checker = QtWidgets.QPushButton(self.widget_4)
+        self.Checker.setMinimumSize(QtCore.QSize(0, 0))
+        self.Checker.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.Checker.setStyleSheet("QPushButton:checked{\n"
 "background-color: rgb(255, 0, 0);\n"
-"}\n"
-"")
+"}")
         self.Checker.setCheckable(True)
         self.Checker.setObjectName("Checker")
         self.horizontalLayout_2.addWidget(self.Checker)
         self.Update_all = QtWidgets.QPushButton(self.widget_4)
+        self.Update_all.setMinimumSize(QtCore.QSize(0, 0))
+        self.Update_all.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.Update_all.setStyleSheet("QPushButton:checked{\n"
 "background-color: rgb(255, 0, 0);\n"
 "}\n"
@@ -104,6 +123,8 @@ class Ui_Form(object):
         self.Update_all.setObjectName("Update_all")
         self.horizontalLayout_2.addWidget(self.Update_all)
         self.Delete_all = QtWidgets.QPushButton(self.widget_4)
+        self.Delete_all.setMinimumSize(QtCore.QSize(0, 0))
+        self.Delete_all.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.Delete_all.setStyleSheet("QPushButton:checked{\n"
 "background-color: rgb(255, 0, 0);\n"
 "}\n"
@@ -115,20 +136,20 @@ class Ui_Form(object):
         self.Write_Change.setEnabled(False)
         self.Write_Change.setObjectName("Write_Change")
         self.horizontalLayout_2.addWidget(self.Write_Change)
-        self.Add_Account = QtWidgets.QPushButton(self.widget_4)
-        self.Add_Account.setObjectName("Add_Account")
-        self.horizontalLayout_2.addWidget(self.Add_Account)
         self.AddMultiAccount = QtWidgets.QPushButton(self.widget_4)
+        self.AddMultiAccount.setMinimumSize(QtCore.QSize(0, 0))
+        self.AddMultiAccount.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.AddMultiAccount.setObjectName("AddMultiAccount")
         self.horizontalLayout_2.addWidget(self.AddMultiAccount)
         self.Export = QtWidgets.QPushButton(self.widget_4)
+        self.Export.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.Export.setObjectName("Export")
         self.horizontalLayout_2.addWidget(self.Export)
         self.horizontalLayout_3.addWidget(self.widget_4, 0, QtCore.Qt.AlignRight)
         self.verticalLayout.addWidget(self.widget_2)
         self.table = QtWidgets.QTableWidget(self.widget)
         self.table.setObjectName("table")
-        self.table.setColumnCount(9)
+        self.table.setColumnCount(7)
         self.table.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.table.setHorizontalHeaderItem(0, item)
@@ -144,14 +165,10 @@ class Ui_Form(object):
         self.table.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
         self.table.setHorizontalHeaderItem(6, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(7, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(8, item)
         self.verticalLayout.addWidget(self.table)
         self.Save = QtWidgets.QPushButton(self.widget)
         self.Save.setObjectName("Save")
-        self.verticalLayout.addWidget(self.Save, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.verticalLayout.addWidget(self.Save, 0, QtCore.Qt.AlignHCenter)
         self.widget_Info = QtWidgets.QWidget(self.splitter)
         self.widget_Info.setObjectName("widget_Info")
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
@@ -165,26 +182,25 @@ class Ui_Form(object):
         self.lineEdit.setPlaceholderText(_translate("Form", "Searsh"))
         self.comboBox.setItemText(0, _translate("Form", "Group"))
         self.comboBox.setItemText(1, _translate("Form", "Name"))
-        self.comboBox.setItemText(2, _translate("Form", "Email"))
-        self.comboBox.setItemText(3, _translate("Form", "Password"))
-        self.comboBox.setItemText(4, _translate("Form", "Username"))
+        self.comboBox.setItemText(2, _translate("Form", "email"))
+        self.comboBox.setItemText(3, _translate("Form", "password"))
+        self.comboBox.setItemText(4, _translate("Form", "Usename"))
         self.comboBox.setItemText(5, _translate("Form", "Cookies"))
-        self.comboBox.setItemText(6, _translate("Form", "Type"))
-        self.comboBox.setItemText(7, _translate("Form", "Insta"))
         self.Select.setText(_translate("Form", "Select All"))
         self.Refresh.setText(_translate("Form", "Refresh"))
-        self.Checker.setText(_translate("Form", "Checker"))
+        self.Epsilon.setText(_translate("Form", "Epsilon"))
+        self.Change.setText(_translate("Form", "Change Email"))
+        self.Checker.setText(_translate("Form", "Check"))
         self.Update_all.setText(_translate("Form", "Update"))
         self.Delete_all.setText(_translate("Form", "Delete"))
         self.Write_Change.setText(_translate("Form", "Write Change"))
-        self.Add_Account.setText(_translate("Form", "AddAcount"))
         self.AddMultiAccount.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Format:</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Group</span>:<span style=\" font-weight:600;\">Name</span>:<span style=\" font-weight:600;\">Email</span>:<span style=\" font-weight:600;\">Password</span>:<span style=\" font-weight:600;\">UserName</span>:<span style=\" font-weight:600;\">Cookies</span>:<span style=\" font-weight:600;\">Type:Insta</span></p></body></html>"))
-        self.AddMultiAccount.setText(_translate("Form", "Add Multi Account"))
+        self.AddMultiAccount.setText(_translate("Form", "Add Account"))
         self.Export.setText(_translate("Form", "Export"))
         item = self.table.horizontalHeaderItem(0)
         item.setText(_translate("Form", "New Column"))
@@ -199,9 +215,5 @@ class Ui_Form(object):
         item = self.table.horizontalHeaderItem(5)
         item.setText(_translate("Form", "New Column"))
         item = self.table.horizontalHeaderItem(6)
-        item.setText(_translate("Form", "New Column"))
-        item = self.table.horizontalHeaderItem(7)
-        item.setText(_translate("Form", "New Column"))
-        item = self.table.horizontalHeaderItem(8)
         item.setText(_translate("Form", "New Column"))
         self.Save.setText(_translate("Form", "Save"))

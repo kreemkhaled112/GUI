@@ -1,13 +1,9 @@
 from pages_functions.__init__ import *
 
-from ui.Facebook.Follow_ui import Ui_Form
+from ui.Facebook.User_ui import Ui_Form
 from pages_functions.Public.Info import Info
 from pages_functions.Public.Edit import Edit
-
-from pages_functions.Facebook.Data.Share import *
-from pages_functions.Facebook.Data.Like import *
-from pages_functions.Facebook.Data.Comment import Comment
-
+from pages_functions.Facebook.Data.Action import *
 
 class Post(QWidget):
     def __init__(self ):
@@ -15,7 +11,9 @@ class Post(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.is_running = False
-
+        self.succes = 0
+        self.failed = 0
+        self.order = 0
         self.ui_Edit = Edit(Info())
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
 
@@ -78,25 +76,29 @@ class Post(QWidget):
     def Edit(self,url,name,cookie):
         try:
             if  self.ui_Edit.ui.Like_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f"{name} Try Like")
+                self.ui_Edit.Info.ui.label.setText(f"Try Like {name} ")
                 result = Like(url, self.ui_Edit.reaction_id(), cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Like",f'{result[0]} To {url}')
-                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time) 
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui_Edit.ui.Comment_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f"{name} Try Comment")
+                self.ui_Edit.Info.ui.label.setText(f"Try Comment {name} ")
                 result = Comment(url, 'good', cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Comment",f'{result[0]} To {url}')
-                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time) 
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui_Edit.ui.Share_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f"{name} Try Share")
+                self.ui_Edit.Info.ui.label.setText(f"Try Share {name} ")
                 result = Share(url, "", cookie).Start()
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Share",f'{result[0]} To {url}')
-                self.ui_Edit.Info.Update(s=1) if result[1] == 1 else self.ui_Edit.Info.Update(f=1) ;  sleep(self.ui_Edit.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             return 'succes'
         except: return "Error Edit"
     def Start(self):
-        self.success = 0
-        self.failed = 0
         if self.ui_Edit.ui.Number_Account.text() == '0': self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop()
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]

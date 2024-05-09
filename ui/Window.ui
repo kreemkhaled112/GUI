@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1035</width>
-    <height>644</height>
+    <height>0</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
 		background-color: #313a46;
 		width:50px;
 	}
-#full_menu_widget {
+#full_menu_widget,widget_tab {
 		background-color: #313a46;
 	}
 #full_menu_widget QPushButton,#label_2 {
@@ -113,7 +113,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
+          <pixmap>:/icon/icon/home-2.ico</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -132,7 +132,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../static/resource.qrc">
+          <iconset>
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -164,7 +164,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../static/resource.qrc">
+          <iconset>
            <normaloff>:/icon/icon/home-2.ico</normaloff>:/icon/icon/home-2.ico</iconset>
          </property>
          <property name="iconSize">
@@ -277,7 +277,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-1.ico</pixmap>
+              <pixmap>:/icon/icon/home-1.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -330,7 +330,7 @@
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
+              <pixmap>:/icon/icon/home-2.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -496,7 +496,7 @@
               <enum>Qt::PlainText</enum>
              </property>
              <property name="pixmap">
-              <pixmap resource="../static/resource.qrc">:/icon/icon/home-2.ico</pixmap>
+              <pixmap>:/icon/icon/home-2.ico</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -646,7 +646,7 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../static/resource.qrc">
+             <iconset>
               <normaloff>:/icon/icon/arrow-2.ico</normaloff>
               <normalon>:/icon/icon/arrow-1.ico</normalon>:/icon/icon/arrow-2.ico</iconset>
             </property>

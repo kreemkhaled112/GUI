@@ -3,13 +3,7 @@ from pages_functions.__init__ import *
 from ui.Public.Edit_ui import Ui_Form
 from pages_functions.Facebook.Data.Chrome import *
 from pages_functions.Facebook.Data.Edit import *
-from pages_functions.Facebook.Data.AddFriend import *
-from pages_functions.Facebook.Data.Share import *
-from pages_functions.Facebook.Data.Like import *
-from pages_functions.Facebook.Data.Comment import Comment
-from pages_functions.Facebook.Data.JoinGroup import *
-from pages_functions.Facebook.Data.Follow import *
-from pages_functions.Facebook.Data.Un_Follow import *
+from pages_functions.Facebook.Data.Action import *
 from pages_functions.Public.Select import Select
 
 class Edit(QWidget):
@@ -21,6 +15,9 @@ class Edit(QWidget):
         layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
         self.is_running = False
         self.time = 20
+        self.succes = 0
+        self.failed = 0
+        self.order = 0
 
         self.ui.widget_Password.hide()
         self.ui.Profrssional_check.hide()
@@ -175,7 +172,9 @@ class Edit(QWidget):
                 self.Info.ui.label.setText(f"{name} Try Change Profile Photo")
                 result = Edit_Photo(self.get_random_file(self.profil_photo),cookie).Start()
                 self.Info.Add(result[1],name,'Edit',"Profile Photo",result[0])
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time) 
                 if result[1] == 0: return 'Error photo'
             if self.ui.Add_Cover_check.isChecked() and self.is_running :
                 for _ in range(3) : 
@@ -184,30 +183,38 @@ class Edit(QWidget):
                     if result[1] == 1 :
                         self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0])
                         break
-                    self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0])
+                    self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0]) 
                     sleep(1)
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Add_City_check.isChecked() and self.is_running :
                 if self.ui.textEdit_city.toPlainText() :
                     city = random.choice(self.ui.textEdit_city.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Add City")
                     result = Edit_City(city, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"City",result[0])
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Add_Hometown_check.isChecked() and self.is_running :
                 if self.ui.textEdit_hometown.toPlainText() :
                     hometown = random.choice(self.ui.textEdit_hometown.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Add Hometown")
                     result = Edit_Hometown(hometown, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"Hometown",result[0])
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Add_Bio_check.isChecked() and self.is_running :
                 if self.ui.textEdit_bio.toPlainText() :
                     bio = random.choice(self.ui.textEdit_bio.toPlainText().split('\n'))
                     self.Info.ui.label.setText(f"{name} Try Change Bio")
                     result = Edit_bio(bio, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"Bio",result[0])
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Add_Friend_check.isChecked() and self.is_running :
                 if self.ui.textEdit_friend.toPlainText():
                     id_friend = random.sample(self.ui.textEdit_friend.toPlainText().split(), int(self.ui.spinBox_friend.value()))
@@ -215,7 +222,9 @@ class Edit(QWidget):
                     for i in id_friend :
                         result = AddFriend(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Add Friend",result[0])
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Join_Group_check.isChecked() and self.is_running :
                 if self.ui.textEdit_group.toPlainText():
                     id_group = random.sample(self.ui.textEdit_group.toPlainText().split(), int(self.ui.spinBox_group.value()))
@@ -223,15 +232,17 @@ class Edit(QWidget):
                     for i in id_group :
                         result = JoinGroup(i,cookie).Start()  
                         self.Info.Add(result[1],name,'Edit',"Join Groub",f'{result[0]} To {i}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
             if self.ui.Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Follow.toPlainText():
                     id_follow = random.sample(self.ui.textEdit_Follow.toPlainText().split(), int(self.ui.spinBox_follow.value()))
                     self.Info.ui.label.setText(f"{name} Try Follow")
                     for i in id_follow :
-                        result = Follow(i, cookie).Start()
-                        self.Info.Add(result[1],name,'Edit',"Follow",f'{result[0]} {i}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                        result = Follow_www(i, cookie).Start()
+                        self.Info.Add(result[1],name,'Edit',"Follow",f'{result[0]}')
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Un_Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_un_Follow.toPlainText() :
                     id_un_follow = random.sample(self.ui.textEdit_un_Follow.toPlainText().split(), int(self.ui.spinBox_un_follow.value()))
@@ -239,7 +250,9 @@ class Edit(QWidget):
                     for i in id_un_follow :
                         result = Un_Follow(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Un Follow",f'{result[0]} {i}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Like_check.isChecked() and self.is_running :
                 if self.ui.textEdit_like.toPlainText() :
                     id_like = random.sample(self.ui.textEdit_like.toPlainText().split(), int(self.ui.spinBox_like.value()))
@@ -247,7 +260,9 @@ class Edit(QWidget):
                     for i in id_like :
                         result = Like(i, self.reaction_id(), cookie).Start()  
                         self.Info.Add(result[1],name,'Edit',"Like",f'{result[0]} {i}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time)  
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui.Comment_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Comment.toPlainText() :
                     self.text_comment = random.sample(self.ui.textEdit_Comment.toPlainText().split(), int(self.ui.spinBox_share.value()))
@@ -261,12 +276,16 @@ class Edit(QWidget):
                     for i in id_share :
                         result = Share(i, '', cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Share",f'{result[0]} {i}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time) 
             if self.ui.Lock_Profile.isChecked() and self.is_running :
                 self.Info.ui.label.setText(f"{name} Try Lock Profile")
                 result = lock_profile(cookie).Start()
                 self.Info.Add(result[1],name,'Edit',"Lock Profile",f'{result[0]}')
-                self.Info.Update(s=1) if result[1] == 1 else self.Info.Update(f=1) ;  sleep(self.time) 
+                if result[1] == 1: self.succes += 1
+                else: self.failed += 1
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)  
             if self.ui.Change_Password_check.isChecked() and self.is_running :
                 self.new_password = self.Password()
                 result = Change_Password(self.password , self.new_password)
@@ -285,7 +304,7 @@ class Edit(QWidget):
             if self.is_running == False :
                 self.ui.Start.setText("Stop")
                 self.is_running = True
-                self.Info.Update(s=0)
+                self.Info.Update(0,0,0)
             elif self.is_running :
                 self.ui.Start.setText("Start")
                 self.ui.Start.setChecked(False)

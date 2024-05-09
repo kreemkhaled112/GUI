@@ -14,12 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1035, 644)
+        MainWindow.resize(1035, 0)
         MainWindow.setStyleSheet("#icon_only_widget {\n"
 "        background-color: #313a46;\n"
 "        width:50px;\n"
 "    }\n"
-"#full_menu_widget {\n"
+"#full_menu_widget,widget_tab {\n"
 "        background-color: #313a46;\n"
 "    }\n"
 "#full_menu_widget QPushButton,#label_2 {\n"
@@ -354,4 +354,4 @@ class Ui_MainWindow(object):
         self.Account_Edit_insta.setText(_translate("MainWindow", "Account Edit"))
         self.Account_Generat_insta.setText(_translate("MainWindow", "Account Generat"))
         self.search_input.setPlaceholderText(_translate("MainWindow", "Search..."))
-from static import resource_rc
+import resource_rc

@@ -1,12 +1,10 @@
 from pages_functions.__init__ import *
 
-from ui.Facebook.Follow_ui import Ui_Form
+from ui.Facebook.User_ui import Ui_Form
 from pages_functions.Public.Info import Info
 from pages_functions.Public.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
-from pages_functions.Facebook.Data.JoinGroup import *
-from pages_functions.Facebook.Data.Follow import *
-from pages_functions.Facebook.Data.Un_Follow import *
+from pages_functions.Facebook.Data.Action import *
 
 class User(QWidget):
     def __init__(self):
@@ -76,7 +74,7 @@ class User(QWidget):
     def Edit(self,url,name,cookie):
         try:
             if  self.ui_Edit.ui.Follow_check.isChecked():
-                result = Follow(url, cookie).Start()  
+                result = Follow_www(url, cookie).Start()  
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,'User',"Follow",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)

@@ -1,5 +1,5 @@
 # from NamasteiG import Instagram
-from pages_functions.Facebook.Data.Email import *
+from pages_functions.Facebook.Data.Action import *
 from pages_functions.__init__ import *
 # chrs = 'abcdefghijklmnopqrstuvwxyz'
 # chrs = ''.join((chrs, '0123456789'))
@@ -9,22 +9,25 @@ from pages_functions.__init__ import *
 #       input(f'{random_item[0].strip()} ' )
 
 
-# with open("110.txt", "r") as file:
+# with open("liked_Before.txt", "r",encoding="UTF-8") as file:
 #      lines = file.readlines()
-#      for line in lines:
-#           if line.strip() and "Kreem," not in line:
-#               print(line.strip())
 
+# with open("liked_Before.txt", "w",encoding="UTF-8") as file:
+#      for line in lines:
+#           if line.strip() and "𝔸𝟟𝕄𝔼𝔻 𝕆𝕄𝔸ℝ," not in line:
+#               file.write(line.strip() + "\n")
 # with open("32.txt", "r") as file:
 #      lines = file.readlines()
 #      for line in lines:
 #           a = line.split("/")
 #           input(a[-2])
-with open("pages_functions\\name.txt", "r",encoding="UTF-8") as file:
-    data = file.readlines()
-    for i in data:
-        cursor.execute('INSERT INTO name ( data , type) VALUES ( ?, ?)', (i, 'femalea'))
-conn.commit()
+# with open("pages_functions\\name.txt", "r",encoding="UTF-8") as file:
+#     data = file.readlines()
+#     for i in data:
+#         elements = i.split(':')
+#         print(elements[0].strip())
+#         # cursor.execute('INSERT INTO name ( data , type) VALUES ( ?, ?)', (i, 'femalea'))
+# conn.commit()
 
 # class FaceBook_RegIster():
 #     def __init__(self):
@@ -160,3 +163,34 @@ conn.commit()
 #                code_pattern = r'FB-(\d+)'
 #                matches = re.findall(code_pattern, message)
 #      except: pass
+# تحديد من جدول واستخراج
+# with open("account.txt", "w",encoding="UTF-8") as file:
+#     data = cursor.execute("SELECT * FROM account  WHERE cookies = '' ").fetchall()
+#     for i in data:
+#         try:file.write(f"{i[2]}:{i[3].strip()}:\n")
+#         except:pass
+
+# تحديد من جدول واضافات الي جدول اخر وحذفه
+# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'wait' ").fetchall()
+# for i in data:
+#     cursor.execute('INSERT INTO Sell ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
+#     cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" ')
+
+# حذف السجلات المكررة
+# duplicate_rows_query = "SELECT email, COUNT(*) FROM account GROUP BY email HAVING COUNT(*) > 1"
+# duplicate_rows = cursor.execute(duplicate_rows_query).fetchall()
+# for row in duplicate_rows:
+#     primary_key_value = row[0]
+#     input(primary_key_value)
+#     delete_query = f" DELETE FROM account WHERE email = '{primary_key_value}' "
+#     cursor.execute(delete_query)
+# تحديث بينات ف جدول
+# with open("liked_Before.txt", "r") as file:
+#      lines = file.readlines()
+#      for line in lines:
+#         a = line.split(':')
+#         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
+          
+conn.commit()
+cookie = 'sb=BnY6ZoFX7SnJUZko699bpvkt;m_page_voice=61559645571603;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1715095445144%2C%22v%22%3A1%7D;datr=BnY6Zt5XdR_mucb1yX5nmpxF;xs=3%3AJBDxMZYmilGYMQ%3A2%3A1715095442%3A-1%3A-1;c_user=61559645571603;fr=0gAiZQFuAUHTy484q.AWVjcuHrBPxUUo5aEOhxRAwQpIg.BmOkeK..AAA.0.0.BmOkeT.AWXzHymaL-k;wd=929x873'
+print(Follow_www('https://www.facebook.com/Kreem.Khaled112/',cookie).Start())
