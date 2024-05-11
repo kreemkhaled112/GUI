@@ -11,8 +11,8 @@ class Share(QWidget):
         super(Share, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.URL = "https://dlorx.com/adminapi/v1"
-        self.API_KEY  = "gco5ezt5cr26seqzmzmx4fa311fya3gobajfojykuaypuwt2wzcjf1x3joomh7cm"
+        self.URL = config['server']['URL']
+        self.API_KEY  = config['server']['API_KEY']
         self.TIMEOUT = 10
         self.time = 1
         self.succes = 0
@@ -22,9 +22,11 @@ class Share(QWidget):
 
         self.Info = Info()
         layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
+        header_labels = ["#", "ID", "Data","Name","Action","Message"]
+        self.Info.ui.table.setHorizontalHeaderLabels(header_labels)
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
         self.ui.Select_Account.clicked.connect(self.Select)
-        self.ui.pushButton.clicked.connect(lambda: self.ui.label.setText(self.ui.lineEdit.text()))
+        self.ui.pushButton.clicked.connect(lambda: (config.set('server', 'Share', self.ui.lineEdit.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label.setText(config['server']['share']))) ; self.ui.label.setText(config['server']['share'])
 
     def Select(self):
         table_dialog = Select(self)
@@ -114,7 +116,7 @@ class Share(QWidget):
                                
                             except Exception as e : input(e)
                         self.order += 1
-                        self.Info.Add_order(1,id,'Compelet',"Share",f'Total : {quantity} Succes : {self.succes} Failed : {self.failed}') ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+                        self.Info.Add_order(1,id,'Compelet',"Share",f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
                         if self.succes >= quantity  : self.set_completed(id)
                         else : self.set_remains(id,quantity-self.succes)
                         for i in listt:

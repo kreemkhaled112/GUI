@@ -82,7 +82,7 @@
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>SMM</string>
+            <string>S M M</string>
            </property>
           </widget>
          </item>
@@ -220,8 +220,8 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>../static/icon/menu.ico</normaloff>../static/icon/menu.ico</iconset>
+                <iconset resource="../static/resource.qrc">
+                 <normaloff>:/icon/icon/menu.ico</normaloff>:/icon/icon/menu.ico</iconset>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -243,7 +243,7 @@
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>../static/icon/facebook.ico</pixmap>
+                <pixmap resource="../static/resource.qrc">:/icon/icon/facebook.ico</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>

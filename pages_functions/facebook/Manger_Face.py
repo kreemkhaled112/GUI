@@ -15,8 +15,6 @@ class Manager_Face(QWidget):
         self.failed = 0
         self.order = 0
         self.checkpoint = 0
-        self.config = ConfigParser()
-        self.config.read('pages_functions\settings.ini')
         self.Info = Info()
         layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
         self.ui.Save.hide()
@@ -58,7 +56,7 @@ class Manager_Face(QWidget):
             self.ui.table.setColumnWidth(1, 100)
             self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
             headers = ["#"] + [description[0] for description in cursor.description]
-            self.ui.table.setHorizontalHeaderLabels(headers)
+            self.ui.table.setHorizontalHeaderLabels(headers) 
             self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
             self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
             self.ui.Write_Change.setEnabled(False)
@@ -219,11 +217,12 @@ class Manager_Face(QWidget):
                             i = [self.ui.table.item(row, col).text() for col in range(1,self.ui.table.columnCount())]
                             self.Info.ui.label.setText(f"Update {i[2]}:{i[3]}")
                             result = Get_Name(i[5]).Get()
-                            cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (result, i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(result)))
+                            cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (result[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(result[0])))
+                            cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (result[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(result[1])))
                             try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', result[1]).group(1), i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', result[1]).group(1))))
                             except:pass
                             conn.commit()
-                            self.Info.Add(1,result,'Account Manager',"Update",f"Done Update {i[2]}:{i[3]}")
+                            self.Info.Add(1,result[0],'Account Manager',"Update",f"Done Update {i[2]}:{i[3]}")
                             self.Info.Update(s=self.succes,f=self.failed,o=self.order)
         self.ui.Update_all.setText("Update") ; self.ui.Update_all.setChecked(False)
         self.Info.ui.label.setText(f"Finished Update")
@@ -268,10 +267,9 @@ class Manager_Face(QWidget):
             checkbox_item = self.ui.table.item(row, 0)
             if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
                 item = self.ui.table.item(row, 3)
-                cursor.execute(f'DELETE FROM Account WHERE email = "{item.text()}" '); conn.commit()
-                conn.commit()
+                cursor.execute(f'DELETE FROM Account WHERE email = "{item.text()}" ')
                 self.ui.table.removeRow(row)
-
+        conn.commit()
         self.ui.Delete_all.setText("Delete") ; self.ui.Delete_all.setChecked(False)
         self.Info.ui.label.setText("Finished Delete")
         self.Run = False
@@ -280,7 +278,7 @@ class Manager_Face(QWidget):
         self.Run = not self.Run
         if self.Run:
             self.ui.Checker.setText("Stop")
-            self.Info.Update(0, 0, 0) ;self.succes = 0 ; self.failed = 0
+            self.Info.Update(0, 0, 0) ;self.succes=0 ; self.failed=0
         else:
             self.ui.Checker.setText("Checker") ; self.ui.Checker.setChecked(False)
             self.Info.ui.label.setText("Finished Checker")
@@ -294,13 +292,8 @@ class Manager_Face(QWidget):
                     value = Chrom().View(i[5],"close")
                     if value == "" : pass
                     else :
-                        try:
-                            username = re.search(r'c_user=(\d+)', i[5]).group(1)
-                            cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (username, i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(username)))
-                        except: pass
                         cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
-                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1])))
-
+                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1]))) ; conn.commit()
         self.ui.Checker.setText("Checker") ; self.ui.Checker.setChecked(False)
         self.Info.ui.label.setText(f"Finished Checker ")
         self.Run = False
@@ -312,7 +305,7 @@ class Manager_Face(QWidget):
             try:
                 chrome_options = uc.ChromeOptions()
                 pro = "C://Users//kreem//AppData//Local//Google//Chrome//User Data//"
-                chrome_options.add_argument(f"--profile-directory=Profile {self.config['chrome']['Profile']}")
+                chrome_options.add_argument(f"--profile-directory=Profile {config['chrome']['Profile']}")
                 chrome_options.add_argument(f"user-data-dir={pro}")
                 bot = uc.Chrome(options=chrome_options)
                 bot.get('https://mail.yandex.com/?uid=1882958944#spam')
@@ -351,7 +344,7 @@ class Manager_Face(QWidget):
             try:
                 chrome_options = uc.ChromeOptions()
                 pro = "C://Users//kreem//AppData//Local//Google//Chrome//User Data//"
-                chrome_options.add_argument(f"--profile-directory=Profile {self.config['chrome']['Profile']}")
+                chrome_options.add_argument(f"--profile-directory=Profile {config['chrome']['Profile']}")
                 chrome_options.add_argument(f"user-data-dir={pro}")
                 bot = uc.Chrome(options=chrome_options)
                 bot.get('https://mail.yandex.com/?uid=1882958944#spam')

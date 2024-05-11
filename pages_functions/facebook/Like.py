@@ -11,9 +11,8 @@ class Like(QWidget):
         super(Like, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
-        self.URL = "https://dlorx.com/adminapi/v1"
-        self.API_KEY  = "gco5ezt5cr26seqzmzmx4fa311fya3gobajfojykuaypuwt2wzcjf1x3joomh7cm"
+        self.URL = config['server']['URL']
+        self.API_KEY  = config['server']['API_KEY']
         self.TIMEOUT = 10
         self.time = 1
         self.succes = 0
@@ -24,18 +23,19 @@ class Like(QWidget):
 
         self.Info = Info()
         layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
-
+        header_labels = ["#", "ID", "Data","Name","Action","Message"]
+        self.Info.ui.table.setHorizontalHeaderLabels(header_labels)
         self.ui.Start.clicked.connect(lambda : Thread(target=self.Start).start())
         self.ui.Select_Account.clicked.connect(self.Select)
-        self.ui.pushButton_like.clicked.connect(lambda: self.ui.label_like.setText(self.ui.lineEdit_like.text()))
-        self.ui.pushButton_love.clicked.connect(lambda: self.ui.label_love.setText(self.ui.lineEdit_love.text()))
-        self.ui.pushButton_care.clicked.connect(lambda: self.ui.label_care.setText(self.ui.lineEdit_care.text()))
-        self.ui.pushButton_haha.clicked.connect(lambda: self.ui.label_haha.setText(self.ui.lineEdit_haha.text()))
-        self.ui.pushButton_wow.clicked.connect(lambda: self.ui.label_wow.setText(self.ui.lineEdit_wow.text()))
-        self.ui.pushButton_sad.clicked.connect(lambda: self.ui.label_sad.setText(self.ui.lineEdit_sad.text()))
-        self.ui.pushButton_ll.clicked.connect(lambda: self.ui.label_ll.setText(self.ui.lineEdit_ll.text()))
-        self.ui.pushButton_lc.clicked.connect(lambda: self.ui.label_lc.setText(self.ui.lineEdit_lc.text()))
-        self.ui.pushButton_llc.clicked.connect(lambda: self.ui.label_llc.setText(self.ui.lineEdit_llc.text()))
+        self.ui.pushButton_like.clicked.connect(lambda: (config.set('server', 'like', self.ui.lineEdit_like.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_like.setText(config['server']['like']))) ; self.ui.label_like.setText(config['server']['like'])
+        self.ui.pushButton_love.clicked.connect(lambda: (config.set('server', 'love', self.ui.lineEdit_love.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_love.setText(config['server']['love']))) ; self.ui.label_love.setText(config['server']['love'])
+        self.ui.pushButton_care.clicked.connect(lambda: (config.set('server', 'care', self.ui.lineEdit_care.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_care.setText(config['server']['care']))) ; self.ui.label_care.setText(config['server']['care'])
+        self.ui.pushButton_haha.clicked.connect(lambda: (config.set('server', 'haha', self.ui.lineEdit_haha.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_haha.setText(config['server']['haha']))) ; self.ui.label_haha.setText(config['server']['haha'])
+        self.ui.pushButton_wow.clicked.connect(lambda: (config.set('server', 'wow', self.ui.lineEdit_wow.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_wow.setText(config['server']['wow']))) ; self.ui.label_wow.setText(config['server']['wow'])
+        self.ui.pushButton_sad.clicked.connect(lambda: (config.set('server', 'sad', self.ui.lineEdit_sad.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_sad.setText(config['server']['sad']))) ; self.ui.label_sad.setText(config['server']['sad'])
+        self.ui.pushButton_ll.clicked.connect(lambda: (config.set('server', 'll', self.ui.lineEdit_ll.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_ll.setText(config['server']['ll']))) ; self.ui.label_ll.setText(config['server']['ll'])
+        self.ui.pushButton_lc.clicked.connect(lambda: (config.set('server', 'lc', self.ui.lineEdit_lc.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_lc.setText(config['server']['lc']))) ; self.ui.label_lc.setText(config['server']['lc'])
+        self.ui.pushButton_llc.clicked.connect(lambda: (config.set('server', 'llc', self.ui.lineEdit_llc.text()), config.write(open('pages_functions\settings.ini', 'w')),self.ui.label_llc.setText(config['server']['llc']))) ; self.ui.label_llc.setText(config['server']['llc'])
 
         for i in range(self.ui.stackedWidget.count()):
             self.ui.stackedWidget.widget(i).setVisible(False)
@@ -52,7 +52,7 @@ class Like(QWidget):
         
 
         self.checked_state = [False,False,False,False,False,False,False,False,False,False]
-        
+           
     def toggle_page(self, state, index):
         if state == 2:
             self.checked_state[index] = True
@@ -142,7 +142,7 @@ class Like(QWidget):
                                 self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
                 except Exception as e : input(e)
         self.order += 1
-        self.Info.Add_order(1,id,'Compelet',name,f'Total : {quantity} Succes : {self.succes} Failed : {self.failed}') ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+        self.Info.Add_order(1,id,'Compelet',name,f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link : {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
         if self.succes >= quantity  : self.set_completed(id)
         else : self.set_remains(id,quantity-self.succes)
         for i in listt:

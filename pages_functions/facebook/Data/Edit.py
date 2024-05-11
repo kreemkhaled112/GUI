@@ -20,12 +20,13 @@ class Get_Name:
         cookie = {'cookie': cookie }
         self.req.cookies.update(cookie)
     def Get(self):
-        try:  
-            response = self.req.get( 'https://mbasic.facebook.com/profile.php?' )
+        try:
+            response = self.req.get( 'https://mbasic.facebook.com/profile.php?')
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)
+            cookie_string = (';'.join([f"{key}={value}" for key, value in self.req.cookies.get_dict().items() ])).replace("cookie=", "").strip()
             if name == "" :
-                return "CheckPoint" 
-            return name
+                return "CheckPoint" , cookie_string
+            return name , cookie_string
         except :
             return ""
 class Get_i_user:
@@ -49,7 +50,7 @@ class Edit_Photo:
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.photo = photo
         self.url = "https://mbasic.facebook.com/profile_picture/"
@@ -63,12 +64,11 @@ class Edit_Photo:
                 'submit'  : 'Save'}
             fil = {'pic' : open(self.photo, 'rb')}
             sleep(1)
-            respons = self.req.post(raq['action'],data=dat,files=fil)
-            pos = BeautifulSoup(respons.content,'html.parser')
+            response = self.req.post(raq['action'],data=dat,files=fil,headers=Header_www())
+            pos = BeautifulSoup(response.content,'html.parser')
             cek = pos.find('title').text
             if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Profile Photo" , 0
             else:
-                
                 return "Successfully Change Profile Photo" , 1
         except Exception as e: return "Failed Change Profile Photo1" , 0
 class Edit_Cover:

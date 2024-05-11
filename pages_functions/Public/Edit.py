@@ -238,7 +238,7 @@ class Edit(QWidget):
                     id_follow = random.sample(self.ui.textEdit_Follow.toPlainText().split(), int(self.ui.spinBox_follow.value()))
                     self.Info.ui.label.setText(f"{name} Try Follow")
                     for i in id_follow :
-                        result = Follow_www(i, cookie).Start()
+                        result = Follow(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Follow",f'{result[0]}')
                 if result[1] == 1: self.succes += 1
                 else: self.failed += 1
@@ -304,7 +304,7 @@ class Edit(QWidget):
             if self.is_running == False :
                 self.ui.Start.setText("Stop")
                 self.is_running = True
-                self.Info.Update(0,0,0)
+                self.Info.Update(0,0,0) ; self.succes=0 ; self.failed=0
             elif self.is_running :
                 self.ui.Start.setText("Start")
                 self.ui.Start.setChecked(False)

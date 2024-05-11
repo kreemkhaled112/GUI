@@ -11,7 +11,7 @@ class User(QWidget):
         super(User, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.is_running = False
+        self.Run = False
 
         self.ui_Edit = Edit(Info())
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
@@ -100,20 +100,21 @@ class User(QWidget):
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]
             if second_column_data :
-                if self.is_running == False :
+                self.Run = not self.Run
+                if self.Run:
                     self.ui_Edit.ui.Start.setText("Stop")
-                    self.is_running = True
-                elif self.is_running :
+                    self.ui_Edit.Info.Update(0,0,0) ; self.succes=0 ; self.failed=0
+                else:
                     self.ui_Edit.ui.Start.setText("Start")
-                    self.is_running = False
+                    return
                 for url in second_column_data :
                     for info in self.ui_Edit.info :
-                        if self.is_running :
+                        if self.Run :
                             self.Edit(url,info[1],info[5])
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
-                self.is_running = False
+                self.Run = False
             else: QMessage(text = 'No Url Add').mainloop()
 
         

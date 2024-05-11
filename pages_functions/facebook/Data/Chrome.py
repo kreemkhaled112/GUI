@@ -21,29 +21,33 @@ class Chrom:
         try:
             bot = self.bot
             bot.minimize_window()
-            bot.get("https://business.facebook.com/login/")
+            bot.get("https://mbasic.facebook.com/login/")
             wait = WebDriverWait(bot, 2)
             try:bot.find_element(By.XPATH, '//button[@data-cookiebanner="accept_button"]').click()
             except:pass
             y = "document.cookie = " + "'" + 'wd=500x158' + "; domain=.facebook.com" + "'"
             bot.execute_script(y)
             sleep(.5)
-            usinp = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='email']")))
+            usinp = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@name='email']")))
             sleep(0.3)
             usinp.send_keys(email.strip())
-            usinp1 = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='pass']")))
+            usinp1 = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@name='pass']")))
             sleep(0.3)
             usinp1.send_keys(password.strip())
             sleep(0.3)
-            wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='loginbutton']"))).click()
-            sleep(7)
+            wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@name='login']"))).click()
+            sleep(5)
+            self.bot.get("https://mbasic.facebook.com/profile.php?")
             cookies = bot.get_cookies()
             format = {}
             for cookie in cookies :
                 format[cookie['name']] = cookie['value']
             cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
+            name = self.bot.title
+            if name == "" :
+                name =  "CheckPoint" 
             self.bot.quit()
-            return 'success' , cookie_string , Get_Name(cookie_string).Get()
+            return 'success' , cookie_string , name
         except Exception as e : return e
         
     def View(self,cook,close=None):
@@ -56,9 +60,12 @@ class Chrom:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
             self.bot.get("https://mbasic.facebook.com/profile.php?")
+            name = self.bot.title
+            if name == "" :
+                name =  "CheckPoint" 
             cookie_string = self.update_cookie(cook)
             if close == 'close':self.bot.quit()
-            return  Get_Name(cookie_string).Get() , cookie_string
+            return  name , cookie_string
         except : return ''
     def Epsilon(self,cook,yandex):
         try:
@@ -91,9 +98,13 @@ class Chrom:
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+            self.bot.get("https://mbasic.facebook.com/profile.php?")
             cookie_string = self.update_cookie(cook)
+            name = self.bot.title
+            if name == "" :
+                name =  "CheckPoint" 
             self.bot.quit()
-            return Get_Name(cookie_string).Get() , cookie_string
+            return name , cookie_string
         except Exception as e : print(e) ; return ''
     def Change(self,cook,yandex):
         try:
@@ -126,9 +137,13 @@ class Chrom:
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+            
             cookie_string = self.update_cookie(cook)
+            name = self.bot.title
+            if name == "" :
+                name =  "CheckPoint" 
             self.bot.quit()
-            return Get_Name(cookie_string).Get() , cookie_string
+            return name , cookie_string
         except Exception as e : print(e) ; return ''
     def update_cookie(self,cook):
         try:

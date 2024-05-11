@@ -9,10 +9,10 @@ from pages_functions.__init__ import *
 #       input(f'{random_item[0].strip()} ' )
 
 
-# with open("liked_Before.txt", "r",encoding="UTF-8") as file:
+# with open("account.txt", "r",encoding="UTF-8") as file:
 #      lines = file.readlines()
 
-# with open("liked_Before.txt", "w",encoding="UTF-8") as file:
+# with open("account.txt", "w",encoding="UTF-8") as file:
 #      for line in lines:
 #           if line.strip() and "𝔸𝟟𝕄𝔼𝔻 𝕆𝕄𝔸ℝ," not in line:
 #               file.write(line.strip() + "\n")
@@ -190,7 +190,7 @@ from pages_functions.__init__ import *
 #      for line in lines:
 #         a = line.split(':')
 #         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
-          
+from pages_functions.Facebook.Data.get_count import *
+
+print(get_follower('https://www.facebook.com/profile.php?id=100064343850344').Start())
 conn.commit()
-cookie = 'sb=BnY6ZoFX7SnJUZko699bpvkt;m_page_voice=61559645571603;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1715095445144%2C%22v%22%3A1%7D;datr=BnY6Zt5XdR_mucb1yX5nmpxF;xs=3%3AJBDxMZYmilGYMQ%3A2%3A1715095442%3A-1%3A-1;c_user=61559645571603;fr=0gAiZQFuAUHTy484q.AWVjcuHrBPxUUo5aEOhxRAwQpIg.BmOkeK..AAA.0.0.BmOkeT.AWXzHymaL-k;wd=929x873'
-print(Follow_www('https://www.facebook.com/Kreem.Khaled112/',cookie).Start())

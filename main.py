@@ -19,7 +19,7 @@ class MyWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setWindowFlags(Qt.FramelessWindowHint)
-        self.mac = ':'.join(['{:02x}'.format((uuid.getnode() >> elements) & 0xff) for elements in range(2,7)][::-1])
+        self.mac = ':'.join(['{:02x}'.format((uuid.getnode() >> 8 * i) & 0xff)for i in range(5, -1, -1)  ])
         self.ui.mac.setText(self.mac)
         self.ui.mac.clicked.connect(lambda : QApplication.clipboard().setText(self.ui.mac.text()))
 
@@ -46,6 +46,7 @@ class MyWindow(QMainWindow):
         self.show_home_window()
         self.ui.scrollArea.hide()
         self.ui.menu_facebook.hide()
+        self.ui.Report_face.hide()
         
         self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
         self.Account_Manger_face.clicked.connect(self.show_selected_window)
@@ -73,6 +74,7 @@ class MyWindow(QMainWindow):
                     type = item["type"]
                     expiration_date = date.fromisoformat(item["expiration_date"])
                     return name , type , expiration_date
+        return None, None , None
     def get_current_date(self):
         ntp_server = 'ntp2a.mcc.ac.uk' 
         client = ntplib.NTPClient()
@@ -98,6 +100,9 @@ class MyWindow(QMainWindow):
                     self.Account_Generat_face.hide()
                     self.User.hide()
                     self.Post.hide()
+                    self.Follow_face.hide()
+                    self.Like_face.hide()
+                    self.Share_face.hide()
                     self.ui.mac.setText('Expired')
             if type == "Server":
                 if current_date > expiration_date :
@@ -109,7 +114,14 @@ class MyWindow(QMainWindow):
                 self.Account_Generat_face.hide()
                 self.User.hide()
                 self.Post.hide()
-
+        else:
+            self.Account_Edit_face.hide()
+            self.Account_Generat_face.hide()
+            self.User.hide()
+            self.Post.hide()
+            self.Follow_face.hide()
+            self.Like_face.hide()
+            self.Share_face.hide()
     def show_home_window(self):
         result = self.open_tab_flag(self.Account_Manger_face.objectName())
         self.set_btn_checked(self.Account_Manger_face)
