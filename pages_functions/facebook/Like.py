@@ -131,7 +131,7 @@ class Like(QWidget):
                             try:
                                 cookie = self.queue.get()
                                 listt.append(cookie)
-                                result = like(link,random.choice(type),cookie[5]).Start()
+                                result = عح(link,random.choice(type),cookie[5]).Start()
                                 self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
                                 if result[1] == 1: self.succes += 1
                                 else: self.failed += 1
