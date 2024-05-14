@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1149, 627)
+        MainWindow.resize(1237, 619)
         MainWindow.setStyleSheet("#icon_only_widget {\n"
 "        background-color: #313a46;\n"
 "        width:50px;\n"
@@ -151,7 +151,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.full_menu_widget = QtWidgets.QWidget()
-        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 120, 585))
+        self.full_menu_widget.setGeometry(QtCore.QRect(0, 0, 120, 577))
         self.full_menu_widget.setObjectName("full_menu_widget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.full_menu_widget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 9)
@@ -271,7 +271,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_4.setText(_translate("MainWindow", "SMM"))
+        self.label_4.setText(_translate("MainWindow", "S M M"))
         self.pushButton_6.setText(_translate("MainWindow", "FACEBOOK"))
         self.Account_Manger_face.setText(_translate("MainWindow", "Account Manager"))
         self.Account_Edit_face.setText(_translate("MainWindow", "Account Edit"))

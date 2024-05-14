@@ -125,21 +125,26 @@ class Like(QWidget):
             else :
                 try:
                     self.set_start_count(int(id),int(result[1]))
-                    while not self.queue.empty():
-                        if self.succes >= quantity : break
-                        else:
-                            try:
-                                cookie = self.queue.get()
-                                listt.append(cookie)
-                                result = عح(link,random.choice(type),cookie[5]).Start()
-                                self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
-                                if result[1] == 1: self.succes += 1
-                                else: self.failed += 1
-                                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-                            except Exception as e:
-                                self.Info.Add_order(0,id,cookie[1],name,e)
-                                self.failed += 1
-                                self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                    def perfom():
+                        while not self.queue.empty():
+                            if self.succes >= quantity : break
+                            else:
+                                try:
+                                    cookie = self.queue.get()
+                                    listt.append(cookie)
+                                    result = like(link,random.choice(type),cookie[5]).Start()
+                                    self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
+                                    if result[1] == 1: self.succes += 1
+                                    else: self.failed += 1
+                                    self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                                except Exception as e:
+                                    try: self.Info.Add_order(0,id,cookie[1],name,f'{e}')
+                                    except : self.Info.Add_order(0,id,'None',name,"No Account") 
+                                    self.failed += 1
+                                    self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+                        futures = [executor.submit(perfom) for _ in range(5)]
+                        concurrent.futures.wait(futures)
                 except Exception as e : input(e)
         self.order += 1
         self.Info.Add_order(1,id,'Compelet',name,f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link : {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 

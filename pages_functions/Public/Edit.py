@@ -169,7 +169,7 @@ class Edit(QWidget):
     def Edit(self,name,cookie):
         try:
             if self.ui.Add_Profile_Photo_check.isChecked() and self.is_running :
-                self.Info.ui.label.setText(f"{name} Try Change Profile Photo")
+                self.Info.ui.label.setText(f"Try Change Profile Photo {name}.")
                 result = Edit_Photo(self.get_random_file(self.profil_photo),cookie).Start()
                 self.Info.Add(result[1],name,'Edit',"Profile Photo",result[0])
                 if result[1] == 1: self.succes += 1
@@ -178,7 +178,7 @@ class Edit(QWidget):
                 if result[1] == 0: return 'Error photo'
             if self.ui.Add_Cover_check.isChecked() and self.is_running :
                 for _ in range(3) : 
-                    self.Info.ui.label.setText(f"{name} Try Change Cover Photo")
+                    self.Info.ui.label.setText(f"Try Change Cover Photo {name}.")
                     result = Edit_Cover(self.get_random_file(self.cover_photo),cookie).Start()
                     if result[1] == 1 :
                         self.Info.Add(result[1],name,'Edit',"Cover Photo",result[0])
@@ -191,7 +191,7 @@ class Edit(QWidget):
             if self.ui.Add_City_check.isChecked() and self.is_running :
                 if self.ui.textEdit_city.toPlainText() :
                     city = random.choice(self.ui.textEdit_city.toPlainText().split('\n'))
-                    self.Info.ui.label.setText(f"{name} Try Add City")
+                    self.Info.ui.label.setText(f"Try Add City {name}.")
                     result = Edit_City(city, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"City",result[0])
                 if result[1] == 1: self.succes += 1
@@ -200,7 +200,7 @@ class Edit(QWidget):
             if self.ui.Add_Hometown_check.isChecked() and self.is_running :
                 if self.ui.textEdit_hometown.toPlainText() :
                     hometown = random.choice(self.ui.textEdit_hometown.toPlainText().split('\n'))
-                    self.Info.ui.label.setText(f"{name} Try Add Hometown")
+                    self.Info.ui.label.setText(f"Try Add Hometown {name}.")
                     result = Edit_Hometown(hometown, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"Hometown",result[0])
                 if result[1] == 1: self.succes += 1
@@ -209,7 +209,7 @@ class Edit(QWidget):
             if self.ui.Add_Bio_check.isChecked() and self.is_running :
                 if self.ui.textEdit_bio.toPlainText() :
                     bio = random.choice(self.ui.textEdit_bio.toPlainText().split('\n'))
-                    self.Info.ui.label.setText(f"{name} Try Change Bio")
+                    self.Info.ui.label.setText(f"Try Change Bio {name}.")
                     result = Edit_bio(bio, cookie).Start()
                     self.Info.Add(result[1],name,'Edit',"Bio",result[0])
                 if result[1] == 1: self.succes += 1
@@ -218,7 +218,7 @@ class Edit(QWidget):
             if self.ui.Add_Friend_check.isChecked() and self.is_running :
                 if self.ui.textEdit_friend.toPlainText():
                     id_friend = random.sample(self.ui.textEdit_friend.toPlainText().split(), int(self.ui.spinBox_friend.value()))
-                    self.Info.ui.label.setText(f"{name} Try Add Friend")
+                    self.Info.ui.label.setText(f"Try Add Friend {name}.")
                     for i in id_friend :
                         result = AddFriend(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Add Friend",result[0])
@@ -228,7 +228,7 @@ class Edit(QWidget):
             if self.ui.Join_Group_check.isChecked() and self.is_running :
                 if self.ui.textEdit_group.toPlainText():
                     id_group = random.sample(self.ui.textEdit_group.toPlainText().split(), int(self.ui.spinBox_group.value()))
-                    self.Info.ui.label.setText(f"{name} Try Join Groub")
+                    self.Info.ui.label.setText(f"Try Join Groub {name}.")
                     for i in id_group :
                         result = JoinGroup(i,cookie).Start()  
                         self.Info.Add(result[1],name,'Edit',"Join Groub",f'{result[0]} To {i}')
@@ -236,7 +236,7 @@ class Edit(QWidget):
             if self.ui.Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Follow.toPlainText():
                     id_follow = random.sample(self.ui.textEdit_Follow.toPlainText().split(), int(self.ui.spinBox_follow.value()))
-                    self.Info.ui.label.setText(f"{name} Try Follow")
+                    self.Info.ui.label.setText(f"Try Follow {name}.")
                     for i in id_follow :
                         result = Follow(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Follow",f'{result[0]}')
@@ -246,7 +246,7 @@ class Edit(QWidget):
             if self.ui.Un_Follow_check.isChecked() and self.is_running :
                 if self.ui.textEdit_un_Follow.toPlainText() :
                     id_un_follow = random.sample(self.ui.textEdit_un_Follow.toPlainText().split(), int(self.ui.spinBox_un_follow.value()))
-                    self.Info.ui.label.setText(f"{name} Try Un Follow")
+                    self.Info.ui.label.setText(f"Try Un Follow {name}.")
                     for i in id_un_follow :
                         result = Un_Follow(i, cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Un Follow",f'{result[0]} {i}')
@@ -256,7 +256,7 @@ class Edit(QWidget):
             if self.ui.Like_check.isChecked() and self.is_running :
                 if self.ui.textEdit_like.toPlainText() :
                     id_like = random.sample(self.ui.textEdit_like.toPlainText().split(), int(self.ui.spinBox_like.value()))
-                    self.Info.ui.label.setText(f"{name} Try Like")
+                    self.Info.ui.label.setText(f"Try Like {name}.")
                     for i in id_like :
                         result = Like(i, self.reaction_id(), cookie).Start()  
                         self.Info.Add(result[1],name,'Edit',"Like",f'{result[0]} {i}')
@@ -266,13 +266,13 @@ class Edit(QWidget):
             if self.ui.Comment_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Comment.toPlainText() :
                     self.text_comment = random.sample(self.ui.textEdit_Comment.toPlainText().split(), int(self.ui.spinBox_share.value()))
-                    self.Info.ui.label.setText(f"{name} Try Comment")
+                    self.Info.ui.label.setText(f"Try Comment {name}.")
                     result = Comment(self.id_like, self.text_comment, cookie).Start()  
                     self.Info.Add(result[1],name,'Edit',"Comment",f'{result[0]} {i}')
             if self.ui.Share_check.isChecked() and self.is_running :
                 if self.ui.textEdit_Share.toPlainText() :
                     id_share = random.sample(self.ui.textEdit_Share.toPlainText().split(), int(self.ui.spinBox_share.value()))
-                    self.Info.ui.label.setText(f"{name} Try Share")
+                    self.Info.ui.label.setText(f"Try Share {name}.")
                     for i in id_share :
                         result = Share(i, '', cookie).Start()
                         self.Info.Add(result[1],name,'Edit',"Share",f'{result[0]} {i}')
@@ -280,7 +280,7 @@ class Edit(QWidget):
                 else: self.failed += 1
                 self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time) 
             if self.ui.Lock_Profile.isChecked() and self.is_running :
-                self.Info.ui.label.setText(f"{name} Try Lock Profile")
+                self.Info.ui.label.setText(f"Try Lock Profile {name}.")
                 result = lock_profile(cookie).Start()
                 self.Info.Add(result[1],name,'Edit',"Lock Profile",f'{result[0]}')
                 if result[1] == 1: self.succes += 1

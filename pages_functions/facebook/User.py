@@ -74,8 +74,8 @@ class User(QWidget):
     def Edit(self,url,name,cookie):
         try:
             if  self.ui_Edit.ui.Follow_check.isChecked():
+                self.ui_Edit.Info.ui.label.setText(f" Try Follow {name}")
                 result = Follow_www(url, cookie).Start()  
-                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,'User',"Follow",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Un_Follow_check.isChecked():

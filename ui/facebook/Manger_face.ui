@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1056</width>
-    <height>545</height>
+    <width>1167</width>
+    <height>541</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -190,6 +190,21 @@ border: none;
               <number>0</number>
              </property>
              <item>
+              <widget class="QPushButton" name="Change_Password">
+               <property name="styleSheet">
+                <string notr="true">QPushButton:checked{
+background-color: rgb(255, 0, 0);
+}</string>
+               </property>
+               <property name="text">
+                <string>Change Password</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="Epsilon">
                <property name="minimumSize">
                 <size>
@@ -244,7 +259,7 @@ background-color: rgb(255, 0, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="Checker">
+              <widget class="QPushButton" name="Update">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -263,7 +278,7 @@ background-color: rgb(255, 0, 0);
 }</string>
                </property>
                <property name="text">
-                <string>Check</string>
+                <string>Update</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -271,7 +286,7 @@ background-color: rgb(255, 0, 0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="Update_all">
+              <widget class="QPushButton" name="Login">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -291,7 +306,7 @@ background-color: rgb(255, 0, 0);
 </string>
                </property>
                <property name="text">
-                <string>Update</string>
+                <string>Login</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>

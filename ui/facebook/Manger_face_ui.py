@@ -15,7 +15,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.setEnabled(True)
-        Form.resize(1056, 545)
+        Form.resize(1167, 541)
         Form.setStyleSheet("QPushButton l{\n"
 "        border:none;\n"
 "        border-radius: 3px;\n"
@@ -84,6 +84,13 @@ class Ui_Form(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_4)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.Change_Password = QtWidgets.QPushButton(self.widget_4)
+        self.Change_Password.setStyleSheet("QPushButton:checked{\n"
+"background-color: rgb(255, 0, 0);\n"
+"}")
+        self.Change_Password.setCheckable(True)
+        self.Change_Password.setObjectName("Change_Password")
+        self.horizontalLayout_2.addWidget(self.Change_Password)
         self.Epsilon = QtWidgets.QPushButton(self.widget_4)
         self.Epsilon.setMinimumSize(QtCore.QSize(0, 0))
         self.Epsilon.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -102,26 +109,26 @@ class Ui_Form(object):
         self.Change.setCheckable(True)
         self.Change.setObjectName("Change")
         self.horizontalLayout_2.addWidget(self.Change)
-        self.Checker = QtWidgets.QPushButton(self.widget_4)
-        self.Checker.setMinimumSize(QtCore.QSize(0, 0))
-        self.Checker.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.Checker.setStyleSheet("QPushButton:checked{\n"
+        self.Update = QtWidgets.QPushButton(self.widget_4)
+        self.Update.setMinimumSize(QtCore.QSize(0, 0))
+        self.Update.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Update.setStyleSheet("QPushButton:checked{\n"
 "background-color: rgb(255, 0, 0);\n"
 "}")
-        self.Checker.setCheckable(True)
-        self.Checker.setObjectName("Checker")
-        self.horizontalLayout_2.addWidget(self.Checker)
-        self.Update_all = QtWidgets.QPushButton(self.widget_4)
-        self.Update_all.setMinimumSize(QtCore.QSize(0, 0))
-        self.Update_all.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.Update_all.setStyleSheet("QPushButton:checked{\n"
+        self.Update.setCheckable(True)
+        self.Update.setObjectName("Update")
+        self.horizontalLayout_2.addWidget(self.Update)
+        self.Login = QtWidgets.QPushButton(self.widget_4)
+        self.Login.setMinimumSize(QtCore.QSize(0, 0))
+        self.Login.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.Login.setStyleSheet("QPushButton:checked{\n"
 "background-color: rgb(255, 0, 0);\n"
 "}\n"
 "")
-        self.Update_all.setCheckable(True)
-        self.Update_all.setChecked(False)
-        self.Update_all.setObjectName("Update_all")
-        self.horizontalLayout_2.addWidget(self.Update_all)
+        self.Login.setCheckable(True)
+        self.Login.setChecked(False)
+        self.Login.setObjectName("Login")
+        self.horizontalLayout_2.addWidget(self.Login)
         self.Delete_all = QtWidgets.QPushButton(self.widget_4)
         self.Delete_all.setMinimumSize(QtCore.QSize(0, 0))
         self.Delete_all.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -188,10 +195,11 @@ class Ui_Form(object):
         self.comboBox.setItemText(5, _translate("Form", "Cookies"))
         self.Select.setText(_translate("Form", "Select All"))
         self.Refresh.setText(_translate("Form", "Refresh"))
+        self.Change_Password.setText(_translate("Form", "Change Password"))
         self.Epsilon.setText(_translate("Form", "Epsilon"))
         self.Change.setText(_translate("Form", "Change Email"))
-        self.Checker.setText(_translate("Form", "Check"))
-        self.Update_all.setText(_translate("Form", "Update"))
+        self.Update.setText(_translate("Form", "Update"))
+        self.Login.setText(_translate("Form", "Login"))
         self.Delete_all.setText(_translate("Form", "Delete"))
         self.Write_Change.setText(_translate("Form", "Write Change"))
         self.AddMultiAccount.setToolTip(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

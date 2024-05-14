@@ -190,7 +190,12 @@ from pages_functions.__init__ import *
 #      for line in lines:
 #         a = line.split(':')
 #         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
-from pages_functions.Facebook.Data.get_count import *
-
-print(get_follower('https://www.facebook.com/profile.php?id=100064343850344').Start())
+from pages_functions.Facebook.Data.Edit import *
+email = config['email']['email'].split("+")
+chrs = 'abcdefghijklmnopqrstuvwxyz'
+if config['email']['number']:
+    chrs = ''.join((chrs, '0123456789'))
+    k = ''.join(random.choices(chrs, k=random.randrange(6,7)))
+else: k = ''.join(random.choices(chrs,k=random.randrange(6,7)))
+print(email[0]+'+'+k+email[1])
 conn.commit()

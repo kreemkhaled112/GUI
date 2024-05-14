@@ -183,7 +183,7 @@ class Edit_Hometown:
                 return f'Successfully Change Hometown To {self.hometown}' , 1
         except Exception as e: return 'Failed Change Hometown' , 0
 class lock_profile:
-    def __init__(self,cookie) -> None:
+    def __init__(self,cookie):
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = {'cookie':cookie}
@@ -223,5 +223,48 @@ class lock_profile:
             print(e)
 
 class Change_Password:
-    def __init__(self, password , new_password) -> None:
-        pass
+    def __init__(self, password , new_password , cookie):
+        self.req = requests.Session()
+        self.req.headers.update(Header())
+        self.cookie = cookie
+        cookie = {'cookie': cookie }
+        self.req.cookies.update(cookie)
+        self.url = 'https://mbasic.facebook.com/settings/security_login'
+        self.password = password
+        self.new_password = new_password
+    def Start(self):
+        # try:
+            req = BeautifulSoup(self.req.get(self.url).content,'html.parser') ; sleep(1)
+            href = req.select_one('a[href^="/settings/security/password/?"]').get('href')
+            req = BeautifulSoup(self.req.get('https://mbasic.facebook.com'+ href).content,'html.parser') ; sleep(1)
+            raq = req.find('form',{'method':'post'})
+            dat = {
+                'fb_dtsg'    : re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(raq)).group(1),
+                'jazoest'    : re.search('name="jazoest" type="hidden" value="(.*?)"',str(raq)).group(1),
+                'password_change_session_identifier': raq.find('input', {'name': 'password_change_session_identifier'}).get("value"),
+                'password_old': self.password,
+                'password_new': self.new_password,
+                'password_confirm': self.new_password,
+                'save': 'Save changes',
+                }
+            self.req.headers.update({'referer': href})
+            pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
+            cek = pos.find('title').text
+            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change Password' , 0
+            else:
+                self.req.headers.update({'referer': raq['action']})
+                pos = pos.find('form',{'method':'post'})
+                dat = {
+                'fb_dtsg'    : re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(pos)).group(1),
+                'jazoest'    : re.search('name="jazoest" type="hidden" value="(.*?)"',str(pos)).group(1),
+                'session_invalidation_options': 'review_sessions',
+                'submit_action': 'Continue',
+                }
+                pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+pos['action'],data=dat).content,'html.parser')
+                href = pos.select_one('a[href^="/settings/security_login/sessions/log_out_all"]').get('href')
+                req = BeautifulSoup(self.req.get('https://mbasic.facebook.com'+ href).content,'html.parser') ; sleep(1)
+                open("html.html" , "w" , encoding="utf-8").write(req.prettify())
+                webbrowser.open('html.html')
+                input("......")
+                return f'Successfully Change Password To {self.new_password}' , 1
+        # except Exception as e: print(e) ; return 'Failed Change Password' , 0

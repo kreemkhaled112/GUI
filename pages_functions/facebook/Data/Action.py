@@ -143,9 +143,8 @@ class Like:
             self.href = soup.select_one('a[href^="/reactions/picker/?"]').get('href')
             sleep(1)
             return self.Get_reactions()
-        except Exception as e: 
-            open("html.html" , "w" , encoding="utf-8").write(response.text)
-            return e , 0
+        except : 
+            return "Faild" , 0
 
     def Get_reactions(self):
         self.headers['referer'] = self.url
@@ -155,16 +154,19 @@ class Like:
         self.referer = response.url
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
-            for a in soup.find_all('a', href=True):
-                parsed_url = urlparse(a['href'])
-                query_params = parse_qs(parsed_url.query)
+            try:
+                for a in soup.find_all('a', href=True):
+                    parsed_url = urlparse(a['href'])
+                    query_params = parse_qs(parsed_url.query)
 
-                if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
-                    return (f"Already {self.type} befor :") , 2
-                elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
-                    href = a['href']
-                    sleep(1)
-                    return self.Like_post(href)
+                    if 'reaction_type' in query_params and query_params['reaction_type'][0] == "0":
+                        return (f"Already {self.type} befor :") , 2
+                    elif 'reaction_id' in query_params and query_params['reaction_id'][0] == self.reaction_id:
+                        href = a['href']
+                        sleep(1)
+                        return self.Like_post(href)
+            except:
+                return "Faild Get_reactions 1" , 0
         else:
             return "Faild Get_reactions" , 0
 
