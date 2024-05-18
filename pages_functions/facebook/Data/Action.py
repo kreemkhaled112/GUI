@@ -37,6 +37,7 @@ class Follow:
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         if response.status_code == 200 :
             return (f'Done Follow : {self.id}') , 1
+        
 class Follow_www:
     def __init__(self, url ,cookie):
         self.req = requests.Session()

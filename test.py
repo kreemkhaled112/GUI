@@ -171,10 +171,10 @@ from pages_functions.__init__ import *
 #         except:pass
 
 # تحديد من جدول واضافات الي جدول اخر وحذفه
-# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'wait' ").fetchall()
+# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'ahmed' ").fetchall()
 # for i in data:
-#     cursor.execute('INSERT INTO Sell ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
-#     cursor.execute(f'DELETE FROM account WHERE email = "{i[2]}" ')
+#     cursor.execute('INSERT INTO edit ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
+#     cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
 
 # حذف السجلات المكررة
 # duplicate_rows_query = "SELECT email, COUNT(*) FROM account GROUP BY email HAVING COUNT(*) > 1"
@@ -190,12 +190,6 @@ from pages_functions.__init__ import *
 #      for line in lines:
 #         a = line.split(':')
 #         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
-from pages_functions.Facebook.Data.Edit import *
-email = config['email']['email'].split("+")
-chrs = 'abcdefghijklmnopqrstuvwxyz'
-if config['email']['number']:
-    chrs = ''.join((chrs, '0123456789'))
-    k = ''.join(random.choices(chrs, k=random.randrange(6,7)))
-else: k = ''.join(random.choices(chrs,k=random.randrange(6,7)))
-print(email[0]+'+'+k+email[1])
+a = Follow('https://mbasic.facebook.com/ahmed.yosry15','ps_l=0;ps_n=1;sb=leJDZucWhWNA61gsMJrNgmWT;c_user=61553327642822;m_page_voice=61553327642822;xs=49%3AVqosPymqPNQmuQ%3A2%3A1699824346%3A-1%3A-1;datr=leJDZlMj_S_aeWFtDMuDdW6e;wd=929x882;fr=0Oq8s1vSTGXob3ZAN.AWW-qHXQBCiys6r4CQIs0ykdg-w.BlUULa.xT.AAA.0.0.BlUULa.AWV3RAN9oOE').Start()
+print(a)
 conn.commit()

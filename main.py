@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt , QPoint
+from PyQt5.QtGui import QIcon
 from ui.main_ui import Ui_MainWindow
 import uuid , requests , ntplib
 from datetime import datetime, date
@@ -18,7 +18,9 @@ class MyWindow(QMainWindow):
         super(MyWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setWindowTitle("S M M")
+        self.setWindowIcon(QIcon('pages_functions\logo.ico'))
+
         self.mac = ':'.join(['{:02x}'.format((uuid.getnode() >> 8 * i) & 0xff)for i in range(5, -1, -1)  ])
         self.ui.mac.setText(self.mac)
         self.ui.mac.clicked.connect(lambda : QApplication.clipboard().setText(self.ui.mac.text()))
@@ -104,6 +106,16 @@ class MyWindow(QMainWindow):
                     self.Like_face.hide()
                     self.Share_face.hide()
                     self.ui.mac.setText('Expired')
+            if type == "Normal":
+                if current_date > expiration_date :
+                    self.ui.mac.setText('Expired')
+                    self.Account_Edit_face.hide()
+                    self.Account_Generat_face.hide()
+                    self.User.hide()
+                    self.Post.hide()
+                self.Follow_face.hide()
+                self.Like_face.hide()
+                self.Share_face.hide()
             if type == "Server":
                 if current_date > expiration_date :
                     self.ui.mac.setText('Expired')
@@ -165,15 +177,7 @@ class MyWindow(QMainWindow):
         for button in self.menu_btns_list.keys():
             if button != btn: button.setChecked(False)
             else: button.setChecked(True)
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.oldPos = event.globalPos()
 
-    def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton:
-            delta = QPoint(event.globalPos() - self.oldPos)
-            self.move(self.x() + delta.x(), self.y() + delta.y())
-            self.oldPos = event.globalPos()
 
 if __name__ == '__main__':
     import sys

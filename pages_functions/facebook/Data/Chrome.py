@@ -75,29 +75,65 @@ class Chrom:
                 if len(cookie_parts) == 2:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-            self.bot.refresh()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[3]/input"))).click()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[4]/input"))).click()
-            sleep(20)
-            yandex.refresh()
-            sleep(5)
-            soup = BeautifulSoup(yandex.page_source, 'html.parser')
-            message_elements = soup.find_all('div', class_='ns-view-container-desc mail-MessagesList js-messages-list')
-            for element in message_elements:
-                message = element.get_text().strip()
-                match = re.search(r'Your security code is: (\d+)', message)
-                if match:
-                    code = match.group(1)
-                    break
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[1]/div/div/input"))).send_keys(code)
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[3]/input"))).click() ; sleep(1)
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click() ; sleep(1)
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
             self.bot.get("https://mbasic.facebook.com/profile.php?")
+            if 'checkpoint' in self.bot.current_url :
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[3]/input"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[4]/input"))).click()
+                sleep(20)
+                yandex.refresh()
+                sleep(5)
+                soup = BeautifulSoup(yandex.page_source, 'html.parser')
+                message_elements = soup.find_all('div', class_='ns-view-container-desc mail-MessagesList js-messages-list')
+                for element in message_elements:
+                    message = element.get_text().strip()
+                    match = re.search(r'Your security code is: (\d+)', message)
+                    if match:
+                        code = match.group(1)
+                        break
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[1]/div/div/input"))).send_keys(code)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[3]/input"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+            cookie_string = self.update_cookie(cook)
+            name = self.bot.title
+            if name == "" :
+                name =  "CheckPoint" 
+            self.bot.quit()
+            return name , cookie_string
+        except Exception as e : print(e) ; return ''
+    def Moakt(self,user,cook):
+        try:
+            self.bot.get('https://moakt.com/ar')
+            sleep(1)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[2]/div/div/form/span[3]/input"))).send_keys(user)
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div[2]/div/div/form/input[2]"))).click()
+            self.bot.execute_script("window.open()")
+            self.bot.switch_to.window(self.bot.window_handles[-1])
+            self.bot.get("https://mbasic.facebook.com/")
+            cookies = cook.strip().split(";")
+            for cookie in cookies:
+                cookie_parts = cookie.split("=")
+                if len(cookie_parts) == 2:
+                    cookie_name, cookie_value = cookie_parts
+                    self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            self.bot.get("https://mbasic.facebook.com/profile.php?")
+            if 'checkpoint' in self.bot.current_url :
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[3]/input"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/form/div/div[4]/input"))).click()
+                code = input("code: ")
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[1]/div/div/input"))).send_keys(code)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[2]/form/div[3]/input"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[3]/a"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
+                WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+            input("......")
             cookie_string = self.update_cookie(cook)
             name = self.bot.title
             if name == "" :
@@ -115,10 +151,9 @@ class Chrom:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
             self.bot.refresh()
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//a[@id='u_0_0_H5']"))).click()
-            print(email)
+            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Add email address')]"))).click()
             WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='email']"))).send_keys(email)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='save']"))).click()
+            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='save']"))).click()
             WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div[2]/div/div[2]/div/div[1]/div[2]/div/div[1]/span[2]/div/a'))).click()
             sleep(20)
             yandex.refresh()
@@ -130,12 +165,13 @@ class Chrom:
                 match = re.search(r'this confirmation code: (\d+)', message)
                 if match:
                     code = match.group(1)
-                    input(code)
-                    yandex.get('https://mail.yandex.com/?uid=1882958944#spam')
+                    yandex.refresh()
                     break
-            input(">>>>>>>>>>>>")
+            if not code :
+                code = input("Enter Code")
             WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='code']"))).send_keys(code)
             WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@type='submit']"))).click()
+            self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
             cookie_string = self.update_cookie(cook)
             name = self.bot.title
             if name == "" :

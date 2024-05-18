@@ -24,7 +24,7 @@ class Export(QDialog):
                     if self.ui.Group.isChecked() : row_data.append(data[0])
                     if self.ui.UserName.isChecked() : row_data.append(data[1])
                     if self.ui.Email.isChecked() : row_data.append(data[2])
-                    if self.ui.Password.isChecked() : row_data.append(data[3])
+                    if self.ui.Password.isChecked() : row_data.append(data[3].strip())
                     if self.ui.Cookie.isChecked() : row_data.append(data[5])
                     file.write(':'.join(row_data) + '\n')
                     if self.ui.checkBox.isChecked() :
