@@ -22,9 +22,8 @@ class Chrom:
     def Login(self,email, password):
         try:
             bot = self.bot
-            bot.minimize_window()
             bot.get("https://business.facebook.com/login/")
-            wait = WebDriverWait(bot, 2)
+            wait = WebDriverWait(bot, 5)
             try:bot.find_element(By.XPATH, '//button[@data-cookiebanner="accept_button"]').click()
             except:pass
             y = "document.cookie = " + "'" + 'wd=500x158' + "; domain=.facebook.com" + "'"
@@ -35,7 +34,7 @@ class Chrom:
             sleep(1)
             try:wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='loginbutton']"))).click()
             except:pass
-            sleep(5)
+            sleep(4)
             self.bot.get("https://mbasic.facebook.com/profile.php?")
             cookies = bot.get_cookies()
             format = {}
@@ -49,7 +48,7 @@ class Chrom:
             return 'success' , cookie_string , name
         except Exception as e : return e
         
-    def View(self,cook,close=None):
+    def View(self,cook,check=None,close=None):
         try:
             self.bot.get("https://mbasic.facebook.com/")
             cookies = cook.replace(" ", "").split(";")
@@ -58,7 +57,12 @@ class Chrom:
                 if len(cookie_parts) == 2:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            if check:
+                self.bot.get("https://mbasic.facebook.com/photos/upload/?cover_photo")
+                try: WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='primary_consent_button']"))).click() ; sleep(3)
+                except:pass
             self.bot.get("https://mbasic.facebook.com/profile.php?")
+            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
             name = self.bot.title
             if name == "" :
                 name =  "CheckPoint" 
@@ -165,12 +169,13 @@ class Chrom:
                 match = re.search(r'this confirmation code: (\d+)', message)
                 if match:
                     code = match.group(1)
-                    yandex.refresh()
                     break
             if not code :
                 code = input("Enter Code")
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='code']"))).send_keys(code)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@type='submit']"))).click()
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='code']"))).send_keys(code) ; sleep(2)
+            pyautogui.press('enter') ; sleep(5)
+            try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//input[@value='submit']"))).click() 
+            except:pass
             self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
             cookie_string = self.update_cookie(cook)
             name = self.bot.title
@@ -179,28 +184,38 @@ class Chrom:
             self.bot.quit()
             return name ,email, cookie_string
         except Exception as e : print(e) ; return ''
-    def change_password(self,old,new,cook):
+    def change_password(self,old,new,cook,yandex):
         try:
-            self.bot.get("https://mbasic.facebook.com/settings/security_login/")
-            cookies = cook.strip().split(";")
-            for cookie in cookies:
-                cookie_parts = cookie.split("=")
-                if len(cookie_parts) == 2:
-                    cookie_name, cookie_value = cookie_parts
-                    self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-            self.bot.refresh()
-            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div[2]/div/table/tbody/tr/td/div/div[3]/table/tbody/tr/td[2]/h3/a'))).click()
-            print(old)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='password_old']"))).send_keys(old)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='password_new']"))).send_keys(new)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='password_confirm']"))).send_keys(new)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='save']"))).click()
-            sleep(1)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@value='review_sessions']"))).click()
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='submit_action']"))).click()
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="root"]/table/tbody/tr/td/div[2]/a[1]'))).click()
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="root"]/table/tbody/tr/td/div[2]/a[1]'))).click()
-            sleep(3)
+            cookie(cook,self.bot)
+            self.bot.get("https://accountscenter.facebook.com/password_and_security/password/change")
+
+            WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div/div/div/div/div/div/div/div[3]/div[2]/div[4]/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/span[2]'))).click()
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div[3]/div[2]/div[4]/div/div/div[3]/div/div/div[1]/input"))).send_keys(old)
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div[3]/div[2]/div[4]/div/div/div[4]/div/div/div[1]/input"))).send_keys(new)
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div[3]/div[2]/div[4]/div/div/div[5]/div/div/div[1]/input"))).send_keys(new)
+            # checkbox = WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='checkbox']")))
+            # if checkbox.is_selected():
+            #     checkbox.click()
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[2]/div/div/div/div/div/div[2]/div/div[4]/div[3]/div/div/div/div/div/div/div/div/div[1]/div/span/span"))).click() ; sleep(5)
+            try:
+                WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div/div/div[3]/div[2]/div[4]/div/div/div/div/div/div[2]/div/form/div/div/div/div/div[1]/input")))
+                sleep(10)
+                yandex.refresh()
+                sleep(5)
+                soup = BeautifulSoup(yandex.page_source, 'html.parser')
+                message_elements = soup.find_all('div', class_='ns-view-container-desc mail-MessagesList js-messages-list')
+                for element in message_elements:
+                    message = element.get_text().strip()
+                    match = re.search(r'Your security code is: (\d+)', message)
+                    if match:
+                        code = match.group(1)
+                        break
+                if not code :
+                    code = input("Enter Code")
+                WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div/div/div[3]/div[2]/div[4]/div/div/div/div/div/div[2]/div/form/div/div/div/div/div[1]/input"))).send_keys(code)
+                WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div/div/div[3]/div[2]/div[4]/div/div/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/span/span'))).click() 
+            except: pass
+            sleep(10) ; self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
             cookie_string = self.update_cookie(cook)
             name = self.bot.title
             if name == "" :
@@ -209,17 +224,16 @@ class Chrom:
             return name ,new, cookie_string
         except Exception as e : print(e) ; return ''
     def update_cookie(self,cook):
+        cookies = self.bot.get_cookies()
+        format = {}
+        for cookie in cookies :
+            format[cookie['name']] = cookie['value']
+        cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
         try:
-            cookies = self.bot.get_cookies()
-            format = {}
-            for cookie in cookies :
-                format[cookie['name']] = cookie['value']
-            cookie_string = ";".join([f"{name}={value}" for name , value in format.items()])
-            try:
-                cursor.execute(f"UPDATE account SET cookies = '{cookie_string} ' WHERE cookies = '{cook}'") ;conn.commit()
-                return cookie_string
-            except Exception as e : print(f"Faild Contect Database \n {e}")
-        except : print("Faild Update Cookie")
+            cursor.execute(f"UPDATE account SET cookies = '{cookie_string} ' WHERE cookies = '{cook}'") ;conn.commit()
+            return cookie_string
+        except Exception as e : print(f"Faild Contect Database \n {e}")
+        
     
     def scrap(self,id,cook):
         bot = self.bot

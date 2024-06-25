@@ -170,6 +170,9 @@ class Ui_MainWindow(object):
         self.Share_face = QtWidgets.QPushButton(self.menu_facebook)
         self.Share_face.setObjectName("Share_face")
         self.verticalLayout_6.addWidget(self.Share_face)
+        self.Comment = QtWidgets.QPushButton(self.menu_facebook)
+        self.Comment.setObjectName("Comment")
+        self.verticalLayout_6.addWidget(self.Comment)
         self.Report_face = QtWidgets.QPushButton(self.menu_facebook)
         self.Report_face.setObjectName("Report_face")
         self.verticalLayout_6.addWidget(self.Report_face)
@@ -232,5 +235,6 @@ class Ui_MainWindow(object):
         self.Follow_face.setText(_translate("MainWindow", "Follow"))
         self.Like_face.setText(_translate("MainWindow", "Like"))
         self.Share_face.setText(_translate("MainWindow", "Share"))
+        self.Comment.setText(_translate("MainWindow", "Comment"))
         self.Report_face.setText(_translate("MainWindow", "Report"))
 import resource_rc

@@ -254,6 +254,9 @@ border: none;
              </item>
              <item>
               <widget class="QCheckBox" name="Add_Post_check">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
                 <string>Add Post</string>
                </property>
@@ -310,6 +313,9 @@ border: none;
              </item>
              <item>
               <widget class="QCheckBox" name="Comment_Like_check">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="text">
                 <string>Comment Like</string>
                </property>
@@ -349,7 +355,7 @@ border: none;
           <item row="0" column="1">
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>11</number>
+             <number>12</number>
             </property>
             <widget class="QWidget" name="page_photo">
              <layout class="QGridLayout" name="gridLayout_3">
@@ -584,8 +590,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>846</width>
-                   <height>591</height>
+                   <width>98</width>
+                   <height>71</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47" rowstretch="0">
@@ -691,8 +697,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>846</width>
-                   <height>591</height>
+                   <width>98</width>
+                   <height>71</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_48" rowstretch="0">
@@ -924,8 +930,8 @@ border: none;
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>846</width>
-                      <height>591</height>
+                      <width>98</width>
+                      <height>71</height>
                      </rect>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_46" rowstretch="0">
@@ -1055,8 +1061,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>846</width>
-                         <height>567</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_45" rowstretch="0">
@@ -1209,8 +1215,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>549</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_44" rowstretch="0">
@@ -1363,8 +1369,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>549</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_43" rowstretch="0">
@@ -1524,8 +1530,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>828</width>
-                         <height>549</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_42" rowstretch="0">
@@ -1690,8 +1696,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>846</width>
-                         <height>541</height>
+                         <width>98</width>
+                         <height>71</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_41" rowstretch="0">
@@ -1889,7 +1895,304 @@ p, li { white-space: pre-wrap; }
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="page_comment"/>
+            <widget class="QWidget" name="page_comment">
+             <layout class="QGridLayout" name="gridLayout_9">
+              <item row="0" column="0">
+               <widget class="QWidget" name="widget_comment" native="true">
+                <layout class="QVBoxLayout" name="verticalLayout_25">
+                 <item>
+                  <widget class="QWidget" name="widget_3" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QWidget" name="widget_88" native="true">
+                      <layout class="QHBoxLayout" name="horizontalLayout_18">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QScrollArea" name="scrollArea_26">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="widgetResizable">
+                          <bool>true</bool>
+                         </property>
+                         <widget class="QWidget" name="scrollAreaWidgetContents_18">
+                          <property name="geometry">
+                           <rect>
+                            <x>0</x>
+                            <y>0</y>
+                            <width>376</width>
+                            <height>549</height>
+                           </rect>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_52" rowstretch="0">
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="spacing">
+                            <number>6</number>
+                           </property>
+                           <item row="0" column="0">
+                            <widget class="QTextEdit" name="textEdit_comment_link">
+                             <property name="html">
+                              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;https://www.facebook.com/Kreem.Khaled112/&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             </property>
+                             <property name="placeholderText">
+                              <string>Links</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </widget>
+                       </item>
+                       <item alignment="Qt::AlignTop">
+                        <widget class="QWidget" name="widget_23" native="true">
+                         <layout class="QVBoxLayout" name="verticalLayout_29">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QPushButton" name="import_comment_link">
+                            <property name="text">
+                             <string>import</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QCheckBox" name="checkBox_comment_link">
+                            <property name="text">
+                             <string>Random</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="widget_87" native="true">
+                      <layout class="QHBoxLayout" name="horizontalLayout_17">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QScrollArea" name="scrollArea_25">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>16777215</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                         <property name="widgetResizable">
+                          <bool>true</bool>
+                         </property>
+                         <widget class="QWidget" name="scrollAreaWidgetContents_17">
+                          <property name="geometry">
+                           <rect>
+                            <x>0</x>
+                            <y>0</y>
+                            <width>375</width>
+                            <height>549</height>
+                           </rect>
+                          </property>
+                          <layout class="QGridLayout" name="gridLayout_51" rowstretch="0">
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="spacing">
+                            <number>6</number>
+                           </property>
+                           <item row="0" column="0">
+                            <widget class="QTextEdit" name="textEdit_comment">
+                             <property name="html">
+                              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Comments&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                             </property>
+                             <property name="placeholderText">
+                              <string>Links</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </widget>
+                       </item>
+                       <item alignment="Qt::AlignTop">
+                        <widget class="QWidget" name="widget_22" native="true">
+                         <layout class="QVBoxLayout" name="verticalLayout_28">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QPushButton" name="import_comment">
+                            <property name="text">
+                             <string>import</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QCheckBox" name="checkBox_comment">
+                            <property name="text">
+                             <string>Random</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QWidget" name="widget_85" native="true">
+                   <layout class="QHBoxLayout" name="horizontalLayout_57">
+                    <property name="spacing">
+                     <number>5</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_50">
+                      <property name="text">
+                       <string>Number Of Comments</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="spinBox_comment">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
             <widget class="QWidget" name="page_comment_like"/>
             <widget class="QWidget" name="page_share">
              <layout class="QGridLayout" name="gridLayout_34">
@@ -1961,7 +2264,7 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>83</width>
+                         <width>98</width>
                          <height>71</height>
                         </rect>
                        </property>

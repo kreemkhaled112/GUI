@@ -11,6 +11,7 @@ from pages_functions.Facebook.Post import Post
 from pages_functions.Facebook.Follow import Follow
 from pages_functions.Facebook.Like import Like
 from pages_functions.Facebook.Share import Share
+from pages_functions.Facebook.Comment import Comment
 from pages_functions.Facebook.Report import Report
 
 class MyWindow(QMainWindow):
@@ -33,6 +34,7 @@ class MyWindow(QMainWindow):
         self.Follow_face = self.ui.Follow_face
         self.Like_face = self.ui.Like_face
         self.Share_face = self.ui.Share_face
+        self.Comment = self.ui.Comment
 
         self.menu_btns_list = {
             self.Account_Manger_face: Manager_Face(),
@@ -43,6 +45,7 @@ class MyWindow(QMainWindow):
             self.Follow_face: Follow(),
             self.Like_face: Like(),
             self.Share_face: Share(),
+            self.Comment: Comment(),
         }
 
         self.show_home_window()
@@ -59,6 +62,7 @@ class MyWindow(QMainWindow):
         self.Follow_face.clicked.connect(self.show_selected_window)
         self.Like_face.clicked.connect(self.show_selected_window)
         self.Share_face.clicked.connect(self.show_selected_window)
+        self.Comment.clicked.connect(self.show_selected_window)
         self.Active()
     def check_internet_connection(self):
         try:
@@ -105,6 +109,7 @@ class MyWindow(QMainWindow):
                     self.Follow_face.hide()
                     self.Like_face.hide()
                     self.Share_face.hide()
+                    self.Comment.hide()
                     self.ui.mac.setText('Expired')
             if type == "Normal":
                 if current_date > expiration_date :
@@ -116,13 +121,15 @@ class MyWindow(QMainWindow):
                 self.Follow_face.hide()
                 self.Like_face.hide()
                 self.Share_face.hide()
+                self.Comment.hide()
             if type == "Server":
                 if current_date > expiration_date :
                     self.ui.mac.setText('Expired')
                     self.Follow_face.hide()
                     self.Like_face.hide()
+                    self.Account_Edit_face.hide()
                     self.Share_face.hide()
-                self.Account_Edit_face.hide()
+                    self.Comment.hide()
                 self.Account_Generat_face.hide()
                 self.User.hide()
                 self.Post.hide()

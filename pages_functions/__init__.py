@@ -1,4 +1,4 @@
-import requests , random , os , queue ,json , sys , webbrowser , logging  , sqlite3 , re , uuid , urllib3
+import requests , random , os , queue ,json , sys , webbrowser , logging  , sqlite3 , re , uuid , urllib3 ,psutil , pyautogui
 from customtkinter import *
 import undetected_chromedriver as uc
 from selenium import webdriver
@@ -82,7 +82,43 @@ def cookie_format(cookie):
             key, value = pair.split('=', 1)
             cookie[key] = value
     return cookie
+def yandex():
+    kill_chrome()
+    chrome_options = uc.ChromeOptions()
+    pro = "C://Users//kreem//AppData//Local//Google//Chrome//User Data//"
+    chrome_options.add_argument(f"--profile-directory=Profile {config['chrome']['Profile']}")
+    chrome_options.add_argument(f"user-data-dir={pro}")
+    bot = uc.Chrome(options=chrome_options)
+    bot.get('https://mail.yandex.com/?uid=1882958944#tabs/social')
+    return bot
+def kill_chrome():
+    for proc in psutil.process_iter(attrs=['pid', 'name']):
+        if proc.info['name'] == 'chrome' or proc.info['name'] == 'chrome.exe':
+            try:
+                proc.kill()
+            except psutil.NoSuchProcess:
+                pass
+            except psutil.AccessDenied:
+                print(f"Access denied to kill process {proc.info['pid']} ({proc.info['name']})")
+def cookie(cook,driver):
+    domains = [
+    "https://www.facebook.com",
+    "https://mbasic.facebook.com",
+    ]
 
+    cookies = cook.strip().split(";")
+    parsed_cookies = []
+    for cookie in cookies:
+        cookie_parts = cookie.split("=")
+        if len(cookie_parts) == 2:
+            cookie_name, cookie_value = cookie_parts
+            parsed_cookies.append({'name': cookie_name.strip(), 'value': cookie_value.strip()})
+
+    for domain in domains:
+        driver.get(domain)
+        for cookie in parsed_cookies:
+            cookie['domain'] = '.facebook.com'
+            driver.add_cookie(cookie)
 class QMessage(CTk):
     def __init__(self, text , title = None , *args, **kwargs) :
         super().__init__(*args, **kwargs)

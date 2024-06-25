@@ -30,7 +30,8 @@ class get_likes:
         self.req = requests.Session()
         self.headers = Header_www()
         self.req.headers.update(self.headers)
-        self.url = url.strip()
+        try:self.url = url.replace("www", "mbasic")
+        except:pass
         with open('pages_functions\cookie.txt', 'r', encoding='utf-8') as file:
             lines = file.readlines()  
             random_line = random.choice(lines)  
@@ -40,7 +41,8 @@ class get_likes:
     def Start(self):
         response = self.req.get(self.url)
         if response.status_code == 200:
-            match = re.search(r'"if_viewer_cannot_see_seen_by_member_list":{[^}]*"reaction_count":{"count":(\d+)}', response.text)
+            # match = re.search(r'"if_viewer_cannot_see_seen_by_member_list":{[^}]*"reaction_count":{"count":(\d+)}', response.text)
+            match = re.search(r'aria-label="([\d,.]+) ', response.text)
             if match: return '' , int(match.group(1).replace(",", "").replace(".", ""))
             else:
                 return 'No match found' , ''
@@ -51,6 +53,12 @@ class get_share:
         self.headers = Header_www()
         self.req.headers.update(self.headers)
         self.url = url
+        with open('pages_functions\cookie.txt', 'r', encoding='utf-8') as file:
+            lines = file.readlines()  
+            random_line = random.choice(lines)  
+        self.cookie = random_line.strip()
+        cookie = cookie_format(self.cookie)
+        self.req.cookies.update(cookie)
     def Start(self):
         response = self.req.get(self.url)
         if response.status_code == 200:
@@ -64,11 +72,18 @@ class get_comment:
         self.headers = Header_www()
         self.req.headers.update(self.headers)
         self.url = url
+        with open('pages_functions\cookie.txt', 'r', encoding='utf-8') as file:
+            lines = file.readlines()  
+            random_line = random.choice(lines)  
+        self.cookie = random_line.strip()
+        cookie = cookie_format(self.cookie)
+        self.req.cookies.update(cookie)
     def Start(self):
         response = self.req.get(self.url)
         if response.status_code == 200:
             match = re.search(r'"comment_rendering_instance":{[^}]*"total_count":(\d+)[^}]*}', response.text)
-            if match: return int(match.group(1).replace(",", "").replace(".", ""))
+            print(match.group(1).replace(",", "").replace(".", ""))
+            if match: return '',int(match.group(1).replace(",", "").replace(".", ""))
             else:
                 return 'No match found'
 

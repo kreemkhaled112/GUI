@@ -122,8 +122,8 @@ class Follow(QWidget):
                                                 except : self.Info.Add_order(0,id,'None',"Follow","No Account") 
                                                 self.failed += 1
                                                 self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-                                with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
-                                    futures = [executor.submit(perfom) for _ in range(15)]
+                                with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+                                    futures = [executor.submit(perfom) for _ in range(20)]
                                     concurrent.futures.wait(futures)
                             except Exception as e : input(e)
                         self.order += 1

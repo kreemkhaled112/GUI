@@ -2,7 +2,7 @@ from pages_functions.__init__ import *
 
 from ui.Facebook.User_ui import Ui_Form
 from pages_functions.Public.Info import Info
-from pages_functions.Public.Edit import Edit
+from pages_functions.Facebook.Edit import Edit
 from pages_functions.Facebook.Data.Action import *
 
 class Post(QWidget):
@@ -14,7 +14,7 @@ class Post(QWidget):
         self.succes = 0
         self.failed = 0
         self.order = 0
-        self.ui_Edit = Edit(Info())
+        self.ui_Edit = Edit()
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
 
         self.ui_Edit.ui.Add_Profile_Photo_check.hide()
@@ -33,6 +33,8 @@ class Post(QWidget):
 
         self.ui_Edit.ui.widget_73.hide()
         self.ui_Edit.ui.widget_75.hide()
+        self.ui_Edit.ui.widget_85.hide()
+        self.ui_Edit.ui.widget_88.hide()
         self.ui_Edit.ui.widget_share.hide()
         self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
 
@@ -83,9 +85,15 @@ class Post(QWidget):
                 else: self.failed += 1
                 self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
             if self.ui_Edit.ui.Comment_check.isChecked():
+                if self.ui_Edit.ui.checkBox_comment.isChecked():
+                    comment = queue.Queue(); [comment.put(i) for i in random.shuffle(self.ui_Edit.ui.textEdit_comment.toPlainText().split())]
+                else:
+                    comment = queue.Queue(); [comment.put(i) for i in self.ui_Edit.ui.textEdit_comment.toPlainText().split()]
                 self.ui_Edit.Info.ui.label.setText(f"Try Comment {name} ")
-                result = Comment(url, 'good', cookie).Start()  
+                commet = comment.get()
+                result = Comment(url,commet , cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Comment",f'{result[0]} To {url}')
+                comment.put(commet)
                 if result[1] == 1: self.succes += 1
                 else: self.failed += 1
                 self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)

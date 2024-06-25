@@ -2,7 +2,7 @@ from pages_functions.__init__ import *
 
 from ui.Public.Generat_ui import Ui_Form
 from pages_functions.Public.Info import Info
-from pages_functions.Public.Edit import Edit
+from pages_functions.Facebook.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.Email import *
 from pages_functions.Facebook.Data.Action import *
@@ -13,7 +13,7 @@ class Generat_Face(QWidget):
         super(Generat_Face, self).__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        self.ui_Edit = Edit(Info())
+        self.ui_Edit = Edit()
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
         self.is_running = False
         self.Error = 3
@@ -118,6 +118,16 @@ class Generat_Face(QWidget):
             options = webdriver.ChromeOptions()
             chrome_prefs = {"profile.default_content_setting_values.notifications": 2,"profile.managed_default_content_settings.images": 2}
             options.add_experimental_option("prefs", chrome_prefs)
+            options.add_argument("--disable-blink-features=AutomationControlled")
+            options.add_argument("--disable-extensions")
+            options.add_argument("--disable-popup-blocking")
+
+            # تكوين بصمة المتصفح الخاص بك هنا
+            options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+            options.add_argument("--window-size=1366,768")
+            options.add_argument("--disable-javascript")
+            options.add_argument("--disable-geolocation")
+            options.add_argument("--disable-network-throttling")
             options.add_experimental_option("detach", True)
             options.add_argument("--log-level=3")
             self.bot = webdriver.Chrome(service=service , options=options)

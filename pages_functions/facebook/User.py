@@ -2,7 +2,7 @@ from pages_functions.__init__ import *
 
 from ui.Facebook.User_ui import Ui_Form
 from pages_functions.Public.Info import Info
-from pages_functions.Public.Edit import Edit
+from pages_functions.Facebook.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.Action import *
 
@@ -13,7 +13,7 @@ class User(QWidget):
         self.ui.setupUi(self)
         self.Run = False
 
-        self.ui_Edit = Edit(Info())
+        self.ui_Edit = Edit()
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
 
         self.ui_Edit.ui.Add_Profile_Photo_check.hide()
@@ -75,7 +75,7 @@ class User(QWidget):
         try:
             if  self.ui_Edit.ui.Follow_check.isChecked():
                 self.ui_Edit.Info.ui.label.setText(f" Try Follow {name}")
-                result = Follow_www(url, cookie).Start()  
+                result = Follow(url, cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'User',"Follow",f'{result[0]} To {url}')
                 self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
             if self.ui_Edit.ui.Un_Follow_check.isChecked():

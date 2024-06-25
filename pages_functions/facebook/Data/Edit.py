@@ -17,7 +17,7 @@ class Get_Name:
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
     def Get(self):
         try:
@@ -34,7 +34,7 @@ class Get_i_user:
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
     def Get(self):
         try:
@@ -45,6 +45,54 @@ class Get_i_user:
             cookie = f"{self.cookie};i_user={profile_id};"
             return "success" , cookie , Get_Name(cookie).Get()
         except : return "" 
+class Allow():
+    def __init__(self,soup,cookie):
+        try:
+            headers = {
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'accept-language': 'en-US,en;q=0.9',
+            'cache-control': 'max-age=0',
+            'content-type': 'application/x-www-form-urlencoded',
+            'dpr': '1',
+            'origin': 'https://mbasic.facebook.com',
+            'priority': 'u=0, i',
+            'referer': 'https://mbasic.facebook.com/privacy/consent_framework/prompt/?consent_flow_name=user_cookie_choice&consent_entry_source=pft_user_cookie_choice&consent_extra_params%5Bpft_surface%5D=facebook_mbasic&consent_extra_params%5Bpft_gk%5D=epd_cookies_baseline_4_mbasic&consent_extra_params%5Bpft_gk_pass%5D=true&consent_extra_params%5Bpft_vc%5D=%7B%22type%22%3A%22FBViewerContext%22%2C%22is_omni%22%3A0%2C%22viewer_id%22%3A61561081676305%2C%22app_id%22%3A0%7D&consent_surface=facebook_mbasic&paipv=0&eav=Afa9UcV_7UeJyg3stDSskA6osYlBHDNsu116yduteJqpIsNFzjyoYaPB4v_RPsXFTm4&_rdr',
+            'sec-ch-prefers-color-scheme': 'dark',
+            'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+            'sec-ch-ua-full-version-list': '"Not/A)Brand";v="8.0.0.0", "Chromium";v="126.0.6478.57", "Google Chrome";v="126.0.6478.57"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-model': '""',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-ch-ua-platform-version': '"10.0.0"',
+            'sec-fetch-dest': 'document',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-user': '?1',
+            'upgrade-insecure-requests': '1',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+            }
+            href = soup.select_one('form [action^="/privacy/consent_framework/server_callback/?"]')['action']
+            fb_dtsg = soup.find('input', {'name': 'fb_dtsg'}).get("value")
+            jazoest = soup.find('input', {'name': 'jazoest'}).get("value")
+            data = [
+                ('fb_dtsg', fb_dtsg),
+                ('jazoest', jazoest),
+                ('fb_trackers_on_other_companies', 'false'),
+                ('other_company_trackers_on_foa', 'false'),
+                ('card_one_learnt_more', ''),
+                ('card_two_learnt_more', ''),
+                ('card_three_learnt_more', ''),
+                ('card_four_learnt_more', ''),
+                ('fb_trackers_on_other_companies', 'false'),
+                ('other_company_trackers_on_foa', 'false'),
+                ('primary_consent_button', 'Allow all or selected cookies'),
+            ]
+
+            response = requests.post(f'https://mbasic.facebook.com/{href}',cookies=cookie, headers=headers,data=data)
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            webbrowser.open('html.html')
+            return BeautifulSoup(response.content,'html.parser')
+        except Exception as e :print(e)
 class Edit_Photo:
     def __init__(self, photo, cookie) :
         self.req = requests.Session()
@@ -75,9 +123,8 @@ class Edit_Cover:
     def __init__(self, photo, cookie) -> None:
         self.req = requests.Session()
         self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = {'cookie': cookie }
-        self.req.cookies.update(cookie)
+        self.cookie = cookie_format(cookie)
+        self.req.cookies.update(self.cookie)
         self.photo = photo
         self.url = 'https://mbasic.facebook.com/photos/upload/?cover_photo'
     def Start(self,):
@@ -98,17 +145,17 @@ class Edit_Cover:
             sleep(1)
             pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat,files=fil).content,'html.parser')
             cek = pos.find('title').text
-            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Cover Photo" , 0
+            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return "Failed Change Cover Photo" , 2 
             else: 
                 return "Successfully Change Cover Photo" , 1
-        except Exception as e: return "Failed Change Cover Photo" , 0
+        except Exception as e: print(e);return "Failed Change Cover Photo" , 0 
 class Edit_bio:
     def __init__(self, bio ,cookie) -> None:
         self.req = requests.Session()
         self.bio = bio
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.url = "https://mbasic.facebook.com/profile/basic/intro/bio/"
     def Start(self):
@@ -133,7 +180,7 @@ class Edit_City:
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.city = city
         self.url = 'https://mbasic.facebook.com/editprofile.php?type=basic&edit=current_city'   
@@ -160,7 +207,7 @@ class Edit_Hometown:
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.hometown = hometown
         self.url = 'https://mbasic.facebook.com/editprofile.php?type=basic&edit=hometown'        
@@ -186,7 +233,7 @@ class lock_profile:
     def __init__(self,cookie):
         self.req = requests.Session()
         self.req.headers.update(Header())
-        self.cookie = {'cookie':cookie}
+        self.cookie = cookie_format(cookie)
         self.req.cookies.update(self.cookie)
         self.id = re.search('c_user=(.*?);',self.cookie['cookie']).group(1)
         # action = input('Enable/Disable [a/n] : ').lower()
@@ -218,16 +265,16 @@ class lock_profile:
             if str(pos['data']['toggle_wem_private_sharing_control_enabled']) == 'None': return 'Locked Profile Not Available!' , 0
             elif str(pos['data']['toggle_wem_private_sharing_control_enabled']['private_sharing_enabled']) == 'True': return 'Successfully Activating the Locked Profile' , 1
             elif str(pos['data']['toggle_wem_private_sharing_control_enabled']['private_sharing_enabled']) == 'False': return 'Successfully Deactivated the Locked Profile' , 1
-            else: print(pos)
+            else: return pos ,  0
         except Exception as e:
-            print(e)
+            return e , 0
 
 class Change_Password:
     def __init__(self, password , new_password , cookie):
         self.req = requests.Session()
         self.req.headers.update(Header())
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.url = 'https://mbasic.facebook.com/settings/security_login'
         self.password = password

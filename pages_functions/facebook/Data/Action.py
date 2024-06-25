@@ -36,6 +36,8 @@ class Follow:
 
         response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
         if response.status_code == 200 :
+            open("html.html" , "w" , encoding="utf-8").write(response.text)
+            webbrowser.open('html.html')
             return (f'Done Follow : {self.id}') , 1
         
 class Follow_www:
@@ -57,13 +59,13 @@ class Follow_www:
             hsi = re.search('"hsi":"(.*?)",', str(soup)).group(1)
             fb_dtsg = re.search('"DTSGInitialData",\[\],{"token":"(.*?)"', str(soup)).group(1)
             jazoest = re.search('&jazoest=(.*?)",', str(soup)).group(1)
-            self.lsd = re.search('"LSD",\[\],{"token":"(.*?)"', str(soup)).group(1)
+            lsd = re.search('"LSD",\[\],{"token":"(.*?)"', str(soup)).group(1)
             spinr = re.search('"__spin_r":(.*?),', str(soup)).group(1)
             spint = re.search('"__spin_t":(.*?),', str(soup)).group(1)
             c_user_value = self.cookie["c_user"]
             userID = next((m.group(1) for script in soup.find_all('script') if script.string and (m := re.search(r'"userID":"(\d+)"', script.string)) and m.group(1) != "100013698670173"), None)
-            data = {'av': c_user_value,'__aaid': '0','__user': c_user_value,'__a': '1','__req': 'r','__hs': haste_session,'dpr': '1','__ccg': 'EXCELLENT','__rev': rev,'__s': 'rbr0s4:av99i5:ig0mol','__hsi': hsi,'__comet_req': '15','fb_dtsg': fb_dtsg,'jazoest': jazoest,'lsd': self.lsd,'__spin_r': spinr,'__spin_b': 'trunk','__spin_t': spint,'fb_api_caller_class': 'RelayModern','fb_api_req_friendly_name': 'CometUserFollowMutation','variables': f'{{"input":{{"attribution_id_v2":"ProfileCometTimelineListViewRoot.react,comet.profile.timeline.list,via_cold_start,1715096581887,975750,250100865708545,","is_tracking_encrypted":false,"subscribe_location":"PROFILE","subscribee_id":{userID},"tracking":null,"actor_id":{c_user_value},"client_mutation_id":"1"}}, "scale":1}}','server_timestamps': 'true','doc_id': '7393793397375006',}
-            self.headers['referer'] = self.url ; self.headers['x-fb-friendly-name'] = 'CometUserFollowMutation' ; self.headers['x-fb-lsd'] = self.lsd
+            data = {'av': c_user_value,'__aaid': '0','__user': c_user_value,'__a': '1','__req': 'r','__hs': haste_session,'dpr': '1','__ccg': 'EXCELLENT','__rev': rev,'__s': 'rbr0s4:av99i5:ig0mol','__hsi': hsi,'__comet_req': '15','fb_dtsg': fb_dtsg,'jazoest': jazoest,'lsd': lsd,'__spin_r': spinr,'__spin_b': 'trunk','__spin_t': spint,'fb_api_caller_class': 'RelayModern','fb_api_req_friendly_name': 'CometUserFollowMutation','variables': f'{{"input":{{"attribution_id_v2":"ProfileCometTimelineListViewRoot.react,comet.profile.timeline.list,via_cold_start,1715096581887,975750,250100865708545,","is_tracking_encrypted":false,"subscribe_location":"PROFILE","subscribee_id":{userID},"tracking":null,"actor_id":{c_user_value},"client_mutation_id":"1"}}, "scale":1}}','server_timestamps': 'true','doc_id': '7393793397375006',}
+            self.headers['referer'] = self.url ; self.headers['x-fb-friendly-name'] = 'CometUserFollowMutation' ; self.headers['x-fb-lsd'] = lsd
             response = self.req.post('https://www.facebook.com/api/graphql/',headers=self.headers,cookies=self.cookie,data=data)
             return (f'Done Follow : {self.id}') , 1            
         except: return "Faild Follow" , 0
@@ -116,6 +118,8 @@ class Like:
         self.type = type
         try:self.url = self.url.replace("www", "mbasic")
         except:pass
+        # try:self.url = f"https://mbasic.facebook.com/{url.split('/')[-1]}" ; input(self.url)
+        # except:pass
         self.Type_reaction()
     def Type_reaction (self):
         if self.type == "Like" :
@@ -178,42 +182,35 @@ class Like:
         response = self.req.get( f'https://mbasic.facebook.com/{href}' )
         if response.status_code == 200 :
             return f"Done {self.type} :" , 1
-
 class Like_Page:
     def __init__(self, url ,cookie):
         self.req = requests.Session()
         self.id = re.search(r'c_user=(\d+)', cookie).group(1)
-        self.cookie = {'cookie':cookie}
-        self.req.cookies.update(self.cookie)
+        self.headers = Header_www()
+        self.cookie = cookie_format(cookie)
         self.url = url
-
     def Start(self):
-        response = self.req.get(self.url ,allow_redirects=True)
-        open("html.html" , "w" , encoding="utf-8").write(response.text)
-        input(".....")
-        req = BeautifulSoup(response.content, 'html.parser')
+        req = BeautifulSoup(self.req.get(self.url,headers=self.headers,cookies=self.cookie,allow_redirects=True).content, 'html.parser')
+        page_id = re.search(r'"delegate_page":{"id":"(.*?)"', str(req)).group(1) if re.search(r'"delegate_page":{"id":"(.*?)"', str(req)) else None
+        page_id = '114382451746406'
         haste = re.search('"haste_session":"(.*?)",',str(req)).group(1)
         rev = re.search('{"rev":(.*?)}',str(req)).group(1)
         hsi = re.search('"hsi":"(.*?)",',str(req)).group(1)
-        # dtsg = re.search('"DTSGInitialData",\[\],{"token":"(.*?)"',str(req)).group(1)
+        fb_dtsg = re.search('"DTSGInitialData",\[\],{"token":"(.*?)"', str(req)).group(1)
         jazoest = re.search('&jazoest=(.*?)",',str(req)).group(1)
         lsd = re.search('"LSD",\[\],{"token":"(.*?)"',str(req)).group(1)
         spinr = re.search('"__spin_r":(.*?),',str(req)).group(1)
         spint = re.search('"__spin_t":(.*?),',str(req)).group(1)
-        var = {"input":{"is_tracking_encrypted":'false',"page_id":"103424319386989","source":0,"tracking":0,"actor_id":self.id,"client_mutation_id":"5"},"scale":1}
-        data = {'av':self.id,'__user':self.id,'__a':'1','__hs':haste,'dpr':'1.5','__ccg':'EXCELLENT','__rev':rev,'__hsi':hsi,'__comet_req':'15','fb_dtsg': 'NAcNdzbZgm9trLGDL9EMUavCDR3PFSpnqgxMRG3s1bCwpg7bIS-60Sg:36:1705079016','jazoest': jazoest,'lsd': lsd,'__spin_b':'trunk','__spin_r':spinr,'__spin_t':spint,'fb_api_caller_class':'RelayModern','fb_api_req_friendly_name':'CometProfilePlusLikeMutation','variables':json.dumps(var),'server_timestamps':'true','doc_id':'6716077648448761'}
-        header = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,image/jpeg,image/jpg,image/png,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7','Accept-Encoding':'gzip, deflate','Accept-Language':'en-US,en;q=0.9','Content-Type':'application/x-www-form-urlencoded','Pragma':'akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no, akamai-x-get-request-id,akamai-x-get-nonces,akamai-x-get-client-ip,akamai-x-feo-trace','Origin':'https://www.facebook.com','Referer':self.url,'Sec-Ch-Ua':'','Sec-Ch-Ua-Full-Version-List':'','Sec-Ch-Ua-Mobile':'?0','Sec-Ch-Ua-Platform':'','Sec-Ch-Ua-Platform-Version':'','Sec-Fetch-Dest':'empty','Sec-Fetch-Mode':'cors','Sec-Fetch-Site':'same-origin','Sec-Fetch-User':'?1','Upgrade-Insecure-Requests':'1','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36','X-Fb-Friendly-Name':'CometProfilePlusLikeMutation','X-Fb-Lsd':lsd}
-        pos = self.req.post('https://www.facebook.com/api/graphql/',data=data,headers=header,allow_redirects=True)
+        var = {"input":{"is_tracking_encrypted":'false',"page_id":page_id,"source":'null',"tracking":'null',"actor_id":self.id,"client_mutation_id":"1"},"scale":1}
+        data = {'av':self.id,'__aaid': '0','__user':self.id,'__a':'1','__req': 'w','__hs':haste,'dpr':'1','__ccg':'EXCELLENT','__rev':rev,'__s': 'ha2mhp:sfarf1:sfrlh5','__hsi':hsi,'__comet_req':'15','fb_dtsg': fb_dtsg,'jazoest': jazoest,'lsd': lsd,'__spin_r':spinr,'__spin_b':'trunk','__spin_t':spint,'fb_api_caller_class':'RelayModern','fb_api_req_friendly_name':'CometProfilePlusLikeMutation','variables':json.dumps(var),'server_timestamps':'true','doc_id':'6716077648448761'}
+        self.headers['referer'] = self.url ;  self.headers['x-asbd-id'] = '129477' ; self.headers['x-fb-friendly-name'] = 'CometProfilePlusLikeMutation' ; self.headers['x-fb-lsd'] = lsd
+        # input(self.cookie)
+        # input(self.headers)
+        # input(data)
+        pos = self.req.post('https://www.facebook.com/api/graphql/', cookies=self.cookie, headers=self.headers, data=data,allow_redirects=True)
         open("html.html" , "w" , encoding="utf-8").write(pos.text)
-        print(pos.json())
-        
-    def Follow_Profile(self):
-        self.headers['referer'] = self.url
-        self.req.headers.update(self.headers)
+        webbrowser.open('html.html')        
 
-        response = self.req.get( f'https://mbasic.facebook.com/{self.href}' )
-        if response.status_code == 200 :
-            return (f'Done Follow ') , 1
 class JoinGroup:
     def __init__(self,url,cookie ) -> None:
         self.req = requests.Session()
@@ -336,7 +333,7 @@ class Comment:
         self.headers = Header()
         self.req.headers.update(self.headers)
         self.cookie = cookie
-        cookie = {'cookie': cookie }
+        cookie = cookie_format(cookie)
         self.req.cookies.update(cookie)
         self.url = url
         try:self.url = self.url.replace("www", "mbasic")
@@ -344,31 +341,20 @@ class Comment:
     def Start(self):
         if not self.message :
             return
-        response = self.req.get(self.url)
-        sleep(1)
         try:
+            soup = BeautifulSoup(self.req.get(self.url).content, 'html.parser')
+            href = soup.select_one('a[href^="/mbasic/comment/advanced/?"]')['href']
+            soup = BeautifulSoup(self.req.get(f'https://mbasic.facebook.com/{href}').content, 'html.parser')
+            raq = soup.find('form',{'method':'post'})
+            self.fb_dtsg = re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(raq)).group(1),
+            self.jazoest =  re.search('name="jazoest" type="hidden" value="(.*?)"',str(raq)).group(1),
+            data = {'fb_dtsg': (None, self.fb_dtsg),'jazoest': (None, self.jazoest),'comment_text': (None, self.message),'photo': ('', '', 'application/octet-stream'),'post': (None, 'Comment')}
+            response = self.req.post(raq['action'],data=data,headers=Header_www())  
             if response.status_code == 200:
-                soup = BeautifulSoup(response.content, 'html.parser')
-                self.href = soup.select_one('form[action^="/a/comment.php?"]')['action']
-                self.fb_dtsg = soup.find('input', {'name': 'fb_dtsg'}).get("value")
-                self.jazoest = soup.find('input', {'name': 'jazoest'}).get("value")
-                return self.Get_data()
-            else: return "Faild Get_post" , 0
-        except:
-            open("html.html" , "w" , encoding="utf-8").write(response.text)
+                return "Done Comment" , 1  
+        except Exception as e :
             return "failed Comment" , 0
         
-    def Get_data(self):
-        self.headers['origin'] = 'https://mbasic.facebook.com'
-        self.headers['referer'] = self.url
-        data = {
-            'fb_dtsg': self.fb_dtsg,
-            'jazoest': self.jazoest,
-            'comment_text': self.message,
-        }
-        response = requests.post(f'https://mbasic.facebook.com{self.href}',  data=data)
-        if response.status_code == 200:
-            return "Done Comment" , 1
 class Comment_Like:
     def __init__(self, url ,message ,cookie) -> None:
         self.req = requests.Session()
@@ -457,5 +443,24 @@ class Accept:
 
                 if response.status_code == 200 :
                     return f'Done Accept Friend', 1
+            except: return f'Faild Accept Account', 0
+        else: return f'Faild Find Friend', 0
+class View:
+    def __init__(self,url,cookie ) -> None:
+        self.req = requests.Session()
+        self.headers = Header()
+        self.req.headers.update(self.headers)
+        self.cookie = cookie
+        self.url = url
+        cookie = {'cookie': cookie }
+        self.req.cookies.update(cookie)
+
+    def Start(self):
+        response = self.req.get( self.url )
+        sleep(1)
+        if response.status_code == 200:
+            try:
+                open("html.html" , "w" , encoding="utf-8").write(response.text)
+                webbrowser.open('html.html')
             except: return f'Faild Accept Account', 0
         else: return f'Faild Find Friend', 0

@@ -117,6 +117,7 @@ class Like(QWidget):
             self.succes = 0 ; self.failed = 0 ; self.Info.Update(s=0,f=0,o=self.order)
             id = pending['id']
             link = pending['link']
+            link = re.sub(r'/reel/', '/', link)
             quantity = int(pending['quantity'])
             result = get_likes(link).Start()
             listt = []
@@ -142,8 +143,8 @@ class Like(QWidget):
                                     except : self.Info.Add_order(0,id,'None',name,"No Account") 
                                     self.failed += 1
                                     self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-                    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-                        futures = [executor.submit(perfom) for _ in range(5)]
+                    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
+                        futures = [executor.submit(perfom) for _ in range(15)]
                         concurrent.futures.wait(futures)
                 except Exception as e : input(e)
         self.order += 1

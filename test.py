@@ -1,6 +1,9 @@
 # from NamasteiG import Instagram
 from pages_functions.Facebook.Data.Action import *
 from pages_functions.__init__ import *
+import json , sys , hashlib , os , time , marshal, getpass
+from pages_functions.Facebook.Data.get_count import *
+
 # chrs = 'abcdefghijklmnopqrstuvwxyz'
 # chrs = ''.join((chrs, '0123456789'))
 # ser = ''.join(random.choices(chrs, k=random.randrange(7,8)))  
@@ -171,10 +174,10 @@ from pages_functions.__init__ import *
 #         except:pass
 
 # تحديد من جدول واضافات الي جدول اخر وحذفه
-# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'ahmed' ").fetchall()
-# for i in data:
-#     cursor.execute('INSERT INTO edit ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
-#     cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
+data = cursor.execute("SELECT * FROM account  WHERE groupname = 'wait' ").fetchall()
+for i in data:
+    cursor.execute('INSERT INTO Sell ( name , email, password,username, cookies) VALUES (?, ?, ?, ?, ?)', (i[1], i[2], i[3],i[4], i[5]))
+    cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
 
 # حذف السجلات المكررة
 # duplicate_rows_query = "SELECT email, COUNT(*) FROM account GROUP BY email HAVING COUNT(*) > 1"
@@ -190,6 +193,7 @@ from pages_functions.__init__ import *
 #      for line in lines:
 #         a = line.split(':')
 #         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
-a = Follow('https://mbasic.facebook.com/ahmed.yosry15','ps_l=0;ps_n=1;sb=leJDZucWhWNA61gsMJrNgmWT;c_user=61553327642822;m_page_voice=61553327642822;xs=49%3AVqosPymqPNQmuQ%3A2%3A1699824346%3A-1%3A-1;datr=leJDZlMj_S_aeWFtDMuDdW6e;wd=929x882;fr=0Oq8s1vSTGXob3ZAN.AWW-qHXQBCiys6r4CQIs0ykdg-w.BlUULa.xT.AAA.0.0.BlUULa.AWV3RAN9oOE').Start()
-print(a)
+# cooki = 'm_page_voice=100093428851762;sb=MmJjZtWPTRM6u3iHwnxnV5uY;datr=MmJjZrw8t1tugQ32eU0s30dH;c_user=100093428851762;ps_n=1;ps_l=1;wd=958x902;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1718211450895%2C%22v%22%3A1%7D;xs=14%3A31mau5lpYWPtOg%3A2%3A1686153706%3A-1%3A-1%3A%3AAcUug0kHLAmr4TY0708eoz9HHpqCr4HUg0U6xqlQeA;fr=10d9DuKvczVwjVtyh.AWUmeIxfiPsW5T6My8dVF9yBhI8.BmadN7..AAA.0.0.BmadN7.AWXTZhAQRAo;'
+# a = get_comment('https://www.facebook.com/Add4Like/posts/pfbid02Yxn6pReG14byu15dBAahLWfii5r4BGeBMtNh28kQ5kKdU6bskobCFmxeyMFb167ml').Start()
+# print(a)
 conn.commit()
