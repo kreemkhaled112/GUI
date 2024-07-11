@@ -96,14 +96,14 @@ class Allow():
 class Edit_Photo:
     def __init__(self, photo, cookie) :
         self.req = requests.Session()
-        self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = cookie_format(cookie)
-        self.req.cookies.update(cookie)
-        self.photo = photo
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
         self.url = "https://mbasic.facebook.com/profile_picture/"
+        self.photo = photo
     def Start(self):
-        try:           
+        try:
+            if not self.photo :
+                'No Photo' , 0
             req = BeautifulSoup(self.req.get(self.url).content,'html.parser')
             raq = req.find('form',{'method':'post'})
             dat = {
@@ -122,13 +122,14 @@ class Edit_Photo:
 class Edit_Cover:
     def __init__(self, photo, cookie) -> None:
         self.req = requests.Session()
-        self.req.headers.update(Header())
-        self.cookie = cookie_format(cookie)
-        self.req.cookies.update(self.cookie)
-        self.photo = photo
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
         self.url = 'https://mbasic.facebook.com/photos/upload/?cover_photo'
-    def Start(self,):
+        self.photo = photo
+    def Start(self):
         try:
+            if not self.photo :
+                'No Photo' , 0
             req = BeautifulSoup(self.req.get(self.url).content,'html.parser')
             raq = req.find('form',{'method':'post'})
             dat = {
@@ -152,14 +153,14 @@ class Edit_Cover:
 class Edit_bio:
     def __init__(self, bio ,cookie) -> None:
         self.req = requests.Session()
-        self.bio = bio
-        self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = cookie_format(cookie)
-        self.req.cookies.update(cookie)
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
         self.url = "https://mbasic.facebook.com/profile/basic/intro/bio/"
+        self.bio = bio
     def Start(self):
         try:
+            if not self.bio :
+                'No Bio' , 0
             req = BeautifulSoup(self.req.get(self.url).content,'html.parser')
             raq = req.find('form',{'method':'post'})
             dat = {
@@ -178,14 +179,14 @@ class Edit_bio:
 class Edit_City:
     def __init__(self, city ,cookie) -> None:
         self.req = requests.Session()
-        self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = cookie_format(cookie)
-        self.req.cookies.update(cookie)
-        self.city = city
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
         self.url = 'https://mbasic.facebook.com/editprofile.php?type=basic&edit=current_city'   
+        self.city = city
     def Start(self):
         try:
+            if not self.city :
+                'No City' , 0
             req = BeautifulSoup(self.req.get(self.url).content,'html.parser')
             raq = req.find('form',{'method':'post'})
             dat = {
@@ -205,14 +206,14 @@ class Edit_City:
 class Edit_Hometown:
     def __init__(self, hometown ,cookie) -> None:
         self.req = requests.Session()
-        self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = cookie_format(cookie)
-        self.req.cookies.update(cookie)
-        self.hometown = hometown
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
         self.url = 'https://mbasic.facebook.com/editprofile.php?type=basic&edit=hometown'        
+        self.hometown = hometown
     def Start(self):
         try:
+            if not self.hometown :
+                'No Hometown' , 0
             req = BeautifulSoup(self.req.get(self.url).content,'html.parser')
             raq = req.find('form',{'method':'post'})
             dat = {
@@ -229,23 +230,71 @@ class Edit_Hometown:
             else: 
                 return f'Successfully Change Hometown To {self.hometown}' , 1
         except Exception as e: return 'Failed Change Hometown' , 0
+class Work:
+    def __init__(self,work,cookie):
+        self.req = requests.Session()
+        self.cookie = cookie_format(cookie)
+        self.req.cookies.update(self.cookie)
+        try:self.id = re.search(r'c_user=(\d+)', cookie).group(1)
+        except:pass
+        self.work = work
+    def Start(self):
+        try:
+            if not self.work :
+                'No Work' , 0
+            req = BeautifulSoup(self.req.get(f'https://www.facebook.com/profile.php?id={self.id}&sk=about_work_and_education',allow_redirects=True).content,'html.parser')
+            haste = re.search('"haste_session":"(.*?)",',str(req)).group(1)
+            rev = re.search('{"rev":(.*?)}',str(req)).group(1)
+            hsi = re.search('"hsi":"(.*?)",',str(req)).group(1)
+            dtsg = re.search('"DTSGInitialData",\[\],{"token":"(.*?)"',str(req)).group(1)
+            jazoest = re.search('&jazoest=(.*?)",',str(req)).group(1)
+            lsd = re.search('"LSD",\[\],{"token":"(.*?)"',str(req)).group(1)
+            spinr = re.search('"__spin_r":(.*?),',str(req)).group(1)
+            spint = re.search('"__spin_t":(.*?),',str(req)).group(1)
+            token = re.search('"sectionToken":(.*?),',str(req)).group(1)
+            var = {"collectionToken":token,"input":{"description":"","employer_id":"","employer_name":self.work,"end_date":{},"is_current":True,"location_id":"","mutation_surface":"PROFILE","position_id":"","position_name":"","privacy":{"allow":[],"base_state":"EVERYONE","deny":[],"tag_expansion_state":"UNSPECIFIED"},"start_date":{},"actor_id":self.id,"client_mutation_id":"2"},"scale":1,"sectionToken":token,"useDefaultActor":False}
+            data = {'av': self.id,'__aaid': '0','__user': self.id,'__a': '1','__req': '1d','__hs': haste,'dpr': '1','__ccg': 'EXCELLENT','__rev': rev,'__s': 'vp3naj:ofqa5d:6ovf0j','__hsi': hsi,'__comet_req': '15','fb_dtsg': dtsg,'jazoest': jazoest,'lsd': lsd, '__spin_r': spinr,'__spin_b': 'trunk','__spin_t': spint,'fb_api_caller_class': 'RelayModern','fb_api_req_friendly_name': 'ProfileCometWorkExperienceSaveMutation','variables': json.dumps(var),'server_timestamps': 'true','doc_id': '7741834642519580'}
+            headers = {'accept': '*/*','accept-language': 'en,en-US;q=0.9,ar;q=0.8,ar-EG;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.facebook.com','priority': 'u=1, i','referer': f'https://www.facebook.com/profile.php?id={self.id}&sk=about_work_and_education','sec-ch-prefers-color-scheme': 'dark','sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"','sec-ch-ua-full-version-list': '"Not/A)Brand";v="8.0.0.0", "Chromium";v="126.0.6478.127", "Google Chrome";v="126.0.6478.127"','sec-ch-ua-mobile': '?0','sec-ch-ua-model': '""','sec-ch-ua-platform': '"Windows"','sec-ch-ua-platform-version': '"10.0.0"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36','x-asbd-id': '129477','x-fb-friendly-name': 'ProfileCometWorkExperienceSaveMutation','x-fb-lsd': lsd}
+            pos = self.req.post('https://www.facebook.com/api/graphql/',data=data,headers=headers,cookies=self.cookie,allow_redirects=True).json()
+            return f'Successfully Add Work {self.work}' , 1
+        except Exception as e:
+            return e , 0
+class School:
+    def __init__(self,school,cookie):
+        self.req = requests.Session()
+        self.cookie = cookie_format(cookie)
+        self.req.cookies.update(self.cookie)
+        try:self.id = re.search(r'c_user=(\d+)', cookie).group(1)
+        except:pass
+        self.school = school
+    def Start(self):
+        try:
+            if not self.school :
+                'No Sckool' , 0
+            req = BeautifulSoup(self.req.get(f'https://www.facebook.com/profile.php?id={self.id}&sk=about_work_and_education',allow_redirects=True).content,'html.parser')
+            haste = re.search('"haste_session":"(.*?)",',str(req)).group(1)
+            rev = re.search('{"rev":(.*?)}',str(req)).group(1)
+            hsi = re.search('"hsi":"(.*?)",',str(req)).group(1)
+            dtsg = re.search('"DTSGInitialData",\[\],{"token":"(.*?)"',str(req)).group(1)
+            jazoest = re.search('&jazoest=(.*?)",',str(req)).group(1)
+            lsd = re.search('"LSD",\[\],{"token":"(.*?)"',str(req)).group(1)
+            spinr = re.search('"__spin_r":(.*?),',str(req)).group(1)
+            spint = re.search('"__spin_t":(.*?),',str(req)).group(1)
+            token = re.search('"sectionToken":(.*?),',str(req)).group(1)
+            var =  {"collectionToken":token,"input":{"description":"","end":{},"has_graduated":True,"mutation_surface":"PROFILE","privacy":{"allow":[],"base_state":"EVERYONE","deny":[],"tag_expansion_state":"UNSPECIFIED"},"school_id":"","school_name":self.school,"school_type":"hs","start":{},"actor_id":self.id,"client_mutation_id":"1"},"scale":1,"sectionToken":token,"useDefaultActor":False}
+            data = {'av': self.id,'__aaid': '0','__user': self.id,'__a': '1','__req': '13','__hs': haste,'dpr': '1','__ccg': 'EXCELLENT','__rev': rev,'__s': '5w9uqd:ofqa5d:rf0pru','__hsi': hsi,'__comet_req': '15','fb_dtsg': dtsg,'jazoest': jazoest,'lsd': lsd,'__spin_r': spinr,'__spin_b': 'trunk','__spin_t': spint,'fb_api_caller_class': 'RelayModern','fb_api_req_friendly_name': 'ProfileCometEducationExperienceSaveMutation','variables': json.dumps(var),'server_timestamps': 'true','doc_id': '26212740801705794'}
+            headers = {'accept': '*/*','accept-language': 'en,en-US;q=0.9,ar;q=0.8,ar-EG;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.facebook.com','priority': 'u=1, i','referer': f'https://www.facebook.com/profile.php?id={self.id}&sk=about_work_and_education','sec-ch-prefers-color-scheme': 'dark','sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"','sec-ch-ua-full-version-list': '"Not/A)Brand";v="8.0.0.0", "Chromium";v="126.0.6478.127", "Google Chrome";v="126.0.6478.127"','sec-ch-ua-mobile': '?0','sec-ch-ua-model': '""','sec-ch-ua-platform': '"Windows"','sec-ch-ua-platform-version': '"10.0.0"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36','x-asbd-id': '129477','x-fb-friendly-name': 'ProfileCometEducationExperienceSaveMutation','x-fb-lsd': lsd}
+            pos = self.req.post('https://www.facebook.com/api/graphql/',data=data,headers=headers,cookies=self.cookie,allow_redirects=True).json()
+            return f'Successfully Add School {self.school}' , 1
+        except Exception as e:
+            return e , 0
 class lock_profile:
     def __init__(self,cookie):
         self.req = requests.Session()
-        self.req.headers.update(Header())
         self.cookie = cookie_format(cookie)
         self.req.cookies.update(self.cookie)
-        self.id = re.search('c_user=(.*?);',self.cookie['cookie']).group(1)
-        # action = input('Enable/Disable [a/n] : ').lower()
-        # if action in ['a','active','activate','1']:
-        #     stat = True
-        #     self.execute(stat)
-        # elif action in ['n','disabled','disabled','2']:
-        #     stat = False
-        #     self.execute(stat)
-        # else:
-        #     print('Correct Contents!')
-        stat = True
+        try:self.id = re.search(r'c_user=(\d+)', cookie).group(1)
+        except:pass
     def Start(self):
         try:
             stat = True

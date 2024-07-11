@@ -11,13 +11,15 @@ class Select(QDialog):
         
         self.manage = Manager_Face()
         layout = QVBoxLayout(self.ui.widget); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.manage)
-        self.manage.ui.widget_4.hide()
-        self.manage.ui.widget_Info.hide()
-        self.manage.ui.Save.setVisible(True)
-        self.manage.ui.Save.clicked.connect(self.save)
-        
 
-        
+        self.manage.ui.widget_Info.hide()
+        self.manage.ui.widget_4.hide()
+        self.manage.ui.Refresh.hide()
+
+        self.manage.ui.widget_save.setVisible(True)
+        self.manage.ui.widget_select.setVisible(True)
+        self.manage.ui.Save.clicked.connect(self.save)
+    
     def save(self):
         data_to_save = []
         for row in range(self.manage.ui.table.rowCount()):

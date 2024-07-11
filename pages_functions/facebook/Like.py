@@ -111,48 +111,50 @@ class Like(QWidget):
         }
         return json.loads(requests.get(self.URL, params=params, timeout=self.TIMEOUT, verify=False).text)
     def Order(self,name,type,num):
-        pending = self.get_pending_order(num)
-        if pending["status"] == "fail": sleep(10) ; return
-        if pending["status"] == "success":
-            self.succes = 0 ; self.failed = 0 ; self.Info.Update(s=0,f=0,o=self.order)
-            id = pending['id']
-            link = pending['link']
-            link = re.sub(r'/reel/', '/', link)
-            quantity = int(pending['quantity'])
-            result = get_likes(link).Start()
-            listt = []
-            if result[0] == 'No match found' :
-                self.Info.Add_order(0,id,'None',name,f'Error {result[1]}')
-            else :
-                try:
-                    self.set_start_count(int(id),int(result[1]))
-                    def perfom():
-                        while not self.queue.empty():
-                            if self.succes >= quantity : break
-                            else:
-                                try:
-                                    cookie = self.queue.get()
-                                    listt.append(cookie)
-                                    result = like(link,random.choice(type),cookie[5]).Start()
-                                    self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
-                                    if result[1] == 1: self.succes += 1
-                                    else: self.failed += 1
-                                    self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-                                except Exception as e:
-                                    try: self.Info.Add_order(0,id,cookie[1],name,f'{e}')
-                                    except : self.Info.Add_order(0,id,'None',name,"No Account") 
-                                    self.failed += 1
-                                    self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-                    with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
-                        futures = [executor.submit(perfom) for _ in range(15)]
-                        concurrent.futures.wait(futures)
-                except Exception as e : input(e)
-        self.order += 1
-        self.Info.Add_order(1,id,'Compelet',name,f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link : {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
-        if self.succes >= quantity  : self.set_completed(id)
-        else : self.set_remains(id,quantity-self.succes)
-        for i in listt:
-            self.queue.put(i)
+        try:
+            pending = self.get_pending_order(num)
+            if pending["status"] == "fail": sleep(10) ; return
+            if pending["status"] == "success":
+                self.succes = 0 ; self.failed = 0 ; self.Info.Update(s=0,f=0,o=self.order)
+                id = pending['id']
+                link = pending['link']
+                link = re.sub(r'/reel/', '/', link)
+                quantity = int(pending['quantity'])
+                result = get_likes(link).Start()
+                listt = []
+                if result[0] == 'No match found' :
+                    self.Info.Add_order(0,id,'None',name,f'Error {result[1]}')
+                else:
+                    try:
+                        self.set_start_count(int(id),int(result[1]))
+                        def perfom():
+                            while not self.queue.empty():
+                                if self.succes >= quantity : break
+                                else:
+                                    try:
+                                        cookie = self.queue.get()
+                                        listt.append(cookie)
+                                        result = like(link,random.choice(type),cookie[5]).Start()
+                                        self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
+                                        if result[1] == 1: self.succes += 1
+                                        else: self.failed += 1
+                                        self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                                    except Exception as e:
+                                        try: self.Info.Add_order(0,id,cookie[1],name,f'{e}')
+                                        except : self.Info.Add_order(0,id,'None',name,"No Account") 
+                                        self.failed += 1
+                                        self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                        with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
+                            futures = [executor.submit(perfom) for _ in range(15)]
+                            concurrent.futures.wait(futures)
+                    except Exception as e : input(e)
+            self.order += 1
+            self.Info.Add_order(1,id,'Compelet',name,f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link : {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+            if self.succes >= quantity  : self.set_completed(id)
+            else : self.set_remains(id,quantity-self.succes)
+            for i in listt:
+                self.queue.put(i)
+        except Exception as e :print(f'{num}\n {e}')
     def Start(self):
         if self.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop() ; self.ui.Start.setChecked(False)
         else:

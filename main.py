@@ -21,7 +21,6 @@ class MyWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("S M M")
         self.setWindowIcon(QIcon('pages_functions\logo.ico'))
-
         self.mac = ':'.join(['{:02x}'.format((uuid.getnode() >> 8 * i) & 0xff)for i in range(5, -1, -1)  ])
         self.ui.mac.setText(self.mac)
         self.ui.mac.clicked.connect(lambda : QApplication.clipboard().setText(self.ui.mac.text()))
@@ -47,11 +46,11 @@ class MyWindow(QMainWindow):
             self.Share_face: Share(),
             self.Comment: Comment(),
         }
-
         self.show_home_window()
         self.ui.scrollArea.hide()
         self.ui.menu_facebook.hide()
         self.ui.Report_face.hide()
+        self.ui.Account_Generat_face.hide()
         
         self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
         self.Account_Manger_face.clicked.connect(self.show_selected_window)
@@ -141,6 +140,7 @@ class MyWindow(QMainWindow):
             self.Follow_face.hide()
             self.Like_face.hide()
             self.Share_face.hide()
+            self.Comment.hide()
     def show_home_window(self):
         result = self.open_tab_flag(self.Account_Manger_face.objectName())
         self.set_btn_checked(self.Account_Manger_face)

@@ -16,14 +16,17 @@ class Manager_Face(QWidget):
         self.order = 0
         self.checkpoint = 0
         self.Info = Info()
-        layout = QVBoxLayout(self.ui.widget_Info); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.Info)
-        self.ui.Save.hide()
-        self.ui.Change_Password.hide()
-        
+        self.lyout = QVBoxLayout(self.ui.widget_Info); self.lyout.setContentsMargins(0, 0, 0, 0); self.lyout.setSpacing(0); self.lyout.addWidget(self.Info)
+        self.ui.widget_select.hide()
+        self.ui.widget_save.hide()
+        shortcut = QShortcut(QKeySequence(Qt.CTRL + Qt.Key_V), self.ui.table)
+        shortcut.activated.connect(self.paste_text)
+
         # Connect signal and slot
         self.ui.comboBox.currentIndexChanged.connect(self.filter_table)
         self.ui.lineEdit.textChanged.connect(self.filter_table)
-        self.ui.Select.clicked.connect(self.select_all_rows)
+        self.ui.Select_all.clicked.connect(self.select_all_rows)
+        self.ui.Select.clicked.connect(self.select)
         self.ui.AddMultiAccount.clicked.connect(self.Add_Multi_Account)
         self.ui.Export.clicked.connect(self.Export)
         self.ui.Login.clicked.connect(lambda : Thread(target=self.Login).start())
@@ -33,15 +36,17 @@ class Manager_Face(QWidget):
         self.ui.Update.clicked.connect(lambda : Thread(target=self.Update).start())
         self.ui.Change.clicked.connect(lambda : Thread(target=self.Change).start())
         self.ui.Epsilon.clicked.connect(lambda : Thread(target=self.Epsilon).start())
-        self.ui.Change_Password.clicked.connect(lambda : Thread(target=self.Change_Password).start())
-        
-        self.ui.table.verticalHeader().hide()
+        self.ui.Epsilon.hide()
         self.Refresh()
         self.ui.table.itemChanged.connect(lambda item: (self.changed_items.append(item), self.ui.Write_Change.setEnabled(True)) if item.column() != 0 else None)
+        self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
+        self.ui.table.itemSelectionChanged.connect(self.item_selection_changed)
+
         self.changed_items = []
         self.Run = False
     def loadTableData(self,data):
         try:
+            self.ui.Select_all.setText('Select All')
             self.ui.table.setRowCount(len(data))
             for row, row_data in enumerate(data):
                 select_checkbox_item = QTableWidgetItem()
@@ -55,17 +60,18 @@ class Manager_Face(QWidget):
                     self.ui.table.setItem(row, col + 1, item)
 
             self.ui.table.setColumnWidth(0, 50)
-            self.ui.table.setColumnWidth(1, 80)
-            self.ui.table.setColumnWidth(1, 100)
+            self.ui.table.setColumnWidth(1, 50)
+            self.ui.table.setColumnWidth(2, 110)
+            self.ui.table.setColumnWidth(3, 140)
             self.ui.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.Stretch)
             headers = ["#"] + [description[0] for description in cursor.description]
             self.ui.table.setHorizontalHeaderLabels(headers) 
             self.ui.table.setContextMenuPolicy(Qt.CustomContextMenu)
-            self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
             self.ui.Write_Change.setEnabled(False)
             self.changed_items.clear()
         except:pass
     def Refresh(self):
+        self.ui.Select_all.setText('Select All')
         self.data = cursor.execute("SELECT * FROM Account").fetchall()
         self.loadTableData(self.data)
     def show_context_menu(self, position):
@@ -79,16 +85,54 @@ class Manager_Face(QWidget):
         Update.setShortcut(Qt.CTRL + Qt.Key_U)
         Delete.setShortcut(Qt.Key_Delete)
         context_menu.exec_(self.mapToGlobal(position))
+    def paste_text(self):
+        clipboard = QApplication.clipboard()
+        clipboard_text = clipboard.text()
 
-    def select_all_rows(self): 
+        selected_items = self.ui.table.selectedItems()
+
+        for item in selected_items:
+            item.setText(clipboard_text)
+    def select_all_rows(self):
         all_selected = all(self.ui.table.item(row, 0).checkState() == Qt.Checked for row in range(self.ui.table.rowCount()))
         for row in range(self.ui.table.rowCount()):
             checkbox_item = self.ui.table.item(row, 0)
             if all_selected:
-                checkbox_item.setCheckState(Qt.Unchecked)  
+                checkbox_item.setCheckState(Qt.Unchecked)
+                self.ui.Select_all.setText('Select All')
             else:
-                checkbox_item.setCheckState(Qt.Checked)  
+                checkbox_item.setCheckState(Qt.Checked)
+                self.ui.Select_all.setText(f'Selected ({self.ui.table.rowCount()})')
+
+    def select(self):
+        try:
+            num_rows = int(self.ui.lineEdit_2.text())
+            num_rows = min(num_rows, self.ui.table.rowCount())
+            all_selected = all(self.ui.table.item(row, 0).checkState() == Qt.Checked for row in range(num_rows))
+            for row in range(num_rows):
+                checkbox_item = self.ui.table.item(row, 0)
+                if all_selected:
+                    checkbox_item.setCheckState(Qt.Unchecked)
+                    self.ui.Select.setText('Select')
+                else:
+                    checkbox_item.setCheckState(Qt.Checked)
+                    self.ui.Select.setText(f'Select ({num_rows})')
+        except :
+            pass
+    def item_selection_changed(self):
+        selected_items = self.ui.table.selectedItems()
+        for item in selected_items:
+            if item.column() == 0:
+                checkbox_item = self.ui.table.item(item.row(), 0)
+                checkbox_item.setCheckState(Qt.Checked)
                 
+        checked_count = 0
+        for row in range(self.ui.table.rowCount()):
+            item = self.ui.table.item(row, 0)
+            if item and item.checkState() == Qt.Checked:
+                checked_count += 1
+        self.ui.Select_all.setText(f'Selected ({checked_count})')
+
     def filter_table(self):
         search_text = self.ui.lineEdit.text().lower().strip()
         selected_column = self.ui.comboBox.currentIndex()
@@ -161,7 +205,6 @@ class Manager_Face(QWidget):
             if self.Run:
                 checkbox_item = self.ui.table.item(row, 0)
                 if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
-                    item = self.ui.table.item(row, 6)
                     i = [self.ui.table.item(row, col).text() for col in range(1,self.ui.table.columnCount())]
                     self.Info.ui.label.setText(f"Logging {i[2]}:{i[3]}")
                     result = Chrom('headless').Login(i[2],i[3])
@@ -190,9 +233,10 @@ class Manager_Face(QWidget):
                             self.Info.Add(0,f"{i[2]}:{i[3]}",'Account Manager',"Login",f'{result[0]}')
                             self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
                     except:pass
-        self.ui.Login.setText("Login") ; self.ui.Login.setChecked(False)
-        self.Info.ui.label.setText(f"Finished Login")
         self.Run = False
+        self.ui.Login.setText("Login") ; self.ui.Login.setChecked(False)
+        self.Refresh()
+        self.Info.ui.label.setText(f"Finished Login")
         
     def View(self,menu):
         menu.hide()
@@ -207,6 +251,8 @@ class Manager_Face(QWidget):
             else :
                 cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(selected_row, 2, QTableWidgetItem(str(value[0])))
                 cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(selected_row, 6, QTableWidgetItem(str(value[1])))
+                try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', value[1]).group(1), i[2])); self.ui.table.setItem(selected_row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', value[1]).group(1))))
+                except:pass
                 conn.commit()
     def Delete_row(self,menu):
         menu.hide()
@@ -260,8 +306,10 @@ class Manager_Face(QWidget):
                     if value == "" : pass
                     else :
                         cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
-                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1]))) ; conn.commit()
-                        checkbox_item.setCheckState(Qt.Unchecked)
+                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1])))
+                        try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', value[1]).group(1), i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', value[1]).group(1))))
+                        except:pass
+                        checkbox_item.setCheckState(Qt.Unchecked) ; conn.commit()
                         self.Info.Add(0,f"{i[2]}:{i[3]}",'Account Manager',"Update",'success')
                         self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
         self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
@@ -365,39 +413,6 @@ class Manager_Face(QWidget):
         except:pass
         self.Run = False
         self.Refresh()
-    def Change_Password(self):
-        self.Run = not self.Run
-        if self.Run:
-            self.ui.Change_Password.setText("Stop")
-            try:
-                self.Info.ui.label.setText(f"Try to start the browser ")
-                bot = yandex()
-            except : 
-                self.Info.ui.label.setText(f"Failed to start the browser ")
-                self.ui.Change.setText("Change Email") ; self.ui.Change.setChecked(False)
-                self.Run = False
-        else:
-            self.ui.Change_Password.setText("Change Password") ; self.ui.Change_Password.setChecked(False)
-            self.Info.ui.label.setText("Finished Checker")
-            return
-        for row in range(self.ui.table.rowCount()):
-            if self.Run:
-                checkbox_item = self.ui.table.item(row, 0)
-                if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
-                    i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
-                    self.Info.ui.label.setText(f"Checker {i[2]}:{i[3]}")
-                    new = '01142060194'.join(random.choices('abcdefghijklmnopqrstuvwxyz', k=2))
-                    print(new,i[3])
-                    value = Chrom().change_password(i[3],new,i[5],bot)
-                    if value == "" : pass
-                    else :
-                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
-                        cursor.execute('UPDATE Account SET password = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 4, QTableWidgetItem(str(value[1]))) 
-                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[2], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[2]))) ; conn.commit()
-                        checkbox_item.setCheckState(Qt.Unchecked)
-        self.ui.Change_Password.setText("Change Password") ; self.ui.Change_Password.setChecked(False)
-        self.Info.ui.label.setText(f"Finished Change Password ")
-        self.Run = False
     
     def Export(self):
         table_dialog = Export(self,self.ui.table )

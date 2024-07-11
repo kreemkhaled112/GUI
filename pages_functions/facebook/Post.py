@@ -14,19 +14,25 @@ class Post(QWidget):
         self.succes = 0
         self.failed = 0
         self.order = 0
+        self.data = []
+        self.section = []
+
         self.ui_Edit = Edit()
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
 
-        self.ui_Edit.ui.Add_Profile_Photo_check.hide()
-        self.ui_Edit.ui.Add_Cover_check.hide()
-        self.ui_Edit.ui.Add_City_check.hide()
-        self.ui_Edit.ui.Add_Hometown_check.hide()
+        self.ui_Edit.ui.Profile_Photo_check.hide()
+        self.ui_Edit.ui.Cover_check.hide()
+        self.ui_Edit.ui.City_check.hide()
+        self.ui_Edit.ui.Hometown_check.hide()
+        self.ui_Edit.ui.Work_check.hide()
+        self.ui_Edit.ui.School_check.hide()
         self.ui_Edit.ui.Add_Post_check.hide()
         self.ui_Edit.ui.Add_Bio_check.hide()
         self.ui_Edit.ui.Add_Friend_check.hide()
         self.ui_Edit.ui.Join_Group_check.hide()
         self.ui_Edit.ui.Follow_check.hide()
         self.ui_Edit.ui.Un_Follow_check.hide()
+        self.ui_Edit.ui.Like_Page_check.hide()
         self.ui_Edit.ui.Profrssional_check.hide()
         self.ui_Edit.ui.Change_Password_check.hide()
         self.ui_Edit.ui.Lock_Profile.hide()
@@ -75,37 +81,49 @@ class Post(QWidget):
         pass
     def delete_row(self, row):
         self.ui.table.removeRow(row)
-    def Edit(self,url,name,cookie):
+    def Edit(self,url):
         try:
-            if  self.ui_Edit.ui.Like_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f"Try Like {name} ")
+            data = self.ui_Edit.data.get()
+            if data is not None:
+                name = data[1]
+                cookie = data[5]
+            else:return
+            if  self.ui_Edit.ui.Like_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f"Try Like {name} ");'Like' not in self.section and self.section.append('Like')
                 result = Like(url, self.ui_Edit.reaction_id(), cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Like",f'{result[0]} To {url}')
-                if result[1] == 1: self.succes += 1
-                else: self.failed += 1
-                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-            if self.ui_Edit.ui.Comment_check.isChecked():
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
+            if self.ui_Edit.ui.Comment_check.isChecked() and self.Run:
                 if self.ui_Edit.ui.checkBox_comment.isChecked():
-                    comment = queue.Queue(); [comment.put(i) for i in random.shuffle(self.ui_Edit.ui.textEdit_comment.toPlainText().split())]
+                    comment_list = self.ui_Edit.ui.textEdit_comment.toPlainText().split('\n')
+                    commet = random.choice(comment_list)
                 else:
-                    comment = queue.Queue(); [comment.put(i) for i in self.ui_Edit.ui.textEdit_comment.toPlainText().split()]
-                self.ui_Edit.Info.ui.label.setText(f"Try Comment {name} ")
-                commet = comment.get()
+                    comment = queue.Queue(); [comment.put(i) for i in self.ui_Edit.ui.textEdit_comment.toPlainText().split('\n')]
+                    commet = comment.get()
+                    while not comment.empty():
+                        if commet not in self.data:
+                            break
+                        else:
+                            commet = comment.get()
+                self.ui_Edit.Info.ui.label.setText(f"Try Comment {name} ") ;'Comment' not in self.section and self.section.append('Comment')
                 result = Comment(url,commet , cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Comment",f'{result[0]} To {url}')
-                comment.put(commet)
-                if result[1] == 1: self.succes += 1
+                if result[1] == 1: self.succes += 1 ; self.data.append(commet)
                 else: self.failed += 1
-                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
-            if self.ui_Edit.ui.Share_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f"Try Share {name} ")
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ; self.ui_Edit.Info.ui.label.setText(f"Waiting...") ; sleep(self.ui_Edit.time)
+            if self.ui_Edit.ui.Share_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f"Try Share {name} ");'Share' not in self.section and self.section.append('Share')
                 result = Share(url, "", cookie).Start()
                 self.ui_Edit.Info.Add(result[1],name,'Post',"Share",f'{result[0]} To {url}')
-                if result[1] == 1: self.succes += 1
-                else: self.failed += 1
-                self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
             return 'succes'
-        except: return "Error Edit"
+        except Exception as e:
+            self.ui_Edit.Info.ui.label.setText(f"{name} Error Edit")
+            self.ui_Edit.Info.Add(0,name,'User',"Error",f'{e}')
     def Start(self):
         if self.ui_Edit.ui.Number_Account.text() == '0': self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop()
         else :
@@ -114,18 +132,22 @@ class Post(QWidget):
                 self.Run = not self.Run
                 if self.Run:
                     self.ui_Edit.ui.Start.setText("Stop")
-                    self.ui_Edit.Info.Update(0,0,0) ; self.succes=0 ; self.failed=0
+                    self.ui_Edit.Info.Update(0,0) ; self.succes=0 ; self.failed=0
                 else:
                     self.ui_Edit.ui.Start.setText("Start")
                     return
                 
                 for url in second_column_data :
-                    for info in self.ui_Edit.info :
+                    while not self.ui_Edit.data.empty() :
                         if self.Run :
-                            self.Edit(url,info[1],info[5])
+                            with concurrent.futures.ThreadPoolExecutor(max_workers=self.ui_Edit.ui.spinBox_thread.value()) as executor:
+                                    futures = [executor.submit(self.Edit ,url) for _ in range(self.ui_Edit.ui.spinBox_thread.value())]
+                                    concurrent.futures.wait(futures)
+                        else:break
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
-                self.Run = False
+                self.ui_Edit.Info.Add(1,'Compelet','Post',','.join(self.section),f'Total : {len(self.ui_Edit.info)} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+                self.Run = False ; self.section = []
             else: self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Url Add').mainloop()
         

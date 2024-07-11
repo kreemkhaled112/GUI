@@ -12,14 +12,19 @@ class User(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.Run = False
-
+        self.succes = 0
+        self.failed = 0
+        self.order = 0
+        self.section = []
         self.ui_Edit = Edit()
         layout = QVBoxLayout(self.ui.widget_Edit); layout.setContentsMargins(0, 0, 0, 0); layout.setSpacing(0); layout.addWidget(self.ui_Edit)
 
-        self.ui_Edit.ui.Add_Profile_Photo_check.hide()
-        self.ui_Edit.ui.Add_Cover_check.hide()
-        self.ui_Edit.ui.Add_City_check.hide()
-        self.ui_Edit.ui.Add_Hometown_check.hide()
+        self.ui_Edit.ui.Profile_Photo_check.hide()
+        self.ui_Edit.ui.Cover_check.hide()
+        self.ui_Edit.ui.City_check.hide()
+        self.ui_Edit.ui.Hometown_check.hide()
+        self.ui_Edit.ui.Work_check.hide()
+        self.ui_Edit.ui.School_check.hide()
         self.ui_Edit.ui.Add_Post_check.hide()
         self.ui_Edit.ui.Add_Bio_check.hide()
         self.ui_Edit.ui.Like_check.hide()
@@ -34,6 +39,7 @@ class User(QWidget):
         self.ui_Edit.ui.widget_group.hide()
         self.ui_Edit.ui.widget_follow.hide()
         self.ui_Edit.ui.widget_follow_2.hide()
+        self.ui_Edit.ui.widget_like_page.hide()
         self.ui_Edit.Info.ui.table.setColumnHidden(3, True)
 
 
@@ -67,54 +73,82 @@ class User(QWidget):
         item = QTableWidgetItem(Name().Get(value))
         self.ui.table.setItem(row, 1 , item)
 
-    def Import(self):
-        pass
     def delete_row(self, row):
         self.ui.table.removeRow(row)
-    def Edit(self,url,name,cookie):
+    def Edit(self,url):
         try:
-            if  self.ui_Edit.ui.Follow_check.isChecked():
-                self.ui_Edit.Info.ui.label.setText(f" Try Follow {name}")
+            data = self.ui_Edit.data.get()
+            if data is not None:
+                name = data[1]
+                cookie = data[5]
+            else:return
+            if  self.ui_Edit.ui.Add_Friend_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f" Try Add Friend {name}") ;'AddFriend' not in self.section and self.section.append('AddFriend')
+                result = AddFriend(url, cookie).Start()  
+                self.ui_Edit.Info.Add(result[1],name,'User',"Add Friend",f'{result[0]} ')
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
+            if  self.ui_Edit.ui.Follow_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f" Try Follow {name}") ;'Follow' not in self.section and self.section.append('Follow')
                 result = Follow(url, cookie).Start()  
                 self.ui_Edit.Info.Add(result[1],name,'User',"Follow",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
-            if self.ui_Edit.ui.Un_Follow_check.isChecked():
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
+            if self.ui_Edit.ui.Un_Follow_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f" Try Un Follow {name}") ;'Un_Follow' not in self.section and self.section.append('Un_Follow')
                 result = Un_Follow(url, cookie).Start()  
-                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
+                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}") 
                 self.ui_Edit.Info.Add(result[1],name,'User',"Un Follow",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
-            if self.ui_Edit.ui.Join_Group_check.isChecked():
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
+            if self.ui_Edit.ui.Join_Group_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f" Try Join Group {name}") ; 'JoinGroup' not in self.section and self.section.append('JoinGroup')
                 result = JoinGroup(url, cookie).Start()
                 self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
                 self.ui_Edit.Info.Add(result[1],name,'User',"JoinGroup",f'{result[0]} To {url}')
-                self.success += 1 if result[1] == 1 else self.failed + 1 ; self.ui_Edit.Info.Update(s=self.success,f=self.failed)
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
+            if self.ui_Edit.ui.Like_Page_check.isChecked() and self.Run:
+                self.ui_Edit.Info.ui.label.setText(f" Try Like Page {name}") ;'Like_Page' not in self.section and self.section.append('Like_Page')
+                result = Like_Page(url, cookie).Start()
+                self.ui_Edit.Info.ui.label.setText(f"{name} {result[0]}")
+                self.ui_Edit.Info.Add(result[1],name,'User',"Like Page",f'{result[0]} To {url}')
+                if result[1] == 1:self.succes += 1 
+                else: self.failed += 1 
+                self.ui_Edit.Info.Update(s=self.succes,f=self.failed) ;self.ui_Edit.Info.ui.label.setText(f"Waiting...") ;sleep(self.ui_Edit.time)
             return 'succes'
         except Exception as e: 
             self.ui_Edit.Info.ui.label.setText(f"{name} Error Edit")
-            self.ui_Edit.Info.Add(0,name,'User',"None",f'{e}')
-            return 'Error Edit'
+            self.ui_Edit.Info.Add(0,name,'User',"Error",f'{e}')
     def Start(self):
-        self.success = 0
-        self.failed = 0
-        if self.ui_Edit.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop()
+        if self.ui_Edit.ui.Number_Account.text() == '0': self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop()
         else :
             second_column_data = [self.ui.table.item(row, 2).text() for row in range(self.ui.table.rowCount())]
             if second_column_data :
                 self.Run = not self.Run
                 if self.Run:
                     self.ui_Edit.ui.Start.setText("Stop")
-                    self.ui_Edit.Info.Update(0,0,0) ; self.succes=0 ; self.failed=0
+                    self.ui_Edit.Info.Update(0,0) ; self.succes=0 ; self.failed=0
                 else:
                     self.ui_Edit.ui.Start.setText("Start")
                     return
                 for url in second_column_data :
-                    for info in self.ui_Edit.info :
+                    while not self.ui_Edit.data.empty() :
                         if self.Run :
-                            self.Edit(url,info[1],info[5])
+                            with concurrent.futures.ThreadPoolExecutor(max_workers=self.ui_Edit.ui.spinBox_thread.value()) as executor:
+                                    futures = [executor.submit(self.Edit ,url) for _ in range(self.ui_Edit.ui.spinBox_thread.value())]
+                                    concurrent.futures.wait(futures)
+                        else:break
+                self.order += 1
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
-                self.Run = False
-            else: QMessage(text = 'No Url Add').mainloop()
+                self.ui_Edit.Info.Add(1,'Compelet','User',','.join(self.section),f'Total : {self.ui_Edit.data.qsize()} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+                self.Run = False ; self.section = []
+            else: self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Url Add').mainloop()
 
         

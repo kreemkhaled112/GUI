@@ -1,23 +1,21 @@
 <RCC>
   <qresource prefix="icon">
-    <file>icon/logo.ico</file>
-    <file>icon/menu.ico</file>
-    <file>icon/close.png</file>
-    <file>icon/minimize.png</file>
-    <file>icon/Maximize.png</file>
-    <file>icon/people.png</file>
-    <file>icon/facebook.ico</file>
-    <file>icon/search.ico</file>
-    <file>icon/user.ico</file>
-    <file>icon/arrow-3.ico</file>
-    <file>icon/arrow-4.ico</file>
-    <file>icon/x-mark-1.ico</file>
-    <file>icon/x-mark-2.ico</file>
-    <file>icon/like.png</file>
-    <file>icon/love.png</file>
-    <file>icon/care.png</file>
-    <file>icon/haha.png</file>
-    <file>icon/wow.png</file>
-    <file>icon/sad.png</file>
+    <file>icon/activity-feed-32.ico</file>
+    <file>icon/activity-feed-48.ico</file>
+    <file>icon/close-window-64.ico</file>
+    <file>icon/dashboard-5-32.ico</file>
+    <file>icon/dashboard-5-48.ico</file>
+    <file>icon/group-32.ico</file>
+    <file>icon/group-48.ico</file>
+    <file>icon/home-4-32.ico</file>
+    <file>icon/home-4-48.ico</file>
+    <file>icon/product-32.ico</file>
+    <file>icon/product-48.ico</file>
+    <file>icon/moderator-32.ico</file>
+    <file>icon/gear-2-32.ico</file>
+    <file>icon/x-mark-32.ico</file>
+    <file>icon/maximize-window-32.ico</file>
+    <file>icon/minimize-window-32.ico</file>
+    <file>icon/facebook.png</file>
   </qresource>
 </RCC>
