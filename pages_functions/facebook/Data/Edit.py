@@ -2,9 +2,9 @@ from pages_functions.__init__ import *
 class Name:
     def __init__(self,url) :
         self.req = requests.Session()
-        self.req.headers.update(Header())
+        self.req.headers.update(Header_www())
         self.url = url
-    def Get(self):
+    def Start(self):
         try:  
             response = self.req.get( self.url )
             name = re.search(r'<title>(.*?)</title>', response.text).group(1)

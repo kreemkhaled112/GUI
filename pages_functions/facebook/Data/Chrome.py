@@ -15,28 +15,23 @@ class Chrom:
             options.add_experimental_option("prefs", chrome_prefs)
             options.add_experimental_option("detach", True)
             options.add_argument("--log-level=3")
+            options.add_experimental_option('excludeSwitches', ['enable-logging'])
             self.bot = webdriver.Chrome(service=service , options=options)
         except Exception as e:
             print(f"Failed to start the browser : \n{e}")
 
     def Login(self,email, password):
         try:
-            bot = self.bot
-            bot.get("https://business.facebook.com/login/")
-            wait = WebDriverWait(bot, 5)
-            try:bot.find_element(By.XPATH, '//button[@data-cookiebanner="accept_button"]').click()
-            except:pass
-            y = "document.cookie = " + "'" + 'wd=500x158' + "; domain=.facebook.com" + "'"
-            bot.execute_script(y)
-            sleep(.5)
-            wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='email']"))).send_keys(email)
-            wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='pass']"))).send_keys(password)
+            self.bot.get("https://mbasic.facebook.com")
+            
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='email']"))).send_keys(email)
+            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='pass']"))).send_keys(password)
             sleep(1)
-            try:wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='loginbutton']"))).click()
+            try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//button[@name='login']"))).click()
             except:pass
             sleep(4)
-            self.bot.get("https://mbasic.facebook.com/profile.php?")
-            cookies = bot.get_cookies()
+            self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
+            cookies = self.bot.get_cookies()
             format = {}
             for cookie in cookies :
                 format[cookie['name']] = cookie['value']
@@ -48,21 +43,24 @@ class Chrom:
             return 'success' , cookie_string , name
         except Exception as e : return e
         
-    def View(self,cook,check=None,close=None):
+    def View(self,cook,view=None,close=None):
         try:
-            self.bot.get("https://mbasic.facebook.com/")
             cookies = cook.replace(" ", "").split(";")
+            if view == 'view':
+                self.bot.get("https://www.facebook.com/")
+                for cookie in cookies:
+                    cookie_parts = cookie.split("=")
+                    if len(cookie_parts) == 2:
+                        cookie_name, cookie_value = cookie_parts
+                        self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
+            self.bot.get("https://mbasic.facebook.com/")
             for cookie in cookies:
                 cookie_parts = cookie.split("=")
                 if len(cookie_parts) == 2:
                     cookie_name, cookie_value = cookie_parts
                     self.bot.add_cookie({'name': cookie_name, 'value': cookie_value})
-            if check:
-                self.bot.get("https://mbasic.facebook.com/photos/upload/?cover_photo")
-                try: WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='primary_consent_button']"))).click() ; sleep(3)
-                except:pass
-            self.bot.get("https://mbasic.facebook.com/profile.php?")
-            WebDriverWait(self.bot, 10).until(EC.element_to_be_clickable((By.XPATH, "//body")))
+            self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
+            
             name = self.bot.title
             if name == "" :
                 name =  "CheckPoint" 
@@ -102,6 +100,8 @@ class Chrom:
                 WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click() ; sleep(1)
                 WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[4]/a"))).click()
                 WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div/div/div/table/tbody/tr/td/div/div[7]/a"))).click()
+            self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)
+            
             cookie_string = self.update_cookie(cook)
             name = self.bot.title
             if name == "" :

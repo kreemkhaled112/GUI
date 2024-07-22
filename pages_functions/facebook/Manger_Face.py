@@ -32,11 +32,11 @@ class Manager_Face(QWidget):
         self.ui.Login.clicked.connect(lambda : Thread(target=self.Login).start())
         self.ui.Refresh.clicked.connect(self.Refresh)
         self.ui.Delete_all.clicked.connect(lambda : Thread(target=self.Delete).start())
-        self.ui.Write_Change.clicked.connect(self.handle_item_change)
+        self.ui.Write_Change.clicked.connect(lambda : Thread(target=self.handle_item_change).start())
         self.ui.Update.clicked.connect(lambda : Thread(target=self.Update).start())
+        self.ui.Check.clicked.connect(lambda : Thread(target=self.Check).start())
         self.ui.Change.clicked.connect(lambda : Thread(target=self.Change).start())
         self.ui.Epsilon.clicked.connect(lambda : Thread(target=self.Epsilon).start())
-        self.ui.Epsilon.hide()
         self.Refresh()
         self.ui.table.itemChanged.connect(lambda item: (self.changed_items.append(item), self.ui.Write_Change.setEnabled(True)) if item.column() != 0 else None)
         self.ui.table.customContextMenuRequested.connect(self.show_context_menu)
@@ -151,7 +151,7 @@ class Manager_Face(QWidget):
                 cursor.execute('UPDATE Account SET password = ? WHERE email = ?', (item[3], item[2]))
                 cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (item[4], item[2]))
                 cursor.execute('UPDATE Account SET cookies = ? WHERE email = ?', (item[5], item[2]))
-                conn.commit()
+            conn.commit()
             self.ui.Write_Change.setEnabled(False)
             self.changed_items.clear()
         except Exception as e:
@@ -178,7 +178,9 @@ class Manager_Face(QWidget):
                                 email , password = elements
                             elif len(elements) == 3:
                                 email , password , cookies = elements
-                            cookies = cookies.strip().replace(" ", "")
+                                cookies = cookies.strip().replace(" ", "")
+                                try: username = re.search(r'c_user=(\d+)', cookies).group(1)
+                                except:pass
                             existing_id = cursor.execute(f"SELECT * FROM Account WHERE email = '{email}' ").fetchall()
                             if not existing_id:
                                 cursor.execute('INSERT INTO Account (groupname ,name ,email, password, username ,cookies) VALUES (?, ?, ?, ?, ?, ?)', (group, name, email.strip(), password.strip(),username, cookies )); conn.commit() 
@@ -238,6 +240,62 @@ class Manager_Face(QWidget):
         self.Refresh()
         self.Info.ui.label.setText(f"Finished Login")
         
+    def Update(self):
+        self.Run = not self.Run
+        if self.Run:
+            self.ui.Update.setText("Stop")
+            self.Info.Update(0, 0, 0) ;self.succes = 0 ; self.failed = 0
+        else:
+            self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
+            self.Info.ui.label.setText("Finished Update")
+            return
+        for row in range(self.ui.table.rowCount()):
+            if self.Run:
+                checkbox_item = self.ui.table.item(row, 0)
+                if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
+                    i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
+                    self.Info.ui.label.setText(f"Update {i[2]}:{i[3]}")
+                    value = Chrom('headless').View(i[5],"close")
+                    if value == "" : pass
+                    else :
+                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
+                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1])))
+                        try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', value[1]).group(1), i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', value[1]).group(1))))
+                        except:pass
+                        checkbox_item.setCheckState(Qt.Unchecked)
+                        self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Update",'success')
+                        self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
+        conn.commit()
+        self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
+        self.Info.ui.label.setText(f"Finished Update ")
+        self.Run = False
+    def Check(self):
+        self.Run = not self.Run
+        if self.Run:
+            self.ui.Check.setText("Stop")
+            self.Info.Update(0, 0, 0) ;self.succes = 0 ; self.failed = 0
+        else:
+            self.ui.Check.setText("Check") ; self.ui.Check.setChecked(False)
+            self.Info.ui.label.setText("Finished Check")
+            return
+        for row in range(self.ui.table.rowCount()):
+            if self.Run:
+                checkbox_item = self.ui.table.item(row, 0)
+                if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
+                    i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
+                    self.Info.ui.label.setText(f"Check {i[2]}")
+                    value = Name(f'https://www.facebook.com/profile.php?id={i[4]}').Start()
+                    if value == "" : pass
+                    else :
+                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value, i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value)))
+                        checkbox_item.setCheckState(Qt.Unchecked)
+                        self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Check",'success')
+                        self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
+        conn.commit()
+        self.ui.Check.setText("Check") ; self.ui.Check.setChecked(False)
+        self.Info.ui.label.setText(f"Finished Check ")
+        self.Run = False
+    
     def View(self,menu):
         menu.hide()
         selected_row = self.ui.table.currentRow()
@@ -246,7 +304,7 @@ class Manager_Face(QWidget):
             for col in range(1,self.ui.table.columnCount()):
                 item = self.ui.table.item(selected_row, col)
                 i.append(item.text())
-            value = Chrom().View(i[5])
+            value = Chrom().View(i[5],view='view')
             if value == "" : pass
             else :
                 cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(selected_row, 2, QTableWidgetItem(str(value[0])))
@@ -287,34 +345,6 @@ class Manager_Face(QWidget):
         self.Info.ui.label.setText("Finished Delete")
         self.Run = False
         self.Refresh()
-    def Update(self):
-        self.Run = not self.Run
-        if self.Run:
-            self.ui.Update.setText("Stop")
-            self.Info.Update(0, 0, 0) ;self.succes = 0 ; self.failed = 0
-        else:
-            self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
-            self.Info.ui.label.setText("Finished Update")
-            return
-        for row in range(self.ui.table.rowCount()):
-            if self.Run:
-                checkbox_item = self.ui.table.item(row, 0)
-                if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
-                    i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
-                    self.Info.ui.label.setText(f"Update {i[2]}:{i[3]}")
-                    value = Chrom('headless').View(i[5],'check',"close")
-                    if value == "" : pass
-                    else :
-                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
-                        cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1])))
-                        try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', value[1]).group(1), i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', value[1]).group(1))))
-                        except:pass
-                        checkbox_item.setCheckState(Qt.Unchecked) ; conn.commit()
-                        self.Info.Add(0,f"{i[2]}:{i[3]}",'Account Manager',"Update",'success')
-                        self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
-        self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
-        self.Info.ui.label.setText(f"Finished Update ")
-        self.Run = False
     def Epsilon(self):
         self.Run = not self.Run
         if self.Run:
@@ -344,6 +374,8 @@ class Manager_Face(QWidget):
                         cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value[0])))
                         cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1]))) ; conn.commit()
                         checkbox_item.setCheckState(Qt.Unchecked)
+                        self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Epsilon",'success')
+                        self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
         self.ui.Epsilon.setText("Epsilon") ; self.ui.Epsilon.setChecked(False)
         self.Info.ui.label.setText("Finished Epsilon")
         bot.quit()

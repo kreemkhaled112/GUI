@@ -54,6 +54,7 @@ class Ui_Form(object):
         self.table.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.table.setHorizontalHeaderItem(3, item)
+        self.table.verticalHeader().setVisible(False)
         self.gridLayout_2.addWidget(self.table, 0, 0, 1, 1)
         self.widget_Edit = QtWidgets.QWidget(self.splitter)
         self.widget_Edit.setMaximumSize(QtCore.QSize(16777215, 16777215))

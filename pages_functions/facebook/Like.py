@@ -68,10 +68,7 @@ class Like(QWidget):
         table_dialog.exec()
     def Update_info(self,info):
         self.ui.Number_Account.setText(str(len(info)))
-        self.info = info
-        self.queue = queue.Queue()
-        for i in self.info:
-            self.queue.put(i)
+        self.data = queue.Queue(); [self.data.put(i) for i in info]
 
     def get_pending_order(self,SERVICEs_ID):
         params = {
@@ -118,7 +115,7 @@ class Like(QWidget):
                 self.succes = 0 ; self.failed = 0 ; self.Info.Update(s=0,f=0,o=self.order)
                 id = pending['id']
                 link = pending['link']
-                link = re.sub(r'/reel/', '/', link)
+                link = re.sub(r'/reel/', '/', link) or re.sub(r'/r/', '/', link)
                 quantity = int(pending['quantity'])
                 result = get_likes(link).Start()
                 listt = []
@@ -128,11 +125,11 @@ class Like(QWidget):
                     try:
                         self.set_start_count(int(id),int(result[1]))
                         def perfom():
-                            while not self.queue.empty():
+                            while not self.data.empty():
                                 if self.succes >= quantity : break
                                 else:
                                     try:
-                                        cookie = self.queue.get()
+                                        cookie = self.data.get()
                                         listt.append(cookie)
                                         result = like(link,random.choice(type),cookie[5]).Start()
                                         self.Info.Add_order(result[1],id,cookie[1],name,f'{result[0]} {link}')
@@ -153,7 +150,7 @@ class Like(QWidget):
             if self.succes >= quantity  : self.set_completed(id)
             else : self.set_remains(id,quantity-self.succes)
             for i in listt:
-                self.queue.put(i)
+                self.data.put(i)
         except Exception as e :print(f'{num}\n {e}')
     def Start(self):
         if self.ui.Number_Account.text() == '0': QMessage(text = 'No Account Selected').mainloop() ; self.ui.Start.setChecked(False)
@@ -172,7 +169,7 @@ class Like(QWidget):
                     if self.ui.wow_chek.isChecked() and self.is_running :
                         self.Order('Wow',['Wow'],int(self.ui.label_wow.text()))
                     if self.ui.sad_chek.isChecked() and self.is_running :
-                        self.Order('Sad',['Sad'].int(self.ui.label_sad.text()))
+                        self.Order('Sad',['Sad'],int(self.ui.label_sad.text()))
                     if self.ui.ll_check.isChecked() and self.is_running :
                         self.Order('Like - Love',['Like','Love'],int(self.ui.label_ll.text()))
                     if self.ui.lc_check.isChecked() and self.is_running :

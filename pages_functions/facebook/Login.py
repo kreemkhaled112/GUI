@@ -1,6 +1,5 @@
 from pages_functions.__init__ import *
 from pages_functions.Facebook.Data.Edit import *
-import time 
 from urllib.parse import urlencode
 from requests.exceptions import ReadTimeout, ConnectTimeout
 

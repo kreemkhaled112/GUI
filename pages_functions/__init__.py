@@ -1,4 +1,4 @@
-import requests , random , os , queue ,json , sys , webbrowser , logging  , sqlite3 , re , uuid , urllib3 ,psutil , pyautogui
+import requests , random , os , queue ,json , sys , webbrowser , logging  , sqlite3 , re , uuid , urllib3 ,psutil , pyautogui , ntplib
 from customtkinter import *
 import undetected_chromedriver as uc
 from selenium import webdriver
@@ -21,9 +21,12 @@ from pystyle import *
 from configparser import ConfigParser
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import Qt , pyqtSignal , QThread
-from datetime import datetime
+from PyQt5.QtCore import Qt , pyqtSignal , QThread ,QUrl, Qt,QFile, QIODevice,QPoint
+from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest
+from datetime import datetime , date
 import concurrent.futures
+import qtmodern.styles
+import qtmodern.windows
 urllib3.disable_warnings()
 
 conn = sqlite3.connect('pages_functions\info.db', check_same_thread=False)
@@ -86,7 +89,7 @@ def yandex():
     kill_chrome()
     chrome_options = uc.ChromeOptions()
     pro = "C://Users//kreem//AppData//Local//Google//Chrome//User Data//"
-    chrome_options.add_argument(f"--profile-directory=Profile {config['chrome']['Profile']}")
+    chrome_options.add_argument(f"--profile-directory={config['chrome']['Profile']}")
     chrome_options.add_argument(f"user-data-dir={pro}")
     bot = uc.Chrome(options=chrome_options)
     bot.get('https://mail.yandex.com/?uid=1882958944#tabs/social')

@@ -1,7 +1,6 @@
 from pages_functions.__init__ import *
 
 from ui.Facebook.User_ui import Ui_Form
-from pages_functions.Public.Info import Info
 from pages_functions.Facebook.Edit import Edit
 from pages_functions.Facebook.Data.Action import *
 
@@ -33,6 +32,9 @@ class Post(QWidget):
         self.ui_Edit.ui.Follow_check.hide()
         self.ui_Edit.ui.Un_Follow_check.hide()
         self.ui_Edit.ui.Like_Page_check.hide()
+        self.ui_Edit.ui.Like_check.setVisible(True)
+        self.ui_Edit.ui.Comment_check.setVisible(True)
+        self.ui_Edit.ui.Comment_Like_check.setVisible(True)
         self.ui_Edit.ui.Profrssional_check.hide()
         self.ui_Edit.ui.Change_Password_check.hide()
         self.ui_Edit.ui.Lock_Profile.hide()
@@ -144,10 +146,11 @@ class Post(QWidget):
                                     futures = [executor.submit(self.Edit ,url) for _ in range(self.ui_Edit.ui.spinBox_thread.value())]
                                     concurrent.futures.wait(futures)
                         else:break
+                    if self.Run :break
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
-                self.ui_Edit.Info.Add(1,'Compelet','Post',','.join(self.section),f'Total : {len(self.ui_Edit.info)} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+                self.ui_Edit.Info.Add(1,'Compelet','Post',','.join(self.section),f'Total : {self.ui_Edit.ui.Number_Account.text()} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
                 self.Run = False ; self.section = []
             else: self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Url Add').mainloop()
         

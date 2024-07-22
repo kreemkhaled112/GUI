@@ -14,24 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton l{
-		border:none;
-		border-radius: 3px;
-		text-align: left;
-		padding: 8px 0 8px 15px;
-		color: #788596;
-	}
-
-	QPushButton:hover {
-		background-color: rgba( 86, 101, 115, 0.5);
-	}
-
-	QPushButton:checked {
-		color: #fff;
-	}
-QScrollArea{
-border: none;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout_11">
    <property name="leftMargin">
@@ -500,7 +483,7 @@ border: none;
           <item row="0" column="1">
            <widget class="QStackedWidget" name="stackedWidget">
             <property name="currentIndex">
-             <number>7</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_photo">
              <layout class="QGridLayout" name="gridLayout_3">
@@ -511,6 +494,9 @@ border: none;
                   <number>0</number>
                  </property>
                  <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
                   <number>0</number>
                  </property>
                  <property name="rightMargin">
@@ -606,6 +592,9 @@ border: none;
                   <number>0</number>
                  </property>
                  <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
                   <number>0</number>
                  </property>
                  <property name="rightMargin">
@@ -735,8 +724,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>840</width>
-                   <height>587</height>
+                   <width>838</width>
+                   <height>583</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_47" rowstretch="0">
@@ -845,8 +834,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>840</width>
-                   <height>587</height>
+                   <width>838</width>
+                   <height>583</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_48" rowstretch="0">
@@ -937,8 +926,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>840</width>
-                   <height>587</height>
+                   <width>838</width>
+                   <height>583</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_50" rowstretch="0">
@@ -1029,8 +1018,8 @@ border: none;
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>840</width>
-                   <height>587</height>
+                   <width>838</width>
+                   <height>583</height>
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_53" rowstretch="0">
@@ -1234,7 +1223,10 @@ border: none;
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
-                 <property name="spacing">
+                 <property name="horizontalSpacing">
+                  <number>6</number>
+                 </property>
+                 <property name="verticalSpacing">
                   <number>0</number>
                  </property>
                  <item row="0" column="0">
@@ -1262,8 +1254,8 @@ border: none;
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>71</width>
-                      <height>71</height>
+                      <width>838</width>
+                      <height>583</height>
                      </rect>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_46" rowstretch="0">
@@ -1354,7 +1346,7 @@ border: none;
                   <widget class="QWidget" name="widget_83" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_13">
                     <property name="spacing">
-                     <number>0</number>
+                     <number>6</number>
                     </property>
                     <property name="leftMargin">
                      <number>0</number>
@@ -1393,8 +1385,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>71</width>
-                         <height>71</height>
+                         <width>838</width>
+                         <height>557</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_45" rowstretch="0">
@@ -1504,6 +1496,18 @@ border: none;
               <item row="0" column="0">
                <widget class="QWidget" name="widget_group" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QWidget" name="widget_81" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -1547,8 +1551,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>822</width>
-                         <height>545</height>
+                         <width>838</width>
+                         <height>557</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_44" rowstretch="0">
@@ -1658,6 +1662,18 @@ border: none;
               <item row="0" column="0">
                <widget class="QWidget" name="widget_follow" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QWidget" name="widget_79" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -1701,8 +1717,8 @@ border: none;
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>822</width>
-                         <height>545</height>
+                         <width>838</width>
+                         <height>557</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_43" rowstretch="0">
@@ -1819,6 +1835,18 @@ p, li { white-space: pre-wrap; }
               <item row="0" column="0">
                <widget class="QWidget" name="widget_follow_2" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QWidget" name="widget_76" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1862,8 +1890,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>822</width>
-                         <height>545</height>
+                         <width>838</width>
+                         <height>557</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_42" rowstretch="0">
@@ -1973,6 +2001,18 @@ p, li { white-space: pre-wrap; }
               <item row="0" column="0">
                <widget class="QWidget" name="widget_like_page" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_26">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QWidget" name="widget_84" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_15">
@@ -2016,8 +2056,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>822</width>
-                         <height>545</height>
+                         <width>838</width>
+                         <height>557</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_49" rowstretch="0">
@@ -2189,8 +2229,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>840</width>
-                         <height>537</height>
+                         <width>838</width>
+                         <height>531</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_41" rowstretch="0">
@@ -2393,6 +2433,18 @@ p, li { white-space: pre-wrap; }
               <item row="0" column="0">
                <widget class="QWidget" name="widget_comment" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_25">
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QWidget" name="widget_3" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -2454,8 +2506,8 @@ p, li { white-space: pre-wrap; }
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>370</width>
-                            <height>545</height>
+                            <width>377</width>
+                            <height>557</height>
                            </rect>
                           </property>
                           <layout class="QGridLayout" name="gridLayout_52" rowstretch="0">
@@ -2570,8 +2622,8 @@ p, li { white-space: pre-wrap; }
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>369</width>
-                            <height>545</height>
+                            <width>376</width>
+                            <height>557</height>
                            </rect>
                           </property>
                           <layout class="QGridLayout" name="gridLayout_51" rowstretch="0">
@@ -2757,8 +2809,8 @@ p, li { white-space: pre-wrap; }
                         <rect>
                          <x>0</x>
                          <y>0</y>
-                         <width>840</width>
-                         <height>537</height>
+                         <width>838</width>
+                         <height>531</height>
                         </rect>
                        </property>
                        <layout class="QGridLayout" name="gridLayout_40" rowstretch="0">

@@ -23,7 +23,7 @@ class get_follower:
                 number_of_followers = int(match.group(1).replace(",", "").replace(".", ""))
                 return "" , number_of_followers
             else:
-                return 'No match found' , self.cookie
+                return 'No match found' , self.url
     
 class get_likes:
     def __init__(self, url ):
@@ -38,15 +38,23 @@ class get_likes:
         self.cookie = random_line.strip()
         cookie = cookie_format(self.cookie)
         self.req.cookies.update(cookie)
+
     def Start(self):
         response = self.req.get(self.url)
         if response.status_code == 200:
-            # match = re.search(r'"if_viewer_cannot_see_seen_by_member_list":{[^}]*"reaction_count":{"count":(\d+)}', response.text)
+
             match = re.search(r'aria-label="([\d,.]+) ', response.text)
             if match: return '' , int(match.group(1).replace(",", "").replace(".", ""))
             else:
-                return 'No match found' , ''
-
+                soup = BeautifulSoup(response.text, 'html.parser')
+                match = re.search(r'(\d+) weitere Personen', str(soup))
+                if match:
+                    likes = int(match.group(1)) +1
+                    return '' , likes
+                else:
+                    return '' , 1
+                
+            return 'No match found' , self.url
 class get_share:
     def __init__(self, url ):
         self.req = requests.Session()
@@ -65,7 +73,7 @@ class get_share:
             match = re.search(r'"i18n_share_count":"(\d+)"', response.text)
             if match: return '' , int(match.group(1).replace(",", "").replace(".", ""))
             else:
-                return 'No match found', ''
+                return 'No match found', self.url
 class get_comment:
     def __init__(self, url ):
         self.req = requests.Session()
@@ -85,5 +93,5 @@ class get_comment:
             print(match.group(1).replace(",", "").replace(".", ""))
             if match: return '',int(match.group(1).replace(",", "").replace(".", ""))
             else:
-                return 'No match found'
+                return 'No match found' , self.url
 

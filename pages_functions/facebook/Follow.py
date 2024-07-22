@@ -33,10 +33,7 @@ class Follow(QWidget):
         table_dialog.exec()
     def Update_info(self,info):
         self.ui.Number_Account.setText(str(len(info)))
-        self.info = info
-        self.queue = queue.Queue()
-        for i in self.info:
-            self.queue.put(i)
+        self.data = queue.Queue(); [self.data.put(i) for i in info]
 
     def get_pending_order(self,SERVICEs_ID):
         params = {
@@ -106,11 +103,11 @@ class Follow(QWidget):
                             try:
                                 self.set_start_count(int(id),int(result[1]))
                                 def perfom():
-                                    while not self.queue.empty() :
+                                    while not self.data.empty() :
                                         if self.succes >= quantity : break
                                         else:
                                             try:
-                                                cookie = self.queue.get()
+                                                cookie = self.data.get()
                                                 listt.append(cookie)
                                                 result = follow(link,cookie[5]).Start()
                                                 self.Info.Add_order(result[1],id,cookie[1],"Follow",f'{result[0]}')
@@ -131,5 +128,5 @@ class Follow(QWidget):
                         if self.succes >= quantity  : self.set_completed(id)
                         else : self.set_remains(id,quantity-self.succes)
                         for i in listt:
-                            self.queue.put(i)
+                            self.data.put(i)
     

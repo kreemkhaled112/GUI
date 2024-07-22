@@ -1,7 +1,6 @@
 from pages_functions.__init__ import *
 
 from ui.Facebook.User_ui import Ui_Form
-from pages_functions.Public.Info import Info
 from pages_functions.Facebook.Edit import Edit
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.Action import *
@@ -27,6 +26,11 @@ class User(QWidget):
         self.ui_Edit.ui.School_check.hide()
         self.ui_Edit.ui.Add_Post_check.hide()
         self.ui_Edit.ui.Add_Bio_check.hide()
+        self.ui_Edit.ui.Add_Friend_check.setVisible(True)
+        self.ui_Edit.ui.Join_Group_check.setVisible(True)
+        self.ui_Edit.ui.Follow_check.setVisible(True)
+        self.ui_Edit.ui.Un_Follow_check.setVisible(True)
+        self.ui_Edit.ui.Like_Page_check.setVisible(True)
         self.ui_Edit.ui.Like_check.hide()
         self.ui_Edit.ui.Comment_check.hide()
         self.ui_Edit.ui.Comment_Like_check.hide()
@@ -67,7 +71,6 @@ class User(QWidget):
         delete_button.clicked.connect(lambda _, row=current_row: self.delete_row(row))
         self.ui.table.setCellWidget(current_row, 3, delete_button)
 
-        self.ui.table.verticalHeader().hide()
         self.ui.lineEdit.clear()      
     def name (self,value,row):
         item = QTableWidgetItem(Name().Get(value))
@@ -147,7 +150,7 @@ class User(QWidget):
                 self.ui_Edit.Info.ui.label.setText("Finished")
                 self.ui_Edit.ui.Start.setText("Start")
                 self.ui_Edit.ui.Start.setChecked(False)
-                self.ui_Edit.Info.Add(1,'Compelet','User',','.join(self.section),f'Total : {self.ui_Edit.data.qsize()} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
+                self.ui_Edit.Info.Add(1,'Compelet','User',','.join(self.section),f'Total : {self.ui_Edit.ui.Number_Account.text()} Succes : {self.succes} Failed : {self.failed} Link {second_column_data}') ; self.ui_Edit.Info.Update(s=self.succes,f=self.failed,o=self.order) 
                 self.Run = False ; self.section = []
             else: self.ui_Edit.ui.Start.setChecked(False) ; QMessage(text = 'No Url Add').mainloop()
 

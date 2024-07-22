@@ -1,7 +1,6 @@
 from pages_functions.__init__ import *
 
 from pages_functions.Facebook.Edit import Edit
-from pages_functions.Public.Info import Info
 from pages_functions.Facebook.Data.Chrome import *
 from pages_functions.Facebook.Data.Edit import *
 from pages_functions.Facebook.Data.Action import *

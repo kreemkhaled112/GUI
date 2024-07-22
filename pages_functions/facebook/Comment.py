@@ -14,7 +14,7 @@ class Comment(QWidget):
         self.URL = config['server']['URL']
         self.API_KEY  = config['server']['API_KEY']
         self.TIMEOUT = 10
-        self.time = 1
+        self.time = 1 
         self.succes = 0
         self.failed = 0
         self.order = 0
@@ -33,10 +33,7 @@ class Comment(QWidget):
         table_dialog.exec()
     def Update_info(self,info):
         self.ui.Number_Account.setText(str(len(info)))
-        self.info = info
-        self.queue = queue.Queue()
-        for i in self.info:
-            self.queue.put(i)
+        self.data = queue.Queue(); [self.data.put(i) for i in info]
 
     def get_pending_order(self,SERVICEs_ID):
         params = {
@@ -98,11 +95,11 @@ class Comment(QWidget):
                         else :
                             try:
                                 self.set_start_count(int(id),int(result[1]))
-                                while not self.queue.empty():
+                                while not self.data.empty():
                                     if self.succes >= quantity : break
                                     else:
                                         try:
-                                            cookie = self.queue.get()
+                                            cookie = self.data.get()
                                             listt.append(cookie)
                                             com = comments.get()
                                             result = comment(link,com,cookie[5]).Start()
@@ -111,16 +108,16 @@ class Comment(QWidget):
                                             else: self.failed += 1
                                             self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
                                         except Exception as e:
-                                            comments.put(com)
                                             try: self.Info.Add_order(0,id,cookie[1],"Comment",e)
                                             except : self.Info.Add_order(0,id,'None',"Comment","No Account") 
                                             self.failed += 1
                                             self.Info.Update(s=self.succes,f=self.failed,o=self.order) ;  sleep(self.time)
+                                        comments.put(com)
                             except Exception as e : input(e)
                         self.order += 1
                         self.Info.Add_order(1,id,'Compelet',"Comment",f'Total : {quantity} Succes : {self.succes} Failed : {self.failed} Link {link}',"ok") ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) 
                         if self.succes >= quantity  : self.set_completed(id)
                         else : self.set_remains(id,quantity-self.succes)
                         for i in listt:
-                            self.queue.put(i)
+                            self.data.put(i)
     

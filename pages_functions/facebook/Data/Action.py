@@ -12,9 +12,7 @@ class Follow:
     def Start(self):
         try:
             soup = BeautifulSoup(self.req.get(self.url).content, 'html.parser')
-            try :
-                open("html.html" , "w" , encoding="utf-8").write(soup.prettify())
-                webbrowser.open('html.html')
+            try:
                 try: 
                     self.href = soup.select_one('a[href^="/a/subscribe.php?"]').get('href')
                     sleep(1)
@@ -23,8 +21,6 @@ class Follow:
                     self.href = soup.select_one('a[href^="/a/subscriptions/remove?"]').get('href')
                     return "Already followed" , 2
             except:
-                open("html.html" , "w" , encoding="utf-8").write(soup.prettify())
-                webbrowser.open('html.html')
                 return "Faild Follow" , 2
         except Exception as e:
             return e , 0
@@ -172,8 +168,7 @@ class Like_Page:
         self.req = requests.Session()
         self.headers = Header_www()
         self.cookie = cookie_format(cookie)
-        try:self.url = url.replace("www", "mbasic")
-        except:pass
+        self.url = url
         try:self.id = re.search(r'c_user=(\d+)', cookie).group(1)
         except:pass
     def Start(self):
@@ -191,7 +186,7 @@ class Like_Page:
             data = {'av': self.id,'__aaid': '0','__user': self.id,'__a': '1','__req': 'm','__hs': haste,'dpr': '1','__ccg': 'EXCELLENT','__rev': rev,'__s': 'a7eibq:ofqa5d:ywyrw3','__hsi': hsi,'__comet_req': '15','fb_dtsg': dtsg,'jazoest': jazoest,'lsd': lsd,'__spin_r': spinr,'__spin_b': 'trunk','__spin_t': spint,'fb_api_caller_class': 'RelayModern','fb_api_req_friendly_name': 'CometProfilePlusLikeMutation','variables': f'{{"input":{{"is_tracking_encrypted":false,"page_id":{page_id},"source":null,"tracking":null,"actor_id":{self.id},"client_mutation_id":"1"}},"scale":1}}','server_timestamps': 'true','doc_id': '6716077648448761'}
             headers = {'accept': '*/*','accept-language': 'en,en-US;q=0.9,ar;q=0.8,ar-EG;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.facebook.com','priority': 'u=1, i','referer': self.url,'sec-ch-prefers-color-scheme': 'dark','sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"','sec-ch-ua-full-version-list': '"Not/A)Brand";v="8.0.0.0", "Chromium";v="126.0.6478.127", "Google Chrome";v="126.0.6478.127"','sec-ch-ua-mobile': '?0','sec-ch-ua-model': '""','sec-ch-ua-platform': '"Windows"','sec-ch-ua-platform-version': '"10.0.0"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36','x-asbd-id': '129477','x-fb-friendly-name': 'CometProfilePlusLikeMutation','x-fb-lsd': lsd}
             pos = self.req.post('https://www.facebook.com/api/graphql/',data=data,headers=headers,cookies=self.cookie,allow_redirects=True).json()
-            if str(pos['data']['page_like']['page']['profile_plus_for_delegate_page']['profile_action']['title']['text']) == 'Liked': return 'Successfully Liked ' , 1
+            if str(pos['data']['page_like']['page']['profile_plus_for_delegate_page']['profile_action']['title']['text']) == 'Liked' or 'أعجبك': return 'Successfully Liked ' , 1
             else : return pos, 1
         except Exception as e:
             return e , 0

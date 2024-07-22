@@ -13,9 +13,13 @@
     <file>icon/product-48.ico</file>
     <file>icon/moderator-32.ico</file>
     <file>icon/gear-2-32.ico</file>
+    <file>icon/arrow-4.ico</file>
+    <file>icon/arrow-3.ico</file>
     <file>icon/x-mark-32.ico</file>
     <file>icon/maximize-window-32.ico</file>
     <file>icon/minimize-window-32.ico</file>
     <file>icon/facebook.png</file>
+    <file>icon/whatsapp.png</file>
+    <file>icon/telegram.png</file>
   </qresource>
 </RCC>

@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt, QPoint
-from ui.sidebar_ui import Ui_MainWindow
-import uuid , requests , ntplib , sys
+from PyQt5.QtGui import QIcon
+from ui.main_ui import Ui_MainWindow
+import uuid , requests , ntplib
 from datetime import datetime, date
 from pages_functions.Facebook.Manger_Face import Manager_Face
 from pages_functions.Facebook.Edit_Face import Edit_Face
+from pages_functions.Facebook.Generat_Face import Generat_Face
 from pages_functions.Facebook.User import User
 from pages_functions.Facebook.Post import Post
 from pages_functions.Facebook.Follow import Follow
@@ -13,92 +14,182 @@ from pages_functions.Facebook.Share import Share
 from pages_functions.Facebook.Comment import Comment
 from pages_functions.Facebook.Report import Report
 
-class MainWindow(QMainWindow):
+class MyWindow(QMainWindow):
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(MyWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle("")
-        self.setWindowFlag(Qt.FramelessWindowHint)
-        self.setMouseTracking(True)
+        self.setWindowTitle("S M M")
+        self.setWindowIcon(QIcon('pages_functions\logo.ico'))
         self.mac = ':'.join(['{:02x}'.format((uuid.getnode() >> 8 * i) & 0xff)for i in range(5, -1, -1)  ])
-        self.ui.Profile.setText(self.mac)
-        self.ui.Profile.clicked.connect(lambda : QApplication.clipboard().setText(self.ui.Profile.text()))
+        self.ui.mac.setText(self.mac)
+        self.ui.mac.clicked.connect(lambda : QApplication.clipboard().setText(self.ui.mac.text()))
 
+        self.Account_Manger_face = self.ui.Account_Manger_face 
+        self.Account_Edit_face = self.ui.Account_Edit_face
+        self.Account_Generat_face = self.ui.Account_Generat_face
+        self.User = self.ui.User
+        self.Post = self.ui.Post
+        self.Follow_face = self.ui.Follow_face
+        self.Like_face = self.ui.Like_face
+        self.Share_face = self.ui.Share_face
+        self.Comment = self.ui.Comment
+
+        self.menu_btns_list = {
+            self.Account_Manger_face: Manager_Face(),
+            self.Account_Edit_face: Edit_Face(),
+            self.Account_Generat_face: Generat_Face(),
+            self.User: User(),
+            self.Post: Post(),
+            self.Follow_face: Follow(),
+            self.Like_face: Like(),
+            self.Share_face: Share(),
+            self.Comment: Comment(),
+        }
+        self.show_home_window()
+        self.ui.scrollArea.hide()
+        self.ui.menu_facebook.hide()
+        self.ui.Report_face.hide()
+        self.ui.Account_Generat_face.hide()
         
-        self.ui.stackedWidget.insertWidget(0, Manager_Face())
-        self.ui.stackedWidget.insertWidget(1, Edit_Face())
-        self.ui.stackedWidget.insertWidget(2, User())
-        self.ui.stackedWidget.insertWidget(3, Post())
-        self.ui.stackedWidget.insertWidget(4, Follow())
-        self.ui.stackedWidget.insertWidget(5, Like())
-        self.ui.stackedWidget.insertWidget(6, Share())
-        self.ui.stackedWidget.insertWidget(7, Comment())
-        self.ui.widget_order.hide()
-        self.ui.stackedWidget.setCurrentIndex(0)
-        self.ui.home.setChecked(True)
-
-        self.old_pos = self.pos()
-        self.ui.close.clicked.connect(self.close)
-        self.ui.maximize.clicked.connect(self.toggle_maximize_restore)
-        self.ui.minimize.clicked.connect(self.showMinimized)
-
-    ## Change QPushButton Checkable status when stackedWidget index changed
-    # def on_stackedWidget_currentChanged(self, index):
-    #     btn_list = self.ui.full_menu_widget.findChildren(QPushButton)
-        
-    #     for btn in btn_list:
-    #         if index in [5, 6]:
-    #             btn.setAutoExclusive(False)
-    #             btn.setChecked(False)
-    #         else:
-    #             btn.setAutoExclusive(True)
-    ## functions for changing menu page
-    def on_home_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(0)
-    def on_Accound_edt_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(1)
-    def on_User_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(2)
-    def on_Post_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(3)
-    def on_Follow_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(4)
-    def on_Like_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(5)
-    def on_Shar_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(6)
-    def on_Comment_toggled(self):
-        self.ui.stackedWidget.setCurrentIndex(7)
-
-    def toggle_maximize_restore(self):
-        if self.isMaximized():
-            self.showNormal()
+        self.ui.tabWidget.tabCloseRequested.connect(self.close_tab)
+        self.Account_Manger_face.clicked.connect(self.show_selected_window)
+        self.Account_Edit_face.clicked.connect(self.show_selected_window)
+        self.Account_Generat_face.clicked.connect(self.show_selected_window)
+        self.User.clicked.connect(self.show_selected_window)
+        self.Post.clicked.connect(self.show_selected_window)
+        self.Follow_face.clicked.connect(self.show_selected_window)
+        self.Like_face.clicked.connect(self.show_selected_window)
+        self.Share_face.clicked.connect(self.show_selected_window)
+        self.Comment.clicked.connect(self.show_selected_window)
+        self.Active()
+    def check_internet_connection(self):
+        try:
+            requests.get("http://www.google.com", timeout=10)
+            return True
+        except requests.RequestException:
+            return False
+    def get_data(self):
+        response = requests.get("https://pastebin.com/raw/H72kttsG")
+        if response.status_code == 200:
+            data = response.json()
+            for item in data:
+                if  item["id"] == self.mac:
+                    name = item["name"]
+                    type = item["type"]
+                    expiration_date = date.fromisoformat(item["expiration_date"])
+                    return name , type , expiration_date
+        return None, None , None
+    def get_current_date(self):
+        ntp_server = 'ntp2a.mcc.ac.uk' 
+        client = ntplib.NTPClient()
+        try:
+            response = client.request(ntp_server, version=3)
+            timestamp = response.tx_time
+            current_date = datetime.fromtimestamp(timestamp).date()
+            return current_date
+        except ntplib.NTPException:
+            return None
+        except Exception as e:
+            return None
+    def Active(self):
+        if not self.check_internet_connection():
+            input("Please check your internet connection!") ; return
+        name , type , expiration_date = self.get_data()
+        if type:
+            self.ui.mac.setText(name)
+            current_date  = self.get_current_date()
+            if type == "Full":     
+                if current_date > expiration_date :
+                    self.Account_Edit_face.hide()
+                    self.Account_Generat_face.hide()
+                    self.User.hide()
+                    self.Post.hide()
+                    self.Follow_face.hide()
+                    self.Like_face.hide()
+                    self.Share_face.hide()
+                    self.Comment.hide()
+                    self.ui.mac.setText('Expired')
+            if type == "Normal":
+                if current_date > expiration_date :
+                    self.ui.mac.setText('Expired')
+                    self.Account_Edit_face.hide()
+                    self.Account_Generat_face.hide()
+                    self.User.hide()
+                    self.Post.hide()
+                self.Follow_face.hide()
+                self.Like_face.hide()
+                self.Share_face.hide()
+                self.Comment.hide()
+            if type == "Server":
+                if current_date > expiration_date :
+                    self.ui.mac.setText('Expired')
+                    self.Follow_face.hide()
+                    self.Like_face.hide()
+                    self.Account_Edit_face.hide()
+                    self.Share_face.hide()
+                    self.Comment.hide()
+                self.Account_Generat_face.hide()
+                self.User.hide()
+                self.Post.hide()
         else:
-            self.showMaximized()
+            self.Account_Edit_face.hide()
+            self.Account_Generat_face.hide()
+            self.User.hide()
+            self.Post.hide()
+            self.Follow_face.hide()
+            self.Like_face.hide()
+            self.Share_face.hide()
+            self.Comment.hide()
+    def show_home_window(self):
+        result = self.open_tab_flag(self.Account_Manger_face.objectName())
+        self.set_btn_checked(self.Account_Manger_face)
 
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.old_pos = event.globalPos()
-            event.accept()
+        if result[0]: self.ui.tabWidget.setCurrentIndex(result[1])
+        else:
+            title = self.Account_Manger_face.text()
+            curIndex = self.ui.tabWidget.addTab(Manager_Face(), title)
+            self.ui.tabWidget.setCurrentIndex(curIndex)
+            self.ui.tabWidget.setVisible(True)
 
-    def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton:
-            delta = QPoint(event.globalPos() - self.old_pos)
-            self.move(self.x() + delta.x(), self.y() + delta.y())
-            self.old_pos = event.globalPos()
-            event.accept()
+    def show_selected_window(self):
+        button = self.sender()
 
-if __name__ == "__main__":
+        result = self.open_tab_flag(button.objectName())
+        self.set_btn_checked(button)
+
+        if result[0]: self.ui.tabWidget.setCurrentIndex(result[1])
+        else:
+            title = button.text()
+            curIndex = self.ui.tabWidget.addTab(self.menu_btns_list[button], title)
+            self.ui.tabWidget.setCurrentIndex(curIndex)
+            self.ui.tabWidget.setVisible(True)
+
+    def close_tab(self, index):
+        self.ui.tabWidget.removeTab(index)
+        if self.ui.tabWidget.count() == 0:
+            # self.ui.scrollArea.setCurrentIndex(0)
+            self.show_home_window()
+
+    def open_tab_flag(self, tab):
+        open_tab_count = self.ui.tabWidget.count()
+        for i in range(open_tab_count):
+            tab_name = self.ui.tabWidget.tabText(i)
+            if tab_name == tab:
+                return True, i
+            else: continue
+        return False,
+
+    def set_btn_checked(self, btn):
+        for button in self.menu_btns_list.keys():
+            if button != btn: button.setChecked(False)
+            else: button.setChecked(True)
+
+
+if __name__ == '__main__':
+    import sys
     app = QApplication(sys.argv)
-
-    with open("style.qss", "r") as style_file:
-        style_str = style_file.read()
-    app.setStyleSheet(style_str)
-
-    window = MainWindow()
+    window = MyWindow()
     window.show()
+
     sys.exit(app.exec())
-
-
-

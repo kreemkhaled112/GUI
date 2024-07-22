@@ -117,5 +117,5 @@ class Share(QWidget):
                         if self.succes >= quantity  : self.set_completed(id)
                         else : self.set_remains(id,quantity-self.succes)
                         for i in listt: 
-                            self.queue.put(i)
+                            self.data.put(i)
     

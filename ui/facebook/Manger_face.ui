@@ -320,6 +320,16 @@ background-color: rgb(255, 0, 0);
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="Check">
+               <property name="text">
+                <string>Check</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="Update">
                <property name="minimumSize">
                 <size>
