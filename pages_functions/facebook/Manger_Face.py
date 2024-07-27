@@ -134,6 +134,7 @@ class Manager_Face(QWidget):
         self.ui.Select_all.setText(f'Selected ({checked_count})')
 
     def filter_table(self):
+        self.Refresh()
         search_text = self.ui.lineEdit.text().lower().strip()
         selected_column = self.ui.comboBox.currentIndex()
 
@@ -181,6 +182,12 @@ class Manager_Face(QWidget):
                                 cookies = cookies.strip().replace(" ", "")
                                 try: username = re.search(r'c_user=(\d+)', cookies).group(1)
                                 except:pass
+                            else:
+                                email = elements[0]
+                                password = elements[1]
+                                cookies = ';'.join(elements[2:])
+                                try: username = re.search(r'c_user=(\d+)', cookies).group(1)
+                                except:pass
                             existing_id = cursor.execute(f"SELECT * FROM Account WHERE email = '{email}' ").fetchall()
                             if not existing_id:
                                 cursor.execute('INSERT INTO Account (groupname ,name ,email, password, username ,cookies) VALUES (?, ?, ?, ?, ?, ?)', (group, name, email.strip(), password.strip(),username, cookies )); conn.commit() 
@@ -188,7 +195,7 @@ class Manager_Face(QWidget):
                             else : self.failed += 1
                     except Exception as e: print(f'Failed Format Line {index}:{e}')
                 self.Info.Add(1,'Add Multi Account','Account Manager',"Add Account",f'Total : {len(line)} Succes : {self.succes} Failed : {self.failed}')
-                self.succes += 1 ; self.Info.Update(s=self.succes,f=self.failed,o=self.order)
+                self.Info.Update(s=self.succes,f=self.failed,o=self.order)
                 self.Refresh()
                 self.Info.ui.label.setText(f"Finished")
         if fname[0]:
@@ -234,10 +241,9 @@ class Manager_Face(QWidget):
                             conn.commit()
                             self.Info.Add(0,f"{i[2]}:{i[3]}",'Account Manager',"Login",f'{result[0]}')
                             self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
-                    except:pass
+                    except Exception as e :print(e)
         self.Run = False
         self.ui.Login.setText("Login") ; self.ui.Login.setChecked(False)
-        self.Refresh()
         self.Info.ui.label.setText(f"Finished Login")
         
     def Update(self):
@@ -262,10 +268,10 @@ class Manager_Face(QWidget):
                         cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[1], i[2])); self.ui.table.setItem(row, 6, QTableWidgetItem(str(value[1])))
                         try:cursor.execute('UPDATE Account SET username = ? WHERE email = ?', (re.search(r'c_user=(\d+)', value[1]).group(1), i[2])); self.ui.table.setItem(row, 5, QTableWidgetItem(str(re.search(r'c_user=(\d+)', value[1]).group(1))))
                         except:pass
+                        conn.commit()
                         checkbox_item.setCheckState(Qt.Unchecked)
                         self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Update",'success')
                         self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
-        conn.commit()
         self.ui.Update.setText("Update") ; self.ui.Update.setChecked(False)
         self.Info.ui.label.setText(f"Finished Update ")
         self.Run = False
@@ -287,11 +293,10 @@ class Manager_Face(QWidget):
                     value = Name(f'https://www.facebook.com/profile.php?id={i[4]}').Start()
                     if value == "" : pass
                     else :
-                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value, i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value)))
+                        cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value, i[2])); self.ui.table.setItem(row, 2, QTableWidgetItem(str(value))) ; conn.commit()
                         checkbox_item.setCheckState(Qt.Unchecked)
                         self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Check",'success')
                         self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
-        conn.commit()
         self.ui.Check.setText("Check") ; self.ui.Check.setChecked(False)
         self.Info.ui.label.setText(f"Finished Check ")
         self.Run = False
@@ -337,9 +342,11 @@ class Manager_Face(QWidget):
         for row in reversed(range(self.ui.table.rowCount())):
             checkbox_item = self.ui.table.item(row, 0)
             if checkbox_item is not None and checkbox_item.checkState() == Qt.Checked:
-                item = self.ui.table.item(row, 3)
-                cursor.execute(f'DELETE FROM Account WHERE email = "{item.text()}" ')
+                i = [self.ui.table.item(row, col).text() for col in range(1, self.ui.table.columnCount())]
+                cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
                 self.ui.table.removeRow(row)
+                self.Info.Add(1,f"{i[2]}:{i[3]}",'Account Manager',"Delete",'success')
+                self.succes += 1 ;self.Info.Update(s=self.succes,f=self.failed,o=self.order)
         conn.commit()
         self.ui.Delete_all.setText("Delete") ; self.ui.Delete_all.setChecked(False)
         self.Info.ui.label.setText("Finished Delete")
@@ -380,7 +387,6 @@ class Manager_Face(QWidget):
         self.Info.ui.label.setText("Finished Epsilon")
         bot.quit()
         self.Run = False
-        self.Refresh()
     def moakt(self):
         self.Run = not self.Run
         if self.Run:

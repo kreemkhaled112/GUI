@@ -178,10 +178,10 @@ from pages_functions.Insta.Data.Chrome import *
 #         except:pass
 
 # تحديد من جدول واضافات الي جدول اخر وحذفه
-data = cursor.execute("SELECT * FROM account  WHERE groupname = 'Error' ").fetchall()
-for i in data:
-    cursor.execute('INSERT INTO Sell ( groupname,name , email, password,username, cookies) VALUES (?,?, ?, ?, ?, ?)', ('Error',i[1], i[2], i[3],i[4], i[5]))
-    cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
+# data = cursor.execute("SELECT * FROM account  WHERE groupname = 'Error' ").fetchall()
+# for i in data:
+#     cursor.execute('INSERT INTO Sell ( groupname,name , email, password,username, cookies) VALUES (?,?, ?, ?, ?, ?)', ('Error',i[1], i[2], i[3],i[4], i[5]))
+#     cursor.execute(f'DELETE FROM Account WHERE email = "{i[2]}" ')
 
 # حذف السجلات المكررة
 # duplicate_rows_query = "SELECT email, COUNT(*) FROM account GROUP BY email HAVING COUNT(*) > 1"
@@ -197,8 +197,8 @@ for i in data:
 #      for line in lines:
 #         a = line.split(':')
 #         cursor.execute('UPDATE account SET groupname = ? WHERE email = ?', ('edit', a[0]))
-# cooki = 'fr=0sPzjACWNUKOIOdf4.AWVSIt7L0kWAAUYMv_2-geKwvF4.BmbzNB..AAA.0.0.BmbzNL.AWXGs2lTsaM;c_user=61554964821837;xs=42%3A5mt9MILc5ZhOrQ%3A2%3A1718563655%3A-1%3A-1;m_page_voice=61554964821837;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1718563664137%2C%22v%22%3A1%7D;wd=1872x921;datr=QTNvZiTYFp7R4BJaePVBFWMj;sb=QTNvZsZyCQ2fjlQDENH7UJiC'
-# result = get_likes('https://mbasic.facebook.com/story.php?story_fbid=459653803537073&id=100084773722083&mibextid=oFDknk&rdid=SgC1da8FMru1QHmZ&share_url=https%3A%2F%2Fmbasic.facebook.com%2Fshare%2Fr%2FGwVifVH7LFXHuaku%2F%3Fmibextid%3DoFDknk&paipv=0&eav=AfY8sXqcvKIUV1-M5HxpzIUx4PyECqNTwKLMdqY-PITNkAVXXb_8WS8BU9kkeJN5XmM&_rdr').Start()
-# print(result)
+cooki = 'fr=0SRr8VmZEIUDtjGzy.AWWACjqJ9Os8zFvOw4qo8rqh6SA.BmpCp8..AAA.0.0.BmpCqF.AWU3mYQCAms;c_user=61561434437896;xs=14%3ATpLq3LyvPfBLSA%3A2%3A1722034817%3A-1%3A-1;m_page_voice=61561434437896;wd=800x600;datr=fCqkZhAiNgpn0fjeEnK5MCms;sb=fCqkZslt2VwAUAJ_pVJksLgD'
+result = Log_out(cooki).Start()
+print(result)
 
 conn.commit()

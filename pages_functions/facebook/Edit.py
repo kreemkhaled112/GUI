@@ -267,21 +267,26 @@ class Edit(QWidget):
                 else: self.failed += 1
                 self.Info.Update(s=self.succes,f=self.failed,o=self.order) ; self.Info.ui.label.setText(f"Waiting...") ; sleep(self.time)  
             if self.ui.Change_Password_check.isChecked() and self.is_running :
-                if not self.bot :
-                    self.bot = yandex()
-                new_password = self.Password()
-                value = Chrom().change_password(password , new_password,cookie,self.bot)
-                if value == "" : self.failed += 1
+                # if not self.bot :
+                #     self.bot = yandex()
+                # new_password = self.Password()
+                # value = Chrom().change_password(password , new_password,cookie,self.bot)
+                result = Log_out(cookie).Start()
+                self.Info.Add(result[1],name,'Edit',"Change Password",f'{result[0]}','ok')
+
+                if result[1] == 1 : self.succes += 1
                 else :
-                    cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], email))
-                    cursor.execute('UPDATE Account SET password = ? WHERE email = ?', (value[1], email))
-                    cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[2], email));conn.commit()
-                    self.succes += 1
+                    # cursor.execute('UPDATE Account SET name = ? WHERE email = ?', (value[0], email))
+                    # cursor.execute('UPDATE Account SET password = ? WHERE email = ?', (value[1], email))
+                    # cursor.execute('UPDATE account SET cookies = ? WHERE email = ?', (value[2], email));conn.commit()
+                    self.failed += 1
                 self.Info.Update(s=self.succes,f=self.failed,o=self.order) ; self.Info.ui.label.setText(f"Waiting...") ; sleep(self.time)
             return 'succes'
         except Exception as e :
             self.Info.ui.label.setText(f"{name} Error Edit")
-            self.Info.Add(0,name,'Edit',"Error",f'{e}','ok')
+            self.Info.Add(0,name,'Edit',"Error",f'{e}','ok') 
+            self.failed += 1 ; self.Info.Update(s=self.succes,f=self.failed,o=self.order) ; self.Info.ui.label.setText(f"Waiting...") ; sleep(self.time)
+
     def Start(self):
         if self.ui.Number_Account.text() == '0': self.ui.Start.setChecked(False) ; QMessage(text = 'No Account Selected').mainloop() 
         else:

@@ -162,11 +162,10 @@ class MainWindow(QMainWindow):
                 current_date = datetime.fromtimestamp(timestamp).date()
                 return current_date
             except ntplib.NTPException as e:
-                print(f"NTPException occurred: {e}")
+                pass
             except Exception as e:
-                print(f"An error occurred: {e}")
+                pass
             if attempt < retries - 1:
-                print(f"Retrying in {delay} seconds...")
                 sleep(delay)
         
         return None

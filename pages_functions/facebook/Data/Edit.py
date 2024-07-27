@@ -319,48 +319,53 @@ class lock_profile:
             return e , 0
 
 class Change_Password:
-    def __init__(self, password , new_password , cookie):
+    def __init__(self, cookie ,  password , new_password):
         self.req = requests.Session()
-        self.req.headers.update(Header())
-        self.cookie = cookie
-        cookie = cookie_format(cookie)
-        self.req.cookies.update(cookie)
-        self.url = 'https://mbasic.facebook.com/settings/security_login'
+        headers = {
+            "Host": "mbasic.facebook.com",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "accept-language": "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
+            "origin": "https://www.facebook.com",
+            "referer": "https://www.facebook.com",
+            "sec-ch-ua": '";Not A Brand";v="99", "Chromium";v="94"',
+            "upgrade-insecure-requests": "1",
+            "user-agent": "Mozilla/5.0 (Mobile; rv:48.0; A405DL) Gecko/48.0 Firefox/48.0 KAIOS/2.5"
+        }
+        self.req.headers.update(headers)
+        self.cookie = {"cookie": cookie}
         self.password = password
         self.new_password = new_password
     def Start(self):
         # try:
-            req = BeautifulSoup(self.req.get(self.url).content,'html.parser') ; sleep(1)
-            href = req.select_one('a[href^="/settings/security/password/?"]').get('href')
-            req = BeautifulSoup(self.req.get('https://mbasic.facebook.com'+ href).content,'html.parser') ; sleep(1)
-            raq = req.find('form',{'method':'post'})
-            dat = {
-                'fb_dtsg'    : re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(raq)).group(1),
-                'jazoest'    : re.search('name="jazoest" type="hidden" value="(.*?)"',str(raq)).group(1),
-                'password_change_session_identifier': raq.find('input', {'name': 'password_change_session_identifier'}).get("value"),
-                'password_old': self.password,
-                'password_new': self.new_password,
-                'password_confirm': self.new_password,
-                'save': 'Save changes',
-                }
-            self.req.headers.update({'referer': href})
-            pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+raq['action'],data=dat).content,'html.parser')
-            cek = pos.find('title').text
-            if cek == 'Your account is restricted at this time' or cek == 'You are Temporarily Blocked' or cek == 'Error' : return 'Failed Change Password' , 0
+            req = self.req.get('https://mbasic.facebook.com/settings/security/password/?' , cookies=self.cookie).text ; sleep(1)
+            next = re.findall('action\="(.*?)"', req)[1]
+            data = {
+                "fb_dtsg": re.findall('name="fb_dtsg" value="(.*?)"', req),
+                "jazoest": re.findall('name="jazoest" value="(.*?)"', req),
+                "password_change_session_identifier": re.findall('name="password_change_session_identifier" value="(.*?)"', req),
+                "password_old": self.password,
+                "password_new": self.new_password,
+                "password_confirm": self.new_password,
+                "save": "Save changes"
+            }
+            po = self.req.post("https://mbasic.facebook.com" + str(next), cookies=self.cookie, data=data).text
+            open("html.html" , "w" , encoding="utf-8").write(po)
+            webbrowser.open('html.html')
+            if po == 'Your account is restricted at this time' or po == 'You are Temporarily Blocked' or po == 'Error' : return 'Failed Change Password' , 0
             else:
-                self.req.headers.update({'referer': raq['action']})
-                pos = pos.find('form',{'method':'post'})
-                dat = {
-                'fb_dtsg'    : re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(pos)).group(1),
-                'jazoest'    : re.search('name="jazoest" type="hidden" value="(.*?)"',str(pos)).group(1),
-                'session_invalidation_options': 'review_sessions',
-                'submit_action': 'Continue',
-                }
-                pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+pos['action'],data=dat).content,'html.parser')
-                href = pos.select_one('a[href^="/settings/security_login/sessions/log_out_all"]').get('href')
-                req = BeautifulSoup(self.req.get('https://mbasic.facebook.com'+ href).content,'html.parser') ; sleep(1)
-                open("html.html" , "w" , encoding="utf-8").write(req.prettify())
-                webbrowser.open('html.html')
+                # self.req.headers.update({'referer': raq['action']})
+                # pos = pos.find('form',{'method':'post'})
+                # dat = {
+                # 'fb_dtsg'    : re.search('name="fb_dtsg" type="hidden" value="(.*?)"',str(pos)).group(1),
+                # 'jazoest'    : re.search('name="jazoest" type="hidden" value="(.*?)"',str(pos)).group(1),
+                # 'session_invalidation_options': 'review_sessions',
+                # 'submit_action': 'Continue',
+                # }
+                # pos = BeautifulSoup(self.req.post('https://mbasic.facebook.com'+pos['action'],data=dat).content,'html.parser')
+                # href = pos.select_one('a[href^="/settings/security_login/sessions/log_out_all"]').get('href')
+                # req = BeautifulSoup(self.req.get('https://mbasic.facebook.com'+ href).content,'html.parser') ; sleep(1)
+                # open("html.html" , "w" , encoding="utf-8").write(req.prettify())
+                # webbrowser.open('html.html')
                 input("......")
                 return f'Successfully Change Password To {self.new_password}' , 1
         # except Exception as e: print(e) ; return 'Failed Change Password' , 0

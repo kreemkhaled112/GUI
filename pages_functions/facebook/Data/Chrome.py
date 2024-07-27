@@ -22,12 +22,17 @@ class Chrom:
 
     def Login(self,email, password):
         try:
-            self.bot.get("https://mbasic.facebook.com")
-            
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='email']"))).send_keys(email)
-            WebDriverWait(self.bot, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@name='pass']"))).send_keys(password)
+            self.bot.get("https://business.facebook.com/login/")
+            wait = WebDriverWait(self.bot, 5)
+            try:self.bot.find_element(By.XPATH, '//button[@data-cookiebanner="accept_button"]').click()
+            except:pass
+            y = "document.cookie = " + "'" + 'wd=500x158' + "; domain=.facebook.com" + "'"
+            self.bot.execute_script(y)
+            sleep(.5)
+            wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='email']"))).send_keys(email)
+            wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='pass']"))).send_keys(password)
             sleep(1)
-            try:WebDriverWait(self.bot, 5).until(EC.element_to_be_clickable((By.XPATH, "//button[@name='login']"))).click()
+            try:wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='loginbutton']"))).click()
             except:pass
             sleep(4)
             self.bot.get("https://mbasic.facebook.com/profile.php?") ; sleep(3)

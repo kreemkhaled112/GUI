@@ -411,3 +411,17 @@ class View:
                 webbrowser.open('html.html')
             except: return f'Faild Accept Account', 0
         else: return f'Faild Find Friend', 0
+class Log_out:
+    def __init__(self ,cookie):
+        self.req = requests.Session()
+        self.req.headers.update( Header())
+        self.req.cookies.update(cookie_format(cookie))
+
+    def Start(self):
+        try:
+            soup = BeautifulSoup(self.req.get('https://mbasic.facebook.com/settings/security_login/sessions/log_out_all/confirm/?').content, 'html.parser')
+            self.href = soup.select_one('a[href^="/security/settings/sessions/log_out_all/?"]').get('href')
+            response = self.req.get(f'https://mbasic.facebook.com/{self.href}')
+            return (f'Succes Log Out') , 1
+        except Exception as e:
+            return e , 0
